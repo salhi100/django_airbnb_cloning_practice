@@ -11,13 +11,15 @@ pipenv shell
 
 - initiate virtual environment for project in the project's directory
 - it will take some time for initial setup 
-- In order to exit the virtual environment, either deactivate or exit
+- In order to exit the virtual environment, deactivate 
 
 ```shell
 deactivate
 ```
 
-```
+- or exit the virtual environment, If "UNKNOWN VIRTUAL ENVIRONMENT is already activated" error 
+
+```shell
 exit
 ```
 
