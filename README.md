@@ -4,12 +4,30 @@
 - Purpose is to make website for fitcuration: exercise recommendation system
 
 # 2. Creating a Django Project
+
 ```shell
 pipenv shell
+```
+
+- initiate virtual environment for project in the project's directory
+- it will take some time for initial setup 
+- In order to exit the virtual environment, either deactivate or exit
+
+```shell
+deactivate
+```
+
+```
+exit
+```
+
+- setup configuration for the django
+
+```shell
 django-admin startproject config
 ```
-- Change the config directory of the project
-- Drag (inside) config directory and manage.py file out of the original config directory
+- manually change the config directory of the project (NOT USING CONSOLE)
+- Drag config directory and manage.py file out of the original config directory
 - You can change python settings on the low deck of VSCode
 - Recommending flake 8 as linter. it is automatically recommended through vscode 
 - Recommending black as formatter
