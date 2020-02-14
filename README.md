@@ -52,9 +52,10 @@ pipenv shell
     exit
     ```
 
-- setup configuration for the django
+- MAKE SURE YOU ARE INSIDE THE BUBBLE. Then, setup configuration for the django. 
 
 ```shell
+pipenv install django
 django-admin startproject config
 ```
 - Drag config directory and manage.py file out of the original config directory. Manually change the config directory of the project (NOT USING CONSOLE)
@@ -75,6 +76,8 @@ django-admin startproject config
 
   - Selecting linter and formatter for the project is recorded on .vscode/settings.json file
 
+- [Make .gitignore file referencing this link](https://github.com/github/gitignore/blob/master/Python.gitignore)
+
 ### manage.py: database and server
 
 - Run your server, Where pipenv is activated (= inside the bubble).
@@ -85,7 +88,7 @@ python manage.py runserver
 
 - You'll have localhost connection.
 - You can also access to admin panel page, which is  http://127.0.0.1:8000/admin/login/?next=/admin/
-- without manage.py, database table doesn't exist. Thus this kind of error appears on console log. 
+- Without manage.py, database table doesn't exist. Thus this kind of error will appear on console log, if you run server for the second time.
 **You have 17 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions. Run 'python manage.py migrate' to apply them.**
 - SQL needs to learn how database look like. 
 - You change the shape of data(=creating migration), and migrate to update database
