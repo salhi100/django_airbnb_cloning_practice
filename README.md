@@ -120,5 +120,12 @@ python manage.py migrate
   pipenv install Pillow
   ```
 
-  
+[Refer to fields document on Django](https://docs.djangoproject.com/en/2.2/ref/models/fields/)
+
+- textfield: yields text field without limit on webpage
+- charfield: yields text field with limit of single line webpage
+- Datefield: yields calendar selection on webpage
+- boolean field: true of false checkbox
+
+![image-20200214211005945](/Users/noopy/Library/Application Support/typora-user-images/image-20200214211005945.png)
 
