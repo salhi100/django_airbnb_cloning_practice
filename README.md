@@ -100,7 +100,7 @@ Source: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
 - urls.py: you can create urls.py under an application.
 like /users/profile, /users/delete, /users/register etc.
 
-## 3. Building Users Applications
+## 3. Building Users Applications: /users directory
 
 - replacing django user with my user
 - Python is object programming language: class can be inherited!
@@ -132,3 +132,7 @@ python manage.py migrate
 
 ![image-20200214211005945](/Users/noopy/Library/Application Support/typora-user-images/image-20200214211005945.png)
 
+[Refer to admin fields document document on Django](https://docs.djangoproject.com/en/2.2/ref/contrib/admin/)
+
+- admin.py regards about admin panel of the website. 
+- you can create filter(like excel) for fields in table: such as currency or superhost
