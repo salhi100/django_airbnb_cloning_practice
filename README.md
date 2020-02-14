@@ -2,8 +2,8 @@
 
 - My purpose is to make website for fitcuration: exercise recommendation system. 
 - Thus, I am cloning Airbnb as tutorial with Django & Tailwind.
-- **While taking lectures, I don't recommend to not to look back. In other words, don't rewind.**
-- [**Instead of rewinding, refer to the final result. Or else, you can feel as if you are stuck on making one part**](https://github.com/nomadcoders/airbnb-clone) 
+- **While taking lectures, I don't recommend rewinding back.**
+- [**Instead of rewinding, refer to the final result. You can prevent yourself being stuck on making one specific part**](https://github.com/nomadcoders/airbnb-clone) 
 - My development environment is the following:
   - System: Mac OS(10.15.3, Cattalina) 
   - Python: 3.8.1 64bit
@@ -105,22 +105,21 @@ python manage.py migrate
 ### Security & Other Tips
 
 - For those uploaded their django repository publicly, keep your SECRET_KEY in settings.py away from the others!
-  - English: https://www.quora.com/Is-it-possible-to-change-the-secret-key-of-a-Django-application-after-it-deployment-in-production-If-so-what-would-be-the-impacts
-  - 한국어: https://wayhome25.github.io/django/2017/07/11/django-settings-secret-key/
+  - [English Instructiions on how to keep SECRET_KEY safe](https://www.quora.com/Is-it-possible-to-change-the-secret-key-of-a-Django-application-after-it-deployment-in-production-If-so-what-would-be-the-impacts)
+  - [SECRET_KEY를 안전하게 보관하는 법 국문 가이드](https://wayhome25.github.io/django/2017/07/11/django-settings-secret-key/)
 - Even if you successfully removed SECRET_KEY from settings.py, git history of the file is still accessible in github on public. So it is still dangerous to keep(or to publish) your repo as public repo.
   - [WARNING: all of your GIT history will be cleared after commencing the next process] 
-    [(Click) Follow the steps in order to clear up git history, and commit as initial commit.](https://gist.github.com/stephenhardy/5470814) 
+    [Follow the steps of this link in order to clear up git history, and commit as initial commit.](https://gist.github.com/stephenhardy/5470814) 
   - If files & file contents were to be pages in a book, Git history is like bookmarks. Clearing git history will not affect current files/directories on your project. 
   - However, removing git history means your previous versions(NOT current versions) are inaccessible. For example, you can’t revert your project files to version you worked on a week ago. 
-- In Django documentation you can even look at code, like https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/password_validation/#CommonPasswordValidator
+- [In Django documentation, you can even look up the code.](https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/password_validation/#CommonPasswordValidator)
 - On VSCode Windows, CMD + Mouse Click on function to see the source code 
 
 ### Projects vs. apps
 
 - Django project is group of applications (= just say Django is a group of functions).
 
-What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a small poll app. A project is a collection of configuration and apps for a particular website. A project can contain multiple apps. An app can be in multiple projects.
-Source: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
+[What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a small poll app. A project is a collection of configuration and apps for a particular website. A project can contain multiple apps. An app can be in multiple projects.](https://docs.djangoproject.com/en/3.0/intro/tutorial01/)
 
 - We should not have so much functionality in one folder(=application)
 - If it is folder of list, it should be simple as such: Create list, Read List, Update List and delete list 
@@ -138,7 +137,7 @@ Source: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
 
 
 
-## 3. Building Users Applications: /users directory
+# 3. Building Users Applications: /users directory
 
 - replacing django user with my user
 - Python is object programming language: class can be inherited!
@@ -181,7 +180,7 @@ python manage.py migrate
 
 
 
-## 4. Building Rooms Applications: /rooms directory
+# 4. Building Rooms Applications: /rooms directory
 
 - Write packages / modules in order
 
