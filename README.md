@@ -6,6 +6,28 @@
   - Module information is stated in requirements.txt
 - Purpose is to make website for fitcuration: exercise recommendation system
 
+# 1. Directory Structure
+
+- config is master folder
+- rest of folders are just applications. applications are group of functionalities
+
+### configuration directory structure
+
+- settings.py: you can refer to installed default apps in django.
+- __init___.py:  helps to work like python package
+- urls.py: controls url of the website. Can also be established under application. 
+
+### application directory structure
+
+- apps.py: just configuration file
+- admin.py: reflects changes on admin panel
+- models.py: describing how database look like.
+  - Django ORM translates python code into SQL Instructions to database.
+  - Whatever you put in models.py, Django will make it into database table. 
+- views.py: function that renders html
+- urls.py: you can create urls.py under an application.
+  like /users/profile, /users/delete, /users/register etc.
+
 # 2. Creating a Django Project
 
 ```shell
@@ -86,19 +108,7 @@ Source: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
 - names of .py files in application folder is not optional. You can't change names
 - for example, users app has create password, update password
 
-### configuration directory structure
-- settings.py: you can refer to installed default apps in django.
-- __init___.py:  helps to work like python package
-- urls.py: controls url of the website. Can also be established under application. 
 
-### application directory structure
-
-- admin.py: reflects changes on admin panel
-- apps.py: just configuration file
-- models.py: describing how database look like
-- views.py: function that renders html
-- urls.py: you can create urls.py under an application.
-like /users/profile, /users/delete, /users/register etc.
 
 ## 3. Building Users Applications: /users directory
 
@@ -123,14 +133,18 @@ python manage.py migrate
   pipenv install Pillow
   ```
 
-[Refer to fields document on Django](https://docs.djangoproject.com/en/2.2/ref/models/fields/)
+### models.py: All the fields are translated into database stuff.
+
+[Refer to fields document on Django](https://docs.djangoproject.com/en/2.2/ref/models/fields/). 
 
 - textfield: yields text field without limit on webpage
 - charfield: yields text field with limit of single line webpage
-- Datefield: yields calendar selection on webpage
+- datefield: yields calendar selection on webpage
 - boolean field: true of false checkbox
 
 ![image-20200214211005945](/Users/noopy/Library/Application Support/typora-user-images/image-20200214211005945.png)
+
+### Admin.py: Admin Panel 
 
 [Refer to admin fields document document on Django](https://docs.djangoproject.com/en/2.2/ref/contrib/admin/)
 
