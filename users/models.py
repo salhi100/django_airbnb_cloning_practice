@@ -38,6 +38,7 @@ class User(AbstractUser):
     # textfield: text field without limit
     bio = models.TextField(default="")
     # bio = models.TextField(null=True) # Or, empty cell in field is accepted
+
     birthdate = models.DateField(null=True)
     language = models.CharField(
         choices=LANGUAGE_CHOICES, max_length=2, null=True, blank=True
@@ -47,7 +48,7 @@ class User(AbstractUser):
         choices=CURRENCY_CHOICES, max_length=3, null=True, blank=True
     )
 
-    # boolean field is true of falce
+    # boolean field is true of false
     superhost = models.BooleanField(default=False)
 
     pass
