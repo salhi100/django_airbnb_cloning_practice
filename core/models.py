@@ -11,8 +11,12 @@ class TimeStampedModel(models.Model):
 
     """ Time Stamped Model """
 
-    created = models.DateTimeField()
-    updated = models.DateTimeField()
+    created = models.DateTimeField(
+        auto_now_add=True
+    )  # get time and date when the model is created
+    updated = models.DateTimeField(
+        auto_now=True
+    )  # get time and date whenever I update model
 
     # prevents saving time stamp model on database
     class Meta:

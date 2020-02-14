@@ -2,8 +2,8 @@
 
 - My purpose is to make website for fitcuration: exercise recommendation system. 
 - Thus, I am cloning Airbnb as tutorial with Django & Tailwind.
-- **While taking lectures, I don't recommend to not to look back. In other words, don't rewind. **
-- **[Instead of rewinding, refer to the final result.](https://github.com/nomadcoders/airbnb-clone) Or else, you can feel as if you are stuck on making one part**
+- **While taking lectures, I don't recommend to not to look back. In other words, don't rewind.**
+- [**Instead of rewinding, refer to the final result. Or else, you can feel as if you are stuck on making one part**](https://github.com/nomadcoders/airbnb-clone) 
 - My development environment is the following:
   - System: Mac OS(10.15.3, Cattalina) 
   - Python: 3.8.1 64bit
@@ -155,7 +155,7 @@ python manage.py migrate
 
 ### models.py: All the fields are translated into database stuff.
 
-[Refer to fields document on Django](https://docs.djangoproject.com/en/2.2/ref/models/fields/). 
+### **[Refer to fields document on Django](https://docs.djangoproject.com/en/2.2/ref/models/fields/).** 
 
 - textfield: yields text field without limit on webpage
 - charfield: yields text field with limit of single line webpage
@@ -166,7 +166,7 @@ python manage.py migrate
 
 ### Admin.py: Admin Panel 
 
-[Refer to admin fields document document on Django](https://docs.djangoproject.com/en/2.2/ref/contrib/admin/)
+### **[Refer to admin fields document document on Django](https://docs.djangoproject.com/en/2.2/ref/contrib/admin/)**
 
 - admin.py regards about admin panel of the website. 
 - you can create filter(like excel) for fields in table: such as currency or superhost
@@ -174,6 +174,19 @@ python manage.py migrate
 
 
 ## 4. Building Rooms Applications: /rooms directory
+
+- Write packages / modules in order
+
+``` py
+# first django
+from django.db import models
+
+# second third party apps
+from django_countries.fields import CountryField
+
+# third my applications
+from core import models as core_models
+```
 
 
 
