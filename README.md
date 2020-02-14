@@ -1,6 +1,9 @@
 # Airbnb Clone
 
 - Cloning Airbnb tutorial with Django, Tailwind
+  - System: Mac OS(10.15.3, Cattalina) 
+  - Python: 3.8.1 64bit
+  - Module information is stated in requirements.txt
 - Purpose is to make website for fitcuration: exercise recommendation system
 
 # 2. Creating a Django Project
