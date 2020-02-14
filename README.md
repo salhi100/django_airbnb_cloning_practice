@@ -1,10 +1,13 @@
-# Airbnb Clone
+# Airbnb Cloning using Django
 
-- Cloning Airbnb tutorial with Django, Tailwind
+- My purpose is to make website for fitcuration: exercise recommendation system. 
+- Thus, I am cloning Airbnb as tutorial with Django & Tailwind.
+- **While taking lectures, I don't recommend to not to look back. In other words, don't rewind. **
+- **[Instead of rewinding, refer to the final result.](https://github.com/nomadcoders/airbnb-clone) Or else, you can feel as if you are stuck on making one part**
+- My development environment is the following:
   - System: Mac OS(10.15.3, Cattalina) 
   - Python: 3.8.1 64bit
   - Module information is stated in requirements.txt
-- Purpose is to make website for fitcuration: exercise recommendation system
 
 # 1. Folder & File Structure
 
@@ -167,3 +170,10 @@ python manage.py migrate
 
 - admin.py regards about admin panel of the website. 
 - you can create filter(like excel) for fields in table: such as currency or superhost
+
+
+
+## 4. Building Rooms Applications: /rooms directory
+
+
+

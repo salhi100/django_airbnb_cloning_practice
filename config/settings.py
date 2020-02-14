@@ -39,8 +39,14 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
+# Letting Django know installed thrid party apps
+THIRD_PARTY_APPS = ["django_countries"]
+
+# Letting Django know my established Project apps by stating here.
 PROJECT_APPS = [
+    "core.apps.CoreConfig",
     "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
 ]
 
 # Installed apps are applications that django looks at
