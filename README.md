@@ -6,18 +6,18 @@
   - Module information is stated in requirements.txt
 - Purpose is to make website for fitcuration: exercise recommendation system
 
-# 1. Directory Structure
+# 1. Folder & File Structure
 
-- config is master folder
+- config folder is master folder
 - rest of folders are just applications. applications are group of functionalities
 
-### configuration directory structure
+### configuration folder structure
 
-- settings.py: you can refer to installed default apps in django.
-- __init___.py:  helps to work like python package
+- settings.py: you can refer to installed default apps in django. Look at django documentation links to find out.
+- __init__.py is helps to work like python package
 - urls.py: controls url of the website. Can also be established under application. 
 
-### application directory structure
+### application folder structure
 
 - apps.py: just configuration file
 - admin.py: reflects changes on admin panel
@@ -30,44 +30,50 @@
 
 # 2. Creating a Django Project
 
+### How to Initiate Project
+
 ```shell
 pipenv shell
 ```
 
 - initiate virtual environment for project in the project's directory
+
 - it will take some time for initial setup 
+
 - In order to exit the virtual environment, deactivate 
 
-```shell
-deactivate
-```
+  ```shel
+  deactivate
+  ```
 
-- or exit the virtual environment, If "UNKNOWN VIRTUAL ENVIRONMENT is already activated" error 
+  - or exit the virtual environment, If "UNKNOWN VIRTUAL ENVIRONMENT is already activated" error 
 
-```shell
-exit
-```
+    ```shell
+    exit
+    ```
 
 - setup configuration for the django
 
 ```shell
 django-admin startproject config
 ```
-- manually change the config directory of the project (NOT USING CONSOLE)
-- Drag config directory and manage.py file out of the original config directory
-- You can change python settings on the low deck of VSCode
-- Recommending flake 8 as linter. it is automatically recommended through vscode 
-- Recommending black as formatter
+- Drag config directory and manage.py file out of the original config directory. Manually change the config directory of the project (NOT USING CONSOLE)
 
-```shell
- pipenv install black --dev --pre
-```
+- You can change python settings on the low deck of VSCode. 
 
-- Selecting linter and formatter for the project is recorded on .vscode/settings.json file
-- __init__.py is helps to work like python package
-- Inside of settings.py, look at django documentation links
-- In Django documentation you can even look at code, like https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/password_validation/#CommonPasswordValidator
-- On VSCode Windows, CMD + Mouse Click on function to see the source code 
+- Go to manage.py Python file. VSCode will tell you to setup linter and formatter.
+
+  - Recommending flake 8 as linter. it is automatically recommended through vscode 
+
+  - Recommending black as formatter. 
+
+    - If formatter isn't recommended bia VSCode, then commence the following:
+
+      ```shell
+       pipenv install black --dev --pre
+      ```
+
+  - Selecting linter and formatter for the project is recorded on .vscode/settings.json file
 
 ### manage.py: database and server
 
@@ -90,9 +96,14 @@ python manage.py runserver
 python manage.py migrate
 ```
 
-- Django project is group of applications (= just say Django is a group of functions).
+### Other Tips
 
-**Projects vs. apps**
+- In Django documentation you can even look at code, like https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/password_validation/#CommonPasswordValidator
+- On VSCode Windows, CMD + Mouse Click on function to see the source code 
+
+### Projects vs. apps
+
+- Django project is group of applications (= just say Django is a group of functions).
 
 What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a small poll app. A project is a collection of configuration and apps for a particular website. A project can contain multiple apps. An app can be in multiple projects.
 Source: https://docs.djangoproject.com/en/3.0/intro/tutorial01/
