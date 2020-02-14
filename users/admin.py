@@ -5,8 +5,10 @@ from . import models
 # Register your models here.
 # This is admin panel for users. Refer to https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
 
-
+# UserAdin is calling Django
 # @admin.register(models.User)
+
+
 class CustomUserAdmin(UserAdmin):
 
     """ Custum User Admin"""
@@ -17,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
     # list_filter = ("superhost", "currency", "language")
 
     # This is to make custom filter(or fieldsets) in Django admin panel.
-    # UserAdmin.fieldsets: default fieldsets provided in Django. CMD + Click to check more information
+    # UserAdmin.fieldsets: default fieldsets provided in Django. CMD + Click to check more information.
     # Tuple added to UserAdmin.fieldsets are my customization
     fieldsets = UserAdmin.fieldsets + (
         (

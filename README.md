@@ -64,10 +64,13 @@ django-admin startproject config
 ```
 
 - Selecting linter and formatter for the project is recorded on .vscode/settings.json file
-- __init___.py is helps to work like python package
+- __init__.py is helps to work like python package
 - Inside of settings.py, look at django documentation links
 - In Django documentation you can even look at code, like https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/password_validation/#CommonPasswordValidator
 - On VSCode Windows, CMD + Mouse Click on function to see the source code 
+
+### manage.py: database and server
+
 - Run your server, Where pipenv is activated (= inside the bubble).
 
 ```shell
