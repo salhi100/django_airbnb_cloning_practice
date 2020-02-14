@@ -17,7 +17,7 @@
 ### configuration folder structure
 
 - settings.py: you can refer to installed default apps in django. Look at django documentation links to find out.
-- __init__.py is helps to work like python package
+- __init__.py helps to work like python package
 - urls.py: controls url of the website. Can also be established under application. 
 
 ### application folder structure
@@ -102,8 +102,16 @@ python manage.py runserver
 python manage.py migrate
 ```
 
-### Other Tips
+### Security & Other Tips
 
+- For those uploaded their django repository publicly, keep your SECRET_KEY in settings.py away from the others!
+  - English: https://www.quora.com/Is-it-possible-to-change-the-secret-key-of-a-Django-application-after-it-deployment-in-production-If-so-what-would-be-the-impacts
+  - 한국어: https://wayhome25.github.io/django/2017/07/11/django-settings-secret-key/
+- Even if you successfully removed SECRET_KEY from settings.py, git history of the file is still accessible in github on public. So it is still dangerous to keep(or to publish) your repo as public repo.
+  - [WARNING: all of your GIT history will be cleared after commencing the next process] 
+    [(Click) Follow the steps in order to clear up git history, and commit as initial commit.](https://gist.github.com/stephenhardy/5470814) 
+  - If files & file contents were to be pages in a book, Git history is like bookmarks. Clearing git history will not affect current files/directories on your project. 
+  - However, removing git history means your previous versions(NOT current versions) are inaccessible. For example, you can’t revert your project files to version you worked on a week ago. 
 - In Django documentation you can even look at code, like https://docs.djangoproject.com/en/2.2/_modules/django/contrib/auth/password_validation/#CommonPasswordValidator
 - On VSCode Windows, CMD + Mouse Click on function to see the source code 
 
