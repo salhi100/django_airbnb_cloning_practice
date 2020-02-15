@@ -182,6 +182,8 @@ python manage.py migrate
 
 # 4. Building Rooms Applications: /rooms directory
 
+### [App's funcitions are: room register, room photo upload and describe room(price, option, type...)](*https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU*)
+
 - Write packages / modules in order
 
 ``` py
@@ -195,7 +197,9 @@ from django_countries.fields import CountryField
 from core import models as core_models
 ```
 
+### [Foreign Key (one to multiple)](https://docs.djangoproject.com/en/3.0/ref/models/fields/)
 
+- foreign key is connecting one model to the many other. source of the connection is user, and it connects to multiple rooms.
 
 - Room database(or table) looks like this 
 
@@ -204,9 +208,21 @@ from core import models as core_models
 - Foreign Key(FK:USER) calls data from another database(or sheet), which is user table.
   ![image-20200215131329179](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131329179.png)
 
+- For example, many instagram posts per user or many youtube posts per google user.
 
+### Many to Many Relationship
 
-## WorkFlow
+- 
+
+- 
+
+### Other Characteristics
+
+- All of classes above are inherited in Room(core_models.TimeStampedModel)
+- TimeStamped model is to skip repeating calling Django model. 
+  - This will be used in all the other apps, except for Users app.
+
+## WorkFlow when creating app
 
 1. shaping database & connecting between tables at models.py
    ![image-20200216003744519](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003744519.png)
