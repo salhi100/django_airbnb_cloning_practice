@@ -14,6 +14,24 @@ from users import models as user_models
 # Cloning Sample page: https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU
 
 
+class AbstractItem(core_models.TimeStampedModel):
+
+    """ Abstract Item """
+
+    name = models.CharField(max_length=80)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+
+class RoomType(AbstractItem):
+    pass
+
+
+# Shaping Database(or table) of rooms
 class Room(core_models.TimeStampedModel):
 
     """ Room Model Definition """
@@ -37,5 +55,11 @@ class Room(core_models.TimeStampedModel):
     # foreign key is connecting one model to the other. source of the connection is room.
     # Foreignkey enables many to one relationship. For example, many instagram posts per user or many youtube posts per google user.
     host = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
+
+    # many to many relationship
+    room_type = models.ManyToManyField(RoomType, blank=True)
+
+    def __str__(self):
+        return self.name
 
     pass

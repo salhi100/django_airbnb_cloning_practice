@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 # Django Model Reference: https://docs.djangoproject.com/en/2.2/ref/models/fields/
 
+
 # AbstractUser is calling Django
 
 
@@ -47,5 +48,4 @@ class User(AbstractUser):
 
     # boolean field is true of false
     superhost = models.BooleanField(default=False)
-
     pass
