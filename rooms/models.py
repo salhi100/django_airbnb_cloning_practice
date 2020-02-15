@@ -34,6 +34,8 @@ class Room(core_models.TimeStampedModel):
     instant_book = models.BooleanField(default=False)
 
     # importing foreignkey
+    # foreign key is connecting one model to the other. source of the connection is room.
+    # Foreignkey enables many to one relationship. For example, many instagram posts per user or many youtube posts per google user.
     host = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
 
     pass

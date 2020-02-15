@@ -197,3 +197,10 @@ from core import models as core_models
 
 
 
+- Room database(or table) looks like this 
+
+  ![image-20200215131251118](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131251118.png)
+
+- Foreign Key(FK:USER) calls data from another database(or sheet), which is user table.
+  ![image-20200215131329179](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131329179.png)
+
