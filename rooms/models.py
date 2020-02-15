@@ -13,6 +13,8 @@ from users import models as user_models
 # Create your models here.
 # Cloning Sample page: https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU
 
+# Look at concept of inherities of many different classes below.
+
 
 class AbstractItem(core_models.TimeStampedModel):
 
@@ -28,10 +30,33 @@ class AbstractItem(core_models.TimeStampedModel):
 
 
 class RoomType(AbstractItem):
+    """ RoomType Model Definition """
+
+    pass
+
+
+class Amenity(AbstractItem):
+
+    """ Amenity Model Definition """
+
+    pass
+
+
+class Facility(AbstractItem):
+    """ Facility Model Definition"""
+
+    pass
+
+
+class HouseRule(AbstractItem):
+
+    """ HouseRule Model Definition """
+
     pass
 
 
 # Shaping Database(or table) of rooms
+# All of classes above are inherited here.
 class Room(core_models.TimeStampedModel):
 
     """ Room Model Definition """
@@ -51,15 +76,21 @@ class Room(core_models.TimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
 
-    # importing foreignkey
-    # foreign key is connecting one model to the other. source of the connection is room.
-    # Foreignkey enables many to one relationship. For example, many instagram posts per user or many youtube posts per google user.
-    host = models.ForeignKey(user_models.User, on_delete=models.CASCADE)
+    # importing foreignkey https://docs.djangoproject.com/en/3.0/ref/models/fields/
+    # foreign key is connecting one model to the many other. source of the connection is user, and it connects to multiple rooms.
+    # Foreignkey enables many to one relationship, not many to many. For example, many instagram posts per user or many youtube posts per google user.
+    host = models.ForeignKey(
+        user_models.User, on_delete=models.CASCADE
+    )  # on_delete cascade: when you delete the user, delete also the room
+    room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True)
 
     # many to many relationship
-    room_type = models.ManyToManyField(RoomType, blank=True)
+    amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
+    facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
+    house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
     def __str__(self):
         return self.name
 
     pass
+

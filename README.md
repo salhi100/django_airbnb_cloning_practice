@@ -204,3 +204,17 @@ from core import models as core_models
 - Foreign Key(FK:USER) calls data from another database(or sheet), which is user table.
   ![image-20200215131329179](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131329179.png)
 
+
+
+## WorkFlow
+
+1. shaping database & connecting between tables at models.py
+   ![image-20200216003744519](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003744519.png)
+
+2. registering models at admin.py
+
+   ![image-20200216003655368](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003655368.png)
+
+3. Check Admin panel of the webpage
+
+![image-20200216003543786](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003543786.png)
