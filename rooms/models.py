@@ -32,6 +32,12 @@ class AbstractItem(core_models.TimeStampedModel):
 class RoomType(AbstractItem):
     """ RoomType Model Definition """
 
+    class Meta:
+        verbose_name = "Room Type"
+        ordering = [
+            "name"
+        ]  # ordering https://docs.djangoproject.com/en/3.0/ref/models/options/
+
     pass
 
 
@@ -39,11 +45,19 @@ class Amenity(AbstractItem):
 
     """ Amenity Model Definition """
 
+    # verbose name stands for name that appears in admin webpage
+    class Meta:
+        verbose_name_plural = "Amenities"
+
     pass
 
 
 class Facility(AbstractItem):
     """ Facility Model Definition"""
+
+    # verbose name stands for name that appears in admin webpage
+    class Meta:
+        verbose_name_plural = "Facilities"
 
     pass
 
@@ -52,7 +66,25 @@ class HouseRule(AbstractItem):
 
     """ HouseRule Model Definition """
 
+    # verbose name stands for name that appears in admin webpage
+    class Meta:
+        verbose_name = "House Rule"
+
     pass
+
+
+class Photo(core_models.TimeStampedModel):
+
+    """ Photo Model Definition """
+
+    caption = models.CharField(max_length=80)
+    file = models.ImageField()  # image field for storing image
+
+    # connecting with the Room. But Room is not defined, thus has to be done as string.
+    room = models.ForeignKey("Room", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.caption
 
 
 # Shaping Database(or table) of rooms
@@ -79,10 +111,9 @@ class Room(core_models.TimeStampedModel):
     # importing foreignkey https://docs.djangoproject.com/en/3.0/ref/models/fields/
     # foreign key is connecting one model to the many other. source of the connection is user, and it connects to multiple rooms.
     # Foreignkey enables many to one relationship, not many to many. For example, many instagram posts per user or many youtube posts per google user.
-    host = models.ForeignKey(
-        user_models.User, on_delete=models.CASCADE
-    )  # on_delete cascade: when you delete the user, delete also the room
-    room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True)
+    # on_delete cascade: when you delete the user, delete also the room
+    host = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
 
     # many to many relationship
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)

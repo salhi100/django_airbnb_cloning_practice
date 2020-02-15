@@ -218,3 +218,8 @@ from core import models as core_models
 3. Check Admin panel of the webpage
 
 ![image-20200216003543786](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003543786.png)
+
+4. Setup Verbose name to fix the mess on Admin webpage
+
+![image-20200216004144914](/Users/noopy/Library/Application Support/typora-user-images/image-20200216004144914.png)
+
