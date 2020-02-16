@@ -49,6 +49,7 @@ PROJECT_APPS = [
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
     "reviews.apps.ReviewsConfig",
+    "reservations.apps.ReservationsConfig",
 ]
 
 # Installed apps are applications that django looks at

@@ -185,15 +185,27 @@ python manage.py migrate
 - room photo upload
 - describing room's specifications(price, option, type...)
 
+## Core Application
+
+
+
 ## WorkFlow when creating rooms app
 
-### 1. [At project's settings.py](./settings.py), register apps that I built in order to let Django project know which are my apps to use.
+### 1. [At project's settings.py](./settings.py), install apps that I built. This is to let Django project know which are apps.py to use for the project.
 
-![image-20200216122309743](/Users/noopy/Library/Application Support/typora-user-images/image-20200216122309743.png)
+``` python
+# Letting Django know my established Project apps by stating here.
+# Importing apps.py in each apps: core, users, rooms, reviews ...
+PROJECT_APPS = [
+    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+    "rooms.apps.RoomsConfig",
+]
+```
+
+
 
 ### 2. [At individual application's models.py,](./rooms/models.py) shape database & connect between tables of other application's models.py
-
-![image-20200216003744519](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003744519.png)
 
 - **Write packages / modules in order**
 
@@ -218,25 +230,94 @@ from core import models as core_models
 
 - **[Many to Many Relationship in models.py](https://docs.djangoproject.com/en/3.0/ref/models/fields/)**
   - models.ManyToManyField(<>)
-- **Other Characteristics**
-  - All of classes above are inherited in Room(core_models.TimeStampedModel)
-  - TimeStamped model is to skip repeating calling Django model. 
-    - This will be used in all the other apps, except for Users app.
+- All of other classes above are inherited in Room class
 
+``` python
+# Shaping Database(or table) of rooms
+# All of classes above are inherited here.
+class Room(core_models.TimeStampedModel):
+
+    """ Room Model Definition """
+
+    # when requiring fill up, don't put blank=True
+    # Below are different types of fields that we can utilize
+
+    #Charfield and textfield
+    name = models.CharField(max_length=140)
+    city = models.CharField(max_length=80)
+    description = models.TextField()
+    
+    #country field is inhereted from third party
+    country = CountryField()
+
+    
+    #integerfield example
+    price = models.IntegerField()
+    address = models.CharField(max_length=140)
+    guests = models.IntegerField()
+    beds = models.IntegerField()
+    bedrooms = models.IntegerField()
+		
+    #timefield example
+    check_in = models.TimeField()
+    check_out = models.TimeField()
+    
+    #booleanfield(checkbox) example
+    instant_book = models.BooleanField(default=False)
+    
+    # foreignkey field
+    host = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
+    
+
+```
+
+- TimeStamped model is to skip repeating calling Django model. 
+  - This will be used in all the other apps, except for Users app.
 
 ### 3. [At individual application's admin.py](./rooms/admin.py), registe table models that you built previously.  
 
-![image-20200216003655368](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003655368.png)
+``` python
+from django.contrib import admin
+from . import models  # from the same folder, import models
 
-### 4. At the webpage, check Admin panel.
+# refer ./models.py
+@admin.register(models.RoomType, models.Facility, models.Amenity, models.HouseRule)
+class ItemAdmin(admin.ModelAdmin):
+
+    """ Item Admin Definition """
+
+    pass
+```
+
+
+
+### 4. Since we shaped tables in models.py & reflected change of database on admin panel, makemigrations and migrate
+
+```shell
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 5. At the webpage, check Admin panel.
 
 ![image-20200216003543786](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003543786.png)
 
-### 5. [At individual application's models.py,](./rooms/models.py) setup verbose name to forcefully designate names that is displayed on Admin webpage.
+### 6. [At individual application's models.py,](./rooms/models.py) setup verbose name to forcefully designate names that is displayed on Admin webpage.
 
 ![image-20200216004144914](/Users/noopy/Library/Application Support/typora-user-images/image-20200216004144914.png)
 
-# 5. Building Reviews Applications: /reviews directory
+# [5. Other Applications](./reservations)
+
+### - Reviews application
+
+### - Reservations application
+
+### - Lists application
+
+### - Conversations application
+
+
 
 
 
