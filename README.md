@@ -180,11 +180,27 @@ python manage.py migrate
 
 
 
-# 4. Building Rooms Applications: /rooms directory
+# [4. Building Rooms Applications](./rooms)
 
-### [App's funcitions are: room register, room photo upload and describe room(price, option, type...)](*https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU*)
+## [Refer to cloning webpage.](*https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU*)
 
-- Write packages / modules in order
+### App's functions are: 
+
+- room register
+- room photo upload
+- describing room's specifications(price, option, type...)
+
+## WorkFlow when creating rooms app
+
+### 1. [At project's settings.py](./settings.py), register apps that I built in order to let Django project know which are my apps to use.
+
+![image-20200216122309743](/Users/noopy/Library/Application Support/typora-user-images/image-20200216122309743.png)
+
+### 2. [At individual application's models.py,](./rooms/models.py) shape database & connect between tables of other application's models.py
+
+![image-20200216003744519](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003744519.png)
+
+- **Write packages / modules in order**
 
 ``` py
 # first django
@@ -197,54 +213,35 @@ from django_countries.fields import CountryField
 from core import models as core_models
 ```
 
-### [Foreign Key (one to multiple)](https://docs.djangoproject.com/en/3.0/ref/models/fields/)
+- **[Foreign Key (one to multiple) in models.py](https://docs.djangoproject.com/en/3.0/ref/models/fields/)**
+  - foreign key is connecting one model to the many other. source of the connection is user, and it connects to multiple rooms.
+  - Room database(or table) looks like this ![image-20200215131251118](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131251118.png)
+  - Foreign Key(FK:USER) calls data from another database(or sheet), which is user table.
+    ![image-20200215131329179](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131329179.png)
 
-- foreign key is connecting one model to the many other. source of the connection is user, and it connects to multiple rooms.
+  - For example, many instagram posts per user or many youtube posts per google user.
 
-- Room database(or table) looks like this 
+- **[Many to Many Relationship in models.py](https://docs.djangoproject.com/en/3.0/ref/models/fields/)**
+  - models.ManyToManyField(<>)
+- **Other Characteristics**
+  - All of classes above are inherited in Room(core_models.TimeStampedModel)
+  - TimeStamped model is to skip repeating calling Django model. 
+    - This will be used in all the other apps, except for Users app.
 
-  ![image-20200215131251118](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131251118.png)
 
-- Foreign Key(FK:USER) calls data from another database(or sheet), which is user table.
-  ![image-20200215131329179](/Users/noopy/Library/Application Support/typora-user-images/image-20200215131329179.png)
+### 3. [At individual application's admin.py](./rooms/admin.py), registe table models that you built previously.  
 
-- For example, many instagram posts per user or many youtube posts per google user.
+![image-20200216003655368](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003655368.png)
 
-### Many to Many Relationship
-
-- 
-
-- 
-
-### Other Characteristics
-
-- All of classes above are inherited in Room(core_models.TimeStampedModel)
-- TimeStamped model is to skip repeating calling Django model. 
-  - This will be used in all the other apps, except for Users app.
-
-## WorkFlow when creating app
-
-1. Registering apps at [settings.py](./settings.py) 
-   ![image-20200216122309743](/Users/noopy/Library/Application Support/typora-user-images/image-20200216122309743.png)
-
-2. shaping database & connecting between tables at application's [models.py](./rooms/models.py) 
-   ![image-20200216003744519](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003744519.png)
-
-3. registering models at application's [admin.py](./rooms/admin.py)
-
-   ![image-20200216003655368](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003655368.png)
-
-4. Check Admin panel of the webpage
+### 4. At the webpage, check Admin panel.
 
 ![image-20200216003543786](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003543786.png)
 
-4. Setup Verbose name to fix the mess on Admin webpage
+### 5. [At individual application's models.py,](./rooms/models.py) setup verbose name to forcefully designate names that is displayed on Admin webpage.
 
 ![image-20200216004144914](/Users/noopy/Library/Application Support/typora-user-images/image-20200216004144914.png)
 
-
-
-# 5. Other apps: Reviews, 
+# 5. Building Reviews Applications: /reviews directory
 
 
 
