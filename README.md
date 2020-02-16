@@ -179,17 +179,21 @@ python manage.py migrate
 
 # [4. Building Rooms Applications](./rooms)
 
-## [Refer to cloning webpage. App's functions are: ](*https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU*)
+## [Refer to cloning webpage. Rooms App's functions are: ](*https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU*)
 
 - room register
 - room photo upload
 - describing room's specifications(price, option, type...)
 
-## Core Application
+## [Making Core Application](./core)
 
+- This is not application that is visible to users. 
+  - The purpose of this app is to simplifying repetetive calling to Django model
+    - [In this app's models.py, we made TimeStamped class](./core/models.py) for call up
+    - [TimeStamped class](./core/models.py) will be used in all the other apps, except for [Users app which imported AbstractUser class](./users/models.py).
+- All the other application names should be plural, except for this kind of application.
 
-
-## WorkFlow when creating rooms app
+## WorkFlow when creating Rooms app
 
 ### 1. [At project's settings.py](./settings.py), install apps that I built. This is to let Django project know which are apps.py to use for the project.
 
@@ -271,9 +275,6 @@ class Room(core_models.TimeStampedModel):
     
 
 ```
-
-- TimeStamped model is to skip repeating calling Django model. 
-  - This will be used in all the other apps, except for Users app.
 
 ### 3. [At individual application's admin.py](./rooms/admin.py), registe table models that you built previously.  
 
