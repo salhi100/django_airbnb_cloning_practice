@@ -43,10 +43,12 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = ["django_countries"]
 
 # Letting Django know my established Project apps by stating here.
+# Importing apps.py in each apps: core, users, rooms, reviews ...
 PROJECT_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
+    "reviews.apps.ReviewsConfig",
 ]
 
 # Installed apps are applications that django looks at

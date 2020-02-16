@@ -224,18 +224,27 @@ from core import models as core_models
 
 ## WorkFlow when creating app
 
-1. shaping database & connecting between tables at models.py
+1. Registering apps at [settings.py](./settings.py) 
+   ![image-20200216122309743](/Users/noopy/Library/Application Support/typora-user-images/image-20200216122309743.png)
+
+2. shaping database & connecting between tables at application's [models.py](./rooms/models.py) 
    ![image-20200216003744519](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003744519.png)
 
-2. registering models at admin.py
+3. registering models at application's [admin.py](./rooms/admin.py)
 
    ![image-20200216003655368](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003655368.png)
 
-3. Check Admin panel of the webpage
+4. Check Admin panel of the webpage
 
 ![image-20200216003543786](/Users/noopy/Library/Application Support/typora-user-images/image-20200216003543786.png)
 
 4. Setup Verbose name to fix the mess on Admin webpage
 
 ![image-20200216004144914](/Users/noopy/Library/Application Support/typora-user-images/image-20200216004144914.png)
+
+
+
+# 5. Other apps: Reviews, 
+
+
 
