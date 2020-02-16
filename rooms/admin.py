@@ -15,6 +15,25 @@ class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
 
+    # making table-like display on admin page
+    list_display = (
+        "name",
+        "country",
+        "city",
+        "price",
+        "address",
+        "guests",
+        "beds",
+        "bedrooms",
+        "check_in",
+        "check_out",
+        "instant_book",
+        "host",
+        "room_type",
+    )
+
+    list_filter = ()
+
     pass
 
 

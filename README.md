@@ -1,9 +1,8 @@
 # Airbnb Cloning using Django
 
-- My purpose is to make website for fitcuration: exercise recommendation system. 
-- Thus, I am cloning Airbnb as tutorial with Django & Tailwind.
+- My purpose is to make website for fitcuration: exercise recommendation system. Thus, I am cloning Airbnb as tutorial with Django & Tailwind.
 - **While taking lectures, I don't recommend rewinding back.**
-- [**Instead of rewinding, refer to the final result. You can prevent yourself being stuck on making one specific part**](https://github.com/nomadcoders/airbnb-clone) 
+  - [Instead, I recommend you to refer to the final result.](https://github.com/nomadcoders/airbnb-clone) 
 - My development environment is the following:
   - System: Mac OS(10.15.3, Cattalina) 
   - Python: 3.8.1 64bit
