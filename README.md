@@ -22,7 +22,7 @@
 
 ### Individual application folders' structure
 
-- apps.py: just configuration file
+- apps.py: configuration file which is installed [at the project's settings.py](./config/setttings.py)
 - admin.py: reflects changes on admin panel
 - models.py: describing how database look like.
   - Django ORM translates python code into SQL Instructions to database.
@@ -127,16 +127,19 @@ python manage.py migrate
 - **You should be able to describe an application in one sentence.** If you use the word "and", then it should be diferent application. **Divide and conquer**
 - For example, listing application will be consisted with functions as such: Create list, Read List, Update List and delete list 
 
+# 3. Building Users Applications: /users directory
+
 ### Creating Apps
 
 ```shell
  django-admin startapp [appname]
 ```
+
 - since app contains multiple functions, appname should be in plural form
 - names of .py files in application folder is not optional. You can't change names
 - for example, users app has create password, update password
 
-# 3. Building Users Applications: /users directory
+### How to make Users Application
 
 - replacing django user with my user
 - Python is object programming language: class can be inherited!
@@ -187,11 +190,24 @@ python manage.py migrate
 
 ## [Making Core Application](./core)
 
-- This is not application that is visible to users. 
-  - The purpose of this app is to simplifying repetetive calling to Django model
-    - [In this app's models.py, we made TimeStamped class](./core/models.py) for call up
-    - [TimeStamped class](./core/models.py) will be used in all the other apps, except for [Users app which imported AbstractUser class](./users/models.py).
+- This is application that is not visible to users. 
+
+  - The purpose of this app is to simplify repetetive calling onto certain model: such as timestamp
+    - [In this app's models.py, we made TimeStamped class](./core/models.py) as subject for the call up
+    - [TimeStamped class](./core/models.py) will be used in all the other apps.
+    - [On the other hand, Users app imported AbstractUser class from Django default models only](./users/models.py).
+
 - All the other application names should be plural, except for this kind of application.
+
+- In other apps' models.py, you can import Core Application's models along with default django models
+
+  ```python
+  #importing django default models as class
+  from django.db import models 
+  
+  #importing Core Application's models as class
+  from core import models as core_models #"as" is like "import pandas as pd"
+  ```
 
 ## WorkFlow when creating Rooms app
 
@@ -276,13 +292,14 @@ class Room(core_models.TimeStampedModel):
 
 ```
 
-### 3. [At individual application's admin.py](./rooms/admin.py), registe table models that you built previously.  
+### 3. [At individual application's admin.py](./rooms/admin.py), register table models that you built previously.  
 
 ``` python
 from django.contrib import admin
 from . import models  # from the same folder, import models
 
-# refer ./models.py
+# refer to ./models.py for which models to register
+# registering multiple models at once
 @admin.register(models.RoomType, models.Facility, models.Amenity, models.HouseRule)
 class ItemAdmin(admin.ModelAdmin):
 
