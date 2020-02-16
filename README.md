@@ -9,7 +9,7 @@
   - Python: 3.8.1 64bit
   - Module information is stated in requirements.txt
 
-# 1. Django Prject Folder & File Structure
+# 1. Django Project Folder & File Structure
 
 - [config folder](./config) is master folder
 - rest of folders are just applications. applications are group of functionalities
@@ -296,7 +296,7 @@ class Room(core_models.TimeStampedModel):
 
 ``` python
 from django.contrib import admin
-from . import models  # from the same folder, import models
+from . import models  # from the same folder, import the application's models
 
 # refer to ./models.py for which models to register
 # registering multiple models at once
