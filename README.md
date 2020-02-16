@@ -75,18 +75,25 @@ django-admin startproject config
     - If formatter isn't recommended bia VSCode, then commence the following:
 
       ```shell
-       pipe install black --dev --pre
+       pip install black --dev --pre
       ```
 
   - Selecting linter and formatter for the project is recorded on .vscode/settings.json file
 
-
 ### manage.py: database and server
+
+- **[Refer to manage.py related Django documents here](https://docs.djangoproject.com/en/3.0/ref/django-admin/)**
 
 - Run your server, Where pipenv is activated (= inside the bubble).
 
 ```shell
 python manage.py runserver
+```
+
+Or, if you want to run on different port, 
+
+``` shell
+python manage.py runserver 7000
 ```
 
 - You'll have localhost connection.
@@ -220,6 +227,9 @@ PROJECT_APPS = [
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
 ]
+
+# Put users auth at the end
+AUTH_USER_MODEL = "users.User"
 ```
 
 
