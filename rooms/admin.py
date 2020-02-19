@@ -15,7 +15,23 @@ class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
 
-    # making table-like display on admin page
+    # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets
+    fieldsets = (
+        # Charfield in ./models.py
+        (
+            "Basic Info",
+            {"fields": ("name", "description", "country", "address", "price")},
+        ),
+        # Timefield in ./models.py
+        ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
+        # Integerfield in ./models.py
+        ("Spaces", {"fields": ("guests", "beds", "bedrooms")}),
+        # ManytoManyField in ./models.py
+        ("More About the Space", {"fields": ("facilities", "amenities",)}),
+        ("Last Details", {"fields": ("host",)}),
+    )
+
+    # making table-like display on room admin page
     list_display = (
         "name",
         "country",
@@ -32,12 +48,32 @@ class RoomAdmin(admin.ModelAdmin):
         "room_type",
     )
 
-    list_filter = ("instant_book", "city")
+    # making filter on the right side of room admin page
+    list_filter = (
+        "instant_book",
+        "room_type",
+        "city",
+        "facilities",
+        "amenities",
+        # host is defined in ./models.py
+        "host__superhost",
+    )
 
+    # Search field to find rooms
     # refer to search fields at https://docs.djangoproject.com/en/3.0/ref/contrib/admin/
     # ^	-> startswith, = -> iexact, @ -> search, None(default) -> icontains
-    search_fields = ("=city", "^host__username")
+    # host is defined in ./models.py
+    # username is defined in AbstractUser, in class User, in /users/models.py,
+    # refer to lookup fields at https://docs.djangoproject.com/en/3.0/topics/db/queries/
+    search_fields = (
+        "=city",
+        "^host__username",
+    )
 
+    # room information registering process gets easier
+    # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.filter_horizontal
+    # many to many filter
+    filter_horizontal = ("amenities", "facilities", "house_rules")
     pass
 
 

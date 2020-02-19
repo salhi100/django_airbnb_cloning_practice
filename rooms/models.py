@@ -112,7 +112,9 @@ class Room(core_models.TimeStampedModel):
     # foreign key is connecting one model to the many other. source of the connection is user, and it connects to multiple rooms.
     # Foreignkey enables many to one relationship, not many to many. For example, many instagram posts per user or many youtube posts per google user.
     # on_delete cascade: when you delete the user, delete also the room
-    host = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    host = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE
+    )  # calling User class from users folder
     room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
 
     # many to many relationship

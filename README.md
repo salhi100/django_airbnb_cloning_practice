@@ -346,7 +346,9 @@ python manage.py migrate
 
 
 
-# [6. Room Admin Panel & Site](https://docs.djangoproject.com/en/3.0/ref/contrib/admin/)
+# [6. Room Admin Panel & Site](./rooms/admin.py)
 
-
+- Making representative tables on webpage
+- Making Search fileds
+- Creating Filter
 
