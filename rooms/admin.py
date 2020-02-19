@@ -32,7 +32,11 @@ class RoomAdmin(admin.ModelAdmin):
         "room_type",
     )
 
-    list_filter = ()
+    list_filter = ("instant_book", "city")
+
+    # refer to search fields at https://docs.djangoproject.com/en/3.0/ref/contrib/admin/
+    # ^	-> startswith, = -> iexact, @ -> search, None(default) -> icontains
+    search_fields = ("=city", "^host__username")
 
     pass
 
