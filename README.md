@@ -8,7 +8,7 @@
   - Python: 3.8.1 64bit
   - Module information is stated in requirements.txt
 
-# 1. Django Project Folder & File Structure
+# 1. Django Project Folder & File Structure
 
 - [config folder](./config) is master folder
 - rest of folders are just applications. applications are group of functionalities

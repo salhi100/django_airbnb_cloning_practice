@@ -1,6 +1,8 @@
 from django.contrib import admin
 from . import models  # from the same folder, import models
 
+# admin panel url http://127.0.0.1:8000/admin/rooms/room/
+
 # refer ./models.py
 @admin.register(models.RoomType, models.Facility, models.Amenity, models.HouseRule)
 class ItemAdmin(admin.ModelAdmin):
@@ -32,6 +34,7 @@ class RoomAdmin(admin.ModelAdmin):
     )
 
     # making table-like display on room admin page
+    # many to many fields cannot be here
     list_display = (
         "name",
         "country",
@@ -46,6 +49,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "host",
         "room_type",
+        "count_amenities",
     )
 
     # making filter on the right side of room admin page
@@ -74,6 +78,19 @@ class RoomAdmin(admin.ModelAdmin):
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.filter_horizontal
     # many to many filter
     filter_horizontal = ("amenities", "facilities", "house_rules")
+
+    # ordering rules
+    # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.ordering
+    # ordering = "price"
+
+    # counting number of amenities
+    # self is admin class
+    # object is the room
+    def count_amenities(self, obj):
+        # print(obj) #prints name of room object
+        return obj.amenities.count()
+
+    count_amenities.short_description = "name of column"
     pass
 
 
