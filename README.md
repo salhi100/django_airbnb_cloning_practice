@@ -24,8 +24,9 @@
 - apps.py: configuration file which is installed [at the project's settings.py](./config/setttings.py)
 - admin.py: reflects changes on admin panel
 - models.py: describing how database look like.
+  - Models have fields.
+  - For the fields you put in models.py, will make be turned into database table. 
   - Django ORM translates python code into SQL Instructions to database.
-  - Whatever you put in models.py, Django will make it into database table. 
 - views.py: function that renders html
 - urls.py: you can create urls.py under an application.
   like /users/profile, /users/delete, /users/register etc.
@@ -351,4 +352,47 @@ python manage.py migrate
 - Making representative tables on webpage
 - Making Search fileds
 - Creating Filter
+
+
+
+# 7 Query related stuffs
+
+- vars python 
+
+  ```shell
+  vars(User)
+  ```
+
+- dir python
+
+  ```shell
+  dir(User)
+  ```
+
+- [Probing Users Tables with Queryset](https://docs.djangoproject.com/en/3.0/topics/db/queries/)
+
+  - filter
+
+    ```shell
+    all_user = User.objects.all()
+    all_user.filter(superhost=True)
+    ```
+
+  - get
+
+    ```shell
+    myam = User.objects.get(username="myam")
+    vars(myam)
+    dir(myam)
+    ```
+
+  - Using queryset, uou can access the rooms that is pointing the users. 
+
+    ```shell
+    myam.room_set
+    ```
+
+    room_set is from the rooms (foreign key) tables.
+
+  - 
 
