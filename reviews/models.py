@@ -21,7 +21,7 @@ class Review(core_models.TimeStampedModel):
         "users.User", related_name="reviews", on_delete=models.CASCADE
     )
 
-    # connecting review database with rooms tables
+    # pointing rooms tables with reviews database
     room = models.ForeignKey(
         "rooms.Room", related_name="reviews", on_delete=models.CASCADE
     )

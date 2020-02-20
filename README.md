@@ -361,13 +361,19 @@ python manage.py migrate
   <QuerySet [<User: myam>]>
   ```
 
-  1) Querysets are list. 2) Objects are manytomany, foreignkey(=onetomany). In the example above,  <User: myam> is one to many.
+  1) Querysets are list.
 
-- ```shell
+  2) Objects are either manytomany, or foreignkey(=onetomany). In the example above,  <User: myam> is foreignkey.
+
+## How to look up querysets
+
+- Run manage.py shell
+  
+  ```shell
   pipenv shell
-  python manage.py shell
+python manage.py shell
   ```
-
+  
 - vars to look up simple information, dir to look up specific information in database
 
   ```shell
@@ -376,31 +382,55 @@ python manage.py migrate
   dir(User)
   ```
 
-Getting Users/Rooms Tables with Queryset
+### Getting foreignkeys & manytomany Queryset
 
-- get
+- [In this case, reviews is poining at users(=myam) with foreignkey.](./reviews/models.py)
+
+  ```pyt
+  user = models.ForeignKey(
+          "users.User", related_name="reviews", on_delete=models.CASCADE
+      )
+  ```
+
+  Thus, we can get querysets for reviews. 
 
   ```shell
   myam = User.objects.get(username="myam")
   vars(myam)
   dir(myam)
-  ```
-
-- getting foreign keys & many to many
-
-  ```shell
   myam.reviews.all()
   ```
+
+- [In this case, reviews is pointing at rooms with foreignkey](.reviews/models.py) 
+
+  ```python
+  # pointing rooms tables with reviews database
+  room = models.ForeignKey(
+    "rooms.Room", related_name="reviews", on_delete=models.CASCADE
+  )
+  
+  ```
+
+  Thus, we can get querysets for reviews and amenities
 
   ```shell
   from rooms.models import Room
   room = Room.objects.get(id=1)
   room
   room.reviews.all()
-  room.amenities.all()
   ```
 
-- If review is pointing at the room, then room gets review queryset. 
+- [In this case, many to many relationship is established between amenities and rooms.](./rooms/models.py)
+
+  ```pyth
+  amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
+  ```
+
+  Thus, we can get querysets for amenities.
+
+  ```shel
+  room.amenities.all()
+  ```
 
 - In order to get queryset, instead of this,
 
@@ -414,35 +444,30 @@ Getting Users/Rooms Tables with Queryset
   room.reviews.all()
   ```
 
-- related_name을 써야만 queryset을 쓸 수 있다. 
-  [다음은 rooms의 models.py에서](./rooms/models.py) foreignkey로 user table과 연결할 때 related_name을 설정하지 않은 경우이다.
-
-  ```pyt
+- **You should use related_names field in models.py in order to get queryset.** [Next example is when rooms/models.py points users table with foreignkey](./rooms/models.py), but didn't set related_name inside of field.
+  
+```pyt
   host = models.ForeignKey(
           "users.User", on_delete=models.CASCADE
       )
   ```
-
-  이러면 Manage.py Shell에서 user에서 rooms에서 받은 queryset을 조회했을 때,
-
-  ```shell
+  
+In this case. At Manage.py Shell, when you look up  queryset of users received from rooms, You'll have following error.
+  
+```shell
   myam.rooms.all()
-  ```
-
-  다음과 같은 에러가 발생한다. 
-
-  ```shell
+  ------------------------------------
   "AttributeError: 'myam' object has no attribute 'rooms'"
-  ```
-
-  따라서 [rooms의 models.py에서](./rooms/models.py) user과 foreignkey로 연결된 해당 부분을 다음과 같이 고쳐준다.
-
+```
+  
+따라서 [rooms의 models.py에서](./rooms/models.py) users로 pointing한다. users과 rooms을 연결하는 foreignkey 부분에 related_name을 추가함으로서, users에 "rooms"라는 queryset을 보낸다.
+  
   ```python
   host = models.ForeignKey(
-          "users.User", related_name="rooms", on_delete=models.CASCADE
+        "users.User", related_name="rooms", on_delete=models.CASCADE
       )
-  ```
-
+```
+  
   [이에 대한 관련 내용은 Foreignkey에서 related_name으로 query를 짜는 법 문서를 참조하라.](https://docs.djangoproject.com/en/3.0/topics/db/queries/)
 
 Filtering queryset: get queryset with specified options
