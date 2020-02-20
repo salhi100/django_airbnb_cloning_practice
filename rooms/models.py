@@ -81,7 +81,7 @@ class Photo(core_models.TimeStampedModel):
     file = models.ImageField()  # image field for storing image
 
     # connecting with the Room. But Room is not defined, thus has to be done as string.
-    room = models.ForeignKey("Room", on_delete=models.CASCADE)
+    room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.caption

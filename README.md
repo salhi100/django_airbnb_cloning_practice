@@ -384,7 +384,7 @@ python manage.py migrate
 
 ### Getting foreignkeys & manytomany Queryset
 
-- [In this case, reviews is poining at users(=myam) with foreignkey.](./reviews/models.py)
+- [In this case, users is poining at reviews with foreignkey.](./reviews/models.py)
 
   ```python
   user = models.ForeignKey(
@@ -392,7 +392,7 @@ python manage.py migrate
       )
   ```
 
-  Thus, we can get querysets for reviews. 
+  Thus, we can get querysets for reviews.
 
   ```python
   myam = User.objects.get(username="myam")
@@ -401,7 +401,7 @@ python manage.py migrate
   myam.reviews.all()
   ```
 
-- [In this case, reviews is pointing at rooms with foreignkey](.reviews/models.py) 
+- [In this case, rooms is pointing reviews with foreignkey](.reviews/models.py) 
 
   ```python
   # pointing rooms tables with reviews database
@@ -454,7 +454,7 @@ python manage.py migrate
 
 - **You should use related_names field in models.py in order to get queryset.**
   
-- **related_names is for the target.** [Next example is when rooms/models.py points users table with foreignkey](./rooms/models.py), but didn't set related_name inside of field.
+- **related_names is for the target.** [Next example is when users table points rooms table with foreignkey](./rooms/models.py), but didn't set related_name inside of field.
 ```python
   host = models.ForeignKey(
           "users.User", on_delete=models.CASCADE

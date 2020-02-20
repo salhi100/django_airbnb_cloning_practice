@@ -16,12 +16,12 @@ class Review(core_models.TimeStampedModel):
     check_in = models.IntegerField()
     value = models.IntegerField()
 
-    # connecting review database with user tables
+    # pointing reviews tables from users database
     user = models.ForeignKey(
         "users.User", related_name="reviews", on_delete=models.CASCADE
     )
 
-    # pointing rooms tables with reviews database
+    # pointing reviews tables from rooms database
     room = models.ForeignKey(
         "rooms.Room", related_name="reviews", on_delete=models.CASCADE
     )

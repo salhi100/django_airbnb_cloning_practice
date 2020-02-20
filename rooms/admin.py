@@ -1,7 +1,6 @@
 from django.contrib import admin
 from . import models  # from the same folder, import models
 
-# admin panel url http://127.0.0.1:8000/admin/rooms/room/
 
 # refer ./models.py
 @admin.register(models.RoomType, models.Facility, models.Amenity, models.HouseRule)
@@ -9,9 +8,17 @@ class ItemAdmin(admin.ModelAdmin):
 
     """ Item Admin Definition """
 
+    list_display = ("name", "used_by")
+
+    # making admin panel for amenities: how many of amenities are used for registered rooms
+    # http://127.0.0.1:8000/admin/rooms/amenity/
+    def used_by(self, obj):
+        return obj.rooms.count()
+
     pass
 
 
+# admin panel url http://127.0.0.1:8000/admin/rooms/room/
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
@@ -50,6 +57,7 @@ class RoomAdmin(admin.ModelAdmin):
         "host",
         "room_type",
         "count_amenities",
+        "count_photos",
     )
 
     # making filter on the right side of room admin page
@@ -90,10 +98,16 @@ class RoomAdmin(admin.ModelAdmin):
         # print(obj) #prints name of room object
         return obj.amenities.count()
 
-    count_amenities.short_description = "name of column"
-    pass
+    # renaming table at the admin panel
+    count_amenities.short_description = "number of amenities"
+
+    # counting number of photos registered to the room
+    def count_photos(self, obj):
+        return obj.photos.count()
 
 
+# handling media files
+# http://127.0.0.1:8000/admin/rooms/photo/
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
     """ """
