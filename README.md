@@ -386,7 +386,7 @@ python manage.py shell
 
 - [In this case, reviews is poining at users(=myam) with foreignkey.](./reviews/models.py)
 
-  ```pyt
+  ```python
   user = models.ForeignKey(
           "users.User", related_name="reviews", on_delete=models.CASCADE
       )
@@ -408,7 +408,6 @@ python manage.py shell
   room = models.ForeignKey(
     "rooms.Room", related_name="reviews", on_delete=models.CASCADE
   )
-  
   ```
 
   Thus, we can get querysets for reviews and amenities
@@ -422,13 +421,13 @@ python manage.py shell
 
 - [In this case, many to many relationship is established between amenities and rooms.](./rooms/models.py)
 
-  ```pyth
+  ```python
   amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
   ```
 
   Thus, we can get querysets for amenities.
 
-  ```shel
+  ```shell
   room.amenities.all()
   ```
 
@@ -446,7 +445,7 @@ python manage.py shell
 
 - **You should use related_names field in models.py in order to get queryset.** [Next example is when rooms/models.py points users table with foreignkey](./rooms/models.py), but didn't set related_name inside of field.
   
-```pyt
+```python
   host = models.ForeignKey(
           "users.User", on_delete=models.CASCADE
       )
@@ -486,6 +485,12 @@ Filtering queryset: get queryset with specified options
   ```
 
   if you run this, you will get noopy. 
+
+
+
+```python
+
+```
 
 
 
