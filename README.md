@@ -371,7 +371,7 @@ python manage.py migrate
   
   ```shell
   pipenv shell
-python manage.py shell
+  python manage.py shell
   ```
   
 - vars to look up simple information, dir to look up specific information in database
