@@ -496,5 +496,8 @@ Filtering queryset: get queryset with specified options
 
   if you run this, you will get noopy. 
 
+# 8. Admin Panel Different Customization
 
+- [User Admin panel](./users/admin.py) doesn't refer to [models.py](/users/models.py), but rather refers to [Django's default UserAdmin class.](/Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/contrib/auth/admin.py)
+- Until now, [we have been making custom function on admin.py, for example, rooms' admin panel](./rooms/admin.py). But now, [we are making user rating average function at the reviews models.py](./reviews/models.py), and [deploying it on reviews Admin panel](./reviews/admin.py).
 

@@ -6,17 +6,10 @@ from . import models
 # This is admin panel for users. Refer to https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
 
 # UserAdin is calling Django
-# @admin.register(models.User)
-
-
+@admin.register(models.User)
 class CustomUserAdmin(UserAdmin):
 
     """ Custum User Admin"""
-
-    # refer to ./models.py for available options
-    # list_display is in description of https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
-    # list_display = ("username", "gender", "language", "currency", "superhost")
-    # list_filter = ("superhost", "currency", "language")
 
     # This is to make custom filter(or fieldsets) in Django admin panel.
     # UserAdmin.fieldsets: default fieldsets provided in Django. CMD + Click to check more information.
@@ -37,8 +30,28 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
+
+    # right-hand sidebar of admin panel for filter
+    list_filter = UserAdmin.list_filter + ("superhost", "currency", "language")
+
+    # showing tables on admin panel
+    # refer to ./models.py for available options
+    # list_display is in description of https://docs.djangoproject.com/en/2.2/ref/contrib/admin/
+    list_display = (
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "is_active",
+        "language",
+        "currency",
+        "superhost",
+        "is_staff",
+        "is_superuser",
+    )
+
     pass
 
 
 # same as @admin.register(models.User) above
-admin.site.register(models.User, CustomUserAdmin)
+# admin.site.register(models.User, CustomUserAdmin)

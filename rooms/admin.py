@@ -58,6 +58,7 @@ class RoomAdmin(admin.ModelAdmin):
         "room_type",
         "count_amenities",
         "count_photos",
+        "total_rating",
     )
 
     # making filter on the right side of room admin page

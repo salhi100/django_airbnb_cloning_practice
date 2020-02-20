@@ -127,5 +127,17 @@ class Room(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    # creating all reviews ratings average for a certain room
+    def total_rating(self):
+        # accessing queryset
+        all_reviews = self.reviews.all()
+        # print(all_reviews)
+        all_ratings = []
+        for review in all_reviews:
+            # print(review) # accessing objects inside of query set
+            # print(review.rating_average())
+            all_ratings.append(review.rating_average())
+        return sum(all_ratings) / len(all_ratings)
+
     pass
 
