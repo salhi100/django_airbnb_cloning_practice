@@ -376,7 +376,7 @@ python manage.py migrate
   
 - vars to look up simple information, dir to look up specific information in database
 
-  ```shell
+  ```python
   from users.models import User
   vars(User)
   dir(User)
@@ -394,7 +394,7 @@ python manage.py migrate
 
   Thus, we can get querysets for reviews. 
 
-  ```shell
+  ```python
   myam = User.objects.get(username="myam")
   vars(myam)
   dir(myam)
@@ -412,7 +412,7 @@ python manage.py migrate
 
   Thus, we can get querysets for reviews and amenities
 
-  ```shell
+  ```python
   from rooms.models import Room
   room = Room.objects.get(id=1)
   room
@@ -427,8 +427,17 @@ python manage.py migrate
 
   Thus, we can get querysets for amenities.
 
-  ```shell
+  ```python
   room.amenities.all()
+  ```
+
+  Or, we can get queryset with the following method also. 
+
+  ```python
+  from rooms.models import Amenity
+  Amenity.objects.all()
+  a = Amenity.objects.get(id=1)
+  a.rooms.all() 
   ```
 
 - In order to get queryset, instead of this,
@@ -439,58 +448,53 @@ python manage.py migrate
 
   Do this to get queryset (from reviews).
 
-  ```shell
+  ```python
   room.reviews.all()
   ```
 
-- **You should use related_names field in models.py in order to get queryset.** [Next example is when rooms/models.py points users table with foreignkey](./rooms/models.py), but didn't set related_name inside of field.
+- **You should use related_names field in models.py in order to get queryset.**
   
+- **related_names is for the target.** [Next example is when rooms/models.py points users table with foreignkey](./rooms/models.py), but didn't set related_name inside of field.
 ```python
   host = models.ForeignKey(
           "users.User", on_delete=models.CASCADE
       )
-  ```
-  
+```
+
 In this case. At Manage.py Shell, when you look up  queryset of users received from rooms, You'll have following error.
-  
-```shell
+
+```python
   myam.rooms.all()
   ------------------------------------
   "AttributeError: 'myam' object has no attribute 'rooms'"
 ```
-  
+
 따라서 [rooms의 models.py에서](./rooms/models.py) users로 pointing한다. users과 rooms을 연결하는 foreignkey 부분에 related_name을 추가함으로서, users에 "rooms"라는 queryset을 보낸다.
-  
+
   ```python
   host = models.ForeignKey(
         "users.User", related_name="rooms", on_delete=models.CASCADE
       )
-```
-  
+  ```
+
   [이에 대한 관련 내용은 Foreignkey에서 related_name으로 query를 짜는 법 문서를 참조하라.](https://docs.djangoproject.com/en/3.0/topics/db/queries/)
 
 Filtering queryset: get queryset with specified options
 
 - filtering
 
-  ```shell
+  ```python
   from users.models import User
   all_user = User.objects.all()
   all_user.filter(superhost=True)
   ```
 
-- ```shell
+- ```python
   startswith = User.objects.filter(username__startswith="noo")
   print(startswith)
   ```
 
   if you run this, you will get noopy. 
-
-
-
-```python
-
-```
 
 
 
