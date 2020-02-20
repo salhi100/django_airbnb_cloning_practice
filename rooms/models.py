@@ -113,9 +113,11 @@ class Room(core_models.TimeStampedModel):
     # Foreignkey enables many to one relationship, not many to many. For example, many instagram posts per user or many youtube posts per google user.
     # on_delete cascade: when you delete the user, delete also the room
     host = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE
-    )  # calling User class from users folder
-    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
+        "users.User", related_name="rooms", on_delete=models.CASCADE
+    )
+    room_type = models.ForeignKey(
+        "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
+    )
 
     # many to many relationship
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)

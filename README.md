@@ -355,44 +355,112 @@ python manage.py migrate
 
 
 
-# 7 Query related stuffs
+# [7 Django Queryset](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#django.db.models.query.QuerySet)
 
-- vars python 
-
-  ```shell
-  vars(User)
+- ```shell
+  <QuerySet [<User: myam>]>
   ```
 
-- dir python
+  1) Querysets are list. 2) Objects are manytomany, foreignkey(=onetomany). In the example above,  <User: myam> is one to many.
+
+- ```shell
+  pipenv shell
+  python manage.py shell
+  ```
+
+- vars to look up simple information, dir to look up specific information in database
 
   ```shell
+  from users.models import User
+  vars(User)
   dir(User)
   ```
 
-- [Probing Users Tables with Queryset](https://docs.djangoproject.com/en/3.0/topics/db/queries/)
+Getting Users/Rooms Tables with Queryset
 
-  - filter
+- get
 
-    ```shell
-    all_user = User.objects.all()
-    all_user.filter(superhost=True)
-    ```
+  ```shell
+  myam = User.objects.get(username="myam")
+  vars(myam)
+  dir(myam)
+  ```
 
-  - get
+- getting foreign keys & many to many
 
-    ```shell
-    myam = User.objects.get(username="myam")
-    vars(myam)
-    dir(myam)
-    ```
+  ```shell
+  myam.reviews.all()
+  ```
 
-  - Using queryset, uou can access the rooms that is pointing the users. 
+  ```shell
+  from rooms.models import Room
+  room = Room.objects.get(id=1)
+  room
+  room.reviews.all()
+  room.amenities.all()
+  ```
 
-    ```shell
-    myam.room_set
-    ```
+- If review is pointing at the room, then room gets review queryset. 
 
-    room_set is from the rooms (foreign key) tables.
+- In order to get queryset, instead of this,
 
-  - 
+  ```shell
+   room.review_set -> WRONG
+  ```
+
+  Do this to get queryset (from reviews).
+
+  ```shell
+  room.reviews.all()
+  ```
+
+- related_name을 써야만 queryset을 쓸 수 있다. 
+  [다음은 rooms의 models.py에서](./rooms/models.py) foreignkey로 user table과 연결할 때 related_name을 설정하지 않은 경우이다.
+
+  ```pyt
+  host = models.ForeignKey(
+          "users.User", on_delete=models.CASCADE
+      )
+  ```
+
+  이러면 Manage.py Shell에서 user에서 rooms에서 받은 queryset을 조회했을 때,
+
+  ```shell
+  myam.rooms.all()
+  ```
+
+  다음과 같은 에러가 발생한다. 
+
+  ```shell
+  "AttributeError: 'myam' object has no attribute 'rooms'"
+  ```
+
+  따라서 [rooms의 models.py에서](./rooms/models.py) user과 foreignkey로 연결된 해당 부분을 다음과 같이 고쳐준다.
+
+  ```python
+  host = models.ForeignKey(
+          "users.User", related_name="rooms", on_delete=models.CASCADE
+      )
+  ```
+
+  [이에 대한 관련 내용은 Foreignkey에서 related_name으로 query를 짜는 법 문서를 참조하라.](https://docs.djangoproject.com/en/3.0/topics/db/queries/)
+
+Filtering queryset: get queryset with specified options
+
+- filtering
+
+  ```shell
+  from users.models import User
+  all_user = User.objects.all()
+  all_user.filter(superhost=True)
+  ```
+
+- ```shell
+  startswith = User.objects.filter(username__startswith="noo")
+  print(startswith)
+  ```
+
+  if you run this, you will get noopy. 
+
+
 
