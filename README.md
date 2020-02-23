@@ -502,3 +502,138 @@ Filtering queryset: get queryset with specified options
 - Until now, [we have been making custom function on admin.py, for example, rooms' admin panel](./rooms/admin.py). But now, [we are making user rating average function at the reviews models.py](./reviews/models.py), and [deploying it on reviews Admin panel](./reviews/admin.py).
 - We've switched between rooms app and reviews app. Average reviews ratings of a room was reflected on room admin panel. We also used queryset to get functions on the other app. [Check commit log to see details.](https://github.com/snoop2head/django_airbnb_cloning/commit/19d8912cc69d37fab9f12ddbd49c4f5d73cf7a94)
 
+
+
+
+
+# 9. Custom Commands, Seeding Data
+
+- Making commands (like messages that pops up when you type on consoles)
+
+- Feeding ( using pyton) data to django without using admin page 
+- Feeding fake data to Django
+  - user data
+  - room data
+  - list data 
+
+
+
+# 10. Views and URLs
+
+- HTTPResponse to render HTML content, send it to user
+- context
+- {{}} stuff: inserting Python logics in static template
+- 
+
+
+
+- Ugly template until 10.3 
+
+
+
+
+
+# 11. HomeView
+
+
+
+
+
+# 12 DetailView
+
+
+
+
+
+# 13 SearchView
+
+
+
+
+
+# 14 User Log in & Log out
+
+
+
+
+
+# 15 Sign Up 
+
+
+
+
+
+# 16 Verify Email
+
+
+
+# 17 Log in with Github
+
+
+
+
+
+
+
+# 18 Kakao Log in
+
+
+
+
+
+# 19 Intro to Tailwind CSS
+
+
+
+
+
+
+
+# 20 Design
+
+
+
+
+
+# 21 User Profile, Edit Profile, Change Password
+
+
+
+
+
+
+
+# 22 Room Detail
+
+
+
+
+
+# 23 Update Room, Create Room, Room photos
+
+
+
+# 24 Reservations and Reviews
+
+
+
+
+
+# 25 Translations, lists and messages
+
+
+
+
+
+# 26 Deployment to AWS
+
+
+
+
+
+
+
+
+
+
+
