@@ -501,6 +501,7 @@ Filtering queryset: get queryset with specified options
 - [User Admin panel](./users/admin.py) doesn't refer to [models.py](/users/models.py), but rather refers to [Django's default UserAdmin class.](/Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/contrib/auth/admin.py)
 - Until now, [we have been making custom function on admin.py, for example, rooms' admin panel](./rooms/admin.py). But now, [we are making user rating average function at the reviews models.py](./reviews/models.py), and [deploying it on reviews Admin panel](./reviews/admin.py).
 - We've switched between rooms app and reviews app. Average reviews ratings of a room was reflected on room admin panel. We also used queryset to get functions on the other app. [Check commit log to see details.](https://github.com/snoop2head/django_airbnb_cloning/commit/19d8912cc69d37fab9f12ddbd49c4f5d73cf7a94)
+- 
 
 
 

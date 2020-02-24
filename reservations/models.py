@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import (
+    timezone,
+)  # timezone utility from django, which translates timezones of users
 from core import models as core_models
 
 
@@ -32,3 +35,18 @@ class Reservation(core_models.TimeStampedModel):
     # For admin panel and also for the console
     def __str__(self):
         return f"{self.room} - {self.check_in}"
+
+    def in_progress(self):
+        now = timezone.now().date()
+        return (
+            now > self.check_in and now < self.check_out
+        )  # returning true or false value
+
+    in_progress.boolean = True  # marking x on the in progress on admin panel
+
+    def is_finished(self):
+        now = timezone.now().date()
+        return now > self.check_out
+
+    is_finished.boolean = True
+
