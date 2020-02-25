@@ -78,7 +78,8 @@ class Photo(core_models.TimeStampedModel):
     """ Photo Model Definition """
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()  # image field for storing image
+    # image field for storing image
+    file = models.ImageField(upload_to="room_photos")  # saving pictures to room_photos
 
     # connecting with the Room. But Room is not defined, thus has to be done as string.
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)

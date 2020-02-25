@@ -32,7 +32,9 @@ class User(AbstractUser):
 
     # null is for the database, and blank is for forms on website
     # null means "empty values are acceptable", and blank also means the same.
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(
+        upload_to="avatars", blank=True
+    )  # saving pictures to avatars folder
 
     # charfield: text field with limit of single line
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)

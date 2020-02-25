@@ -130,6 +130,4 @@ dmypy.json
 
 # my custom gitignore
 .DS_Store
-*.jpeg
-*.jpg
-*.png
+uploads/
