@@ -1,7 +1,7 @@
 from django.db import models
 from core import models as core_models
 
-# refer to https://www.airbnb.com/s/Armenia/homes?_ga=2.92546461.1229078274.1581649756-1879266398.1581144278
+# refer to https://www.airbnb.com/wishlists
 
 
 class List(core_models.TimeStampedModel):

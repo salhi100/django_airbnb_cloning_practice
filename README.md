@@ -401,6 +401,15 @@ python manage.py migrate
   myam.reviews.all()
   ```
 
+- To get all users, 
+
+  ```python
+  from users.models import User
+  User.objects.all()
+  ```
+
+  
+
 - [In this case, rooms is pointing reviews with foreignkey](.reviews/models.py) 
 
   ```python
