@@ -508,21 +508,50 @@ Filtering queryset: get queryset with specified options
 
   if you run this, you will get noopy. 
 
-# 8. Admin Panel Different Customization
+# 8. Admin Panels Customization
 
 - [User Admin panel](./users/admin.py) doesn't refer to [models.py](/users/models.py), but rather refers to [Django's default UserAdmin class.](/Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/contrib/auth/admin.py)
 - Until now, [we have been making custom function on admin.py, for example, rooms' admin panel](./rooms/admin.py). But now, [we are making user rating average function at the reviews models.py](./reviews/models.py), and [deploying it on reviews Admin panel](./reviews/admin.py).
 - We've switched between rooms app and reviews app. Average reviews ratings of a room was reflected on room admin panel. We also used queryset to get functions on the other app. [Check commit log to see details.](https://github.com/snoop2head/django_airbnb_cloning/commit/19d8912cc69d37fab9f12ddbd49c4f5d73cf7a94)
 
-## Conversations App Admin Panel
-
 - list_display to display models.py fields on admin panel
 
+- timezone utility from django, which translates timezones of users
 
+  ```python
+  from django.utils import timezone
+  ```
 
- class messages & conversations + displaying fields on admin panel. Added fields on lists + displaying fields on admin panel
+- Project directory, URL router at [./config/settings.py](./config/settings.py)
 
+```python
+# yields /Users/noopy/django-airbnb-clone/uploads
+os.path.join(BASE_DIR, "uploads")
 
+# storing photos in ./uploads
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+# When I am on production level (when server is live), I set DEBUG in settings.py False
+DEBUG = True  
+
+# previously, link to image was http://127.0.0.1:8000/admin/rooms/photo/9/change/room_photos/photoname.png
+# now, changing the link to image as http://127.0.0.1:8000/media/photoname.png
+MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
+```
+
+- You cannot change function name "urlpatterns" at [config/urls.py](./config/urls.py)
+
+- Django doesn't render scripts (or html code), if it is not marked safe.
+
+  ```python
+  # marking safe for inputted scripts to Django
+  from django.utils.html import mark_safe  
+  
+  def get_thumbnail(self, obj):
+  	return mark_safe(f'<img width="300px" src="{obj.file.url}"')
+  ```
+
+- 
 
 
 
