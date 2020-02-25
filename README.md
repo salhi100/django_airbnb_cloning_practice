@@ -581,9 +581,7 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
 
 - like sending emails whenever admin panel is saved 
 
-
-
-# 9. Custom Commands, Seeding Data
+# 9. Python Manage.py Commands & Seeding Data
 
 - Making commands (like messages that pops up when you type on consoles)
 
