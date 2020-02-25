@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe  # marking safe for inputted scripts to Django
 from . import models  # from the same folder, import models
 
 
@@ -111,6 +112,25 @@ class RoomAdmin(admin.ModelAdmin):
 # http://127.0.0.1:8000/admin/rooms/photo/
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    """ """
+
+    """ Photo Admin Definition """
+
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        # file object is not string, but class
+        # print(type(obj.file))
+
+        # you can look at stuffs that you can deal with the file
+        # print(dir(obj.file))
+        # return obj.file.url
+
+        # returning html code (which is going to work as input) for the image url
+        # return f'<img src="{obj.file.url}" />'  # format image source object file url
+        # but it doesn't work for the sake of security. Django doesn't run all inputed scripts
+
+        return mark_safe(f'<img width="300px" src="{obj.file.url}"')
+
+    get_thumbnail.short_description = "Thumbnail"
 
     pass
