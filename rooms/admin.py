@@ -73,6 +73,9 @@ class RoomAdmin(admin.ModelAdmin):
         "host__superhost",
     )
 
+    # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.raw_id_fields
+    raw_id_fields = ("host",)
+
     # Search field to find rooms
     # refer to search fields at https://docs.djangoproject.com/en/3.0/ref/contrib/admin/
     # ^	-> startswith, = -> iexact, @ -> search, None(default) -> icontains
