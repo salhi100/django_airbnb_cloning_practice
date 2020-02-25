@@ -19,11 +19,19 @@ class ItemAdmin(admin.ModelAdmin):
     pass
 
 
+# https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.inlines
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
+
 # admin panel url http://127.0.0.1:8000/admin/rooms/room/
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
+
+    inlines = (PhotoInline,)
 
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets
     fieldsets = (
@@ -73,6 +81,7 @@ class RoomAdmin(admin.ModelAdmin):
         "host__superhost",
     )
 
+    # raw_id_fields for selecting foreignkey/ManytoMany objects
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.raw_id_fields
     raw_id_fields = ("host",)
 
