@@ -38,7 +38,7 @@ class RoomAdmin(admin.ModelAdmin):
         # Charfield in ./models.py
         (
             "Basic Info",
-            {"fields": ("name", "description", "country", "address", "price")},
+            {"fields": ("name", "description", "country", "city", "address", "price")},
         ),
         # Timefield in ./models.py
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
@@ -87,12 +87,10 @@ class RoomAdmin(admin.ModelAdmin):
 
     # Search field to find rooms
     # refer to search fields at https://docs.djangoproject.com/en/3.0/ref/contrib/admin/
-    # ^	-> startswith, = -> iexact, @ -> search, None(default) -> icontains
-    # host is defined in ./models.py
-    # username is defined in AbstractUser, in class User, in /users/models.py,
-    # refer to lookup fields at https://docs.djangoproject.com/en/3.0/topics/db/queries/
     search_fields = (
         "=city",
+        # host is defined in ./models.py, username is defined in AbstractUser, in class User, in /users/models.py,
+        # refer to lookup fields at https://docs.djangoproject.com/en/3.0/topics/db/queries/
         "^host__username",
     )
 
@@ -105,9 +103,15 @@ class RoomAdmin(admin.ModelAdmin):
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.ordering
     # ordering = "price"
 
+    # controlling admin
+    # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#modeladmin-methods
+    # def save_model(self, request, obj, form, change):
+    #     print the html: object, did it change?, form
+    #     print(obj, change, form)
+    #     super().save_model(request, obj, form, change)
+
     # counting number of amenities
-    # self is admin class
-    # object is the room
+    # self is admin class, object is the room
     def count_amenities(self, obj):
         # print(obj) #prints name of room object
         return obj.amenities.count()

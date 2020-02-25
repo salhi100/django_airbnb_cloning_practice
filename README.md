@@ -555,6 +555,32 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
 
 - inline models
 
+### Super is super important
+
+- [save() methods is controlling models](./rooms/models.py)
+
+  ```python
+  def save(self, *args, **kwargs):
+          # print(self.city)
+      		# you can add send_emails here, to notify whenever objects were saved in admin panels 
+          self.city = str.capitalize(self.city)
+          # call the real save() method from Django
+          super().save(*args, **kwargs)
+  ```
+
+- [save_model is controlling admin](./rooms/admin.py)
+
+  ```python
+  def save_model(self, request, obj, form, change):
+          #print the html: show object,show whether did it change, show form
+          print(obj, change, form)
+          super().save_model(request, obj, form, change)
+  ```
+
+  
+
+- like sending emails whenever admin panel is saved 
+
 
 
 # 9. Custom Commands, Seeding Data

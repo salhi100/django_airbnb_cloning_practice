@@ -125,8 +125,17 @@ class Room(core_models.TimeStampedModel):
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
+    # when class is called, it is called as name
     def __str__(self):
         return self.name
+
+    # intercepting changes made by admin panel
+    # https://docs.djangoproject.com/en/3.0/ref/models/instances/#customizing-model-loading
+    def save(self, *args, **kwargs):
+        # print(self.city)
+        self.city = str.capitalize(self.city)
+        # call the real save() method from Django
+        super().save(*args, **kwargs)
 
     # creating all reviews ratings average for a certain room
     def total_rating(self):
