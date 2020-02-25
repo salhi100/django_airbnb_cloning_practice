@@ -25,7 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ["DJANGO_SECRET"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# When I am developping, I set DEBUG in settings.py as True
+# When I am on production level (when server is live), I set DEBUG in settings.py False
+DEBUG = True  # showing debugging page when error is detected in Django
 
 ALLOWED_HOSTS = []
 
@@ -138,3 +140,8 @@ AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#std:setting-MEDIA_ROOT
 # storing photos in ./uploads
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+# https://docs.djangoproject.com/en/3.0/ref/settings/#media-url
+# previously, link to image was http://127.0.0.1:8000/admin/rooms/photo/9/change/room_photos/photoname.png
+# now, changing the link to image as http://127.0.0.1:8000/media/photoname.png
+MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
