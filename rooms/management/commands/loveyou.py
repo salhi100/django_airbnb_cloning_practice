@@ -1,3 +1,4 @@
+"""
 # CMD click for BaseCommand Details
 # class BaseCommand is at /Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/core/management/base.py
 from django.core.management.base import BaseCommand
@@ -21,3 +22,4 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("I love myam"))
 
     print("hello")
+"""

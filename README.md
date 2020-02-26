@@ -508,7 +508,7 @@ Filtering queryset: get queryset with specified options
 
   if you run this, you will get noopy. 
 
-# 8. Customizing Admin Panels 
+# 8. Adding Fields to Admin Panels 
 
 - [User Admin panel](./users/admin.py) doesn't refer to [models.py](/users/models.py), but rather refers to [Django's default UserAdmin class.](/Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/contrib/auth/admin.py)
 - Until now, [we have been making custom function on admin.py, for example, rooms' admin panel](./rooms/admin.py). But now, [we are making user rating average function at the reviews models.py](./reviews/models.py), and [deploying it on reviews Admin panel](./reviews/admin.py).
@@ -555,7 +555,7 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
 
 - inline models
 
-### Super is super important
+### !Super is super important!
 
 - [save() methods is controlling models](./rooms/models.py)
 
@@ -577,15 +577,13 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
           super().save_model(request, obj, form, change)
   ```
 
-  
-
 - like sending emails whenever admin panel is saved 
 
-# 9. Python Manage.py Commands & Seeding Data
+# 9. Making Python Manage.py commands to seed data at each apps
 
 - Making commands (like messages that pops up when you type on consoles)
 
-- Feeding ( using pyton) data to django without using admin page 
+- Feeding (using pyton) data to django without using admin page
 - Feeding fake data to Django
   - user data
   - room data
