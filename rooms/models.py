@@ -143,11 +143,13 @@ class Room(core_models.TimeStampedModel):
         all_reviews = self.reviews.all()
         # print(all_reviews)
         all_ratings = 0
-        for review in all_reviews:
-            # print(review) # accessing objects inside of query set
-            # print(review.rating_average())
-            all_ratings += review.rating_average()
-        return all_ratings / len(all_reviews)
+        if len(all_reviews) > 0:
+            for review in all_reviews:
+                # print(review) # accessing objects inside of query set
+                # print(review.rating_average())
+                all_ratings += review.rating_average()
+            return all_ratings / len(all_reviews)
+        return 0
 
     pass
 

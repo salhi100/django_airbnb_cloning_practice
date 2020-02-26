@@ -591,6 +591,18 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
 
 
 
+- Following two python scripts are the same
+
+```python
+from users import models as user_models
+all_user = user_models.User.objects.all()
+
+from users.models import User
+all_user = User.objects.all()
+```
+
+
+
 # 10. Views and URLs
 
 - HTTPResponse to render HTML content, send it to user
