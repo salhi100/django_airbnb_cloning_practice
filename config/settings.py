@@ -44,7 +44,7 @@ DJANGO_APPS = [
 ]
 
 # Letting Django know installed thrid party apps
-THIRD_PARTY_APPS = ["django_countries"]
+THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 
 # Letting Django know my established Project apps by stating here.
 # Importing apps.py in each apps: core, users, rooms, reviews ...

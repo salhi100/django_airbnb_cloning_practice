@@ -6,7 +6,7 @@ from rooms import models as room_models
 
 class Command(BaseCommand):
 
-    help = "This command is to tell myam that I love her"
+    help = "This command creates amenities"
 
     def handle(self, *args, **options):
         # print(args, options)
