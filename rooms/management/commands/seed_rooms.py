@@ -1,7 +1,8 @@
 # CMD click for BaseCommand Details
 # class BaseCommand is at /Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/core/management/base.py
-from django.core.management.base import BaseCommand
 import random
+from django.core.management.base import BaseCommand
+from django.contrib.admin.utils import flatten
 
 # Third Party app django seed docs: https://github.com/brobin/django-seed
 # For faker library for django seed ap: https://faker.readthedocs.io/en/master/fakerclass.html
@@ -57,8 +58,24 @@ class Command(BaseCommand):
         )
 
         # executing seeder
-        seeder.execute()
+        created_photos = seeder.execute()
+        created_clean = flatten(list(created_photos.values()))
+        # photo of id created
+        print(created_clean)
+
+        for pk in created_clean:
+            # find room with primary key
+            room = room_models.Room.objects.get(pk=pk)
+            print(room)
+            # create 3 ~ 14 rooms
+            for i in range(random.randint(3, 14)):
+                # creating photo
+                room_models.Photo.objects.create(
+                    caption=seeder.faker.sentence(),
+                    room=room,
+                    file=f"room_photos/{random.randint(1,31)}.webp",
+                )
 
         # stand out
-        self.stdout.write(self.style.SUCCESS(f"{number} users created"))
+        self.stdout.write(self.style.SUCCESS(f"{number} rooms created"))
 
