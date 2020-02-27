@@ -36,7 +36,11 @@ class Command(BaseCommand):
         # you should not do this in real life! We only have 50 users
         all_users = user_models.User.objects.all()
         room_types = room_models.RoomType.objects.all()
-        print(room_types, all_users)
+        amenities = room_models.Amenity.objects.all()
+        facilities = room_models.Facility.objects.all()
+        rules = room_models.HouseRule.objects.all()
+
+        # print(room_types, all_users)
 
         # seed rooms entities to database
         # random choice within all_users or room_types
@@ -63,8 +67,9 @@ class Command(BaseCommand):
         # photo of id created
         print(created_clean)
 
+        # randomly seeding foreignkey fields data
         for pk in created_clean:
-            # find room with primary key
+            # Foreign key instance: find room with primary key.
             room = room_models.Room.objects.get(pk=pk)
             print(room)
             # create 3 ~ 14 rooms
@@ -72,9 +77,30 @@ class Command(BaseCommand):
                 # creating photo
                 room_models.Photo.objects.create(
                     caption=seeder.faker.sentence(),
-                    room=room,
+                    room=room,  # getting foreign key
                     file=f"room_photos/{random.randint(1,31)}.webp",
                 )
+
+        # randomly seeding manytomany fields data
+        for amenity in amenities:
+            magic_number = random.randint(0, 15)
+            # if magic number is divisible by two
+            if magic_number % 2 == 0:
+                # add many to many fields
+                room.amenities.add(amenity)
+
+        for facility in facilities:
+            magic_number = random.randint(0, 15)
+            # if magic number is divisible by two
+            if magic_number % 2 == 0:
+                room.facilities.add(facility)
+
+        for rule in rules:
+            magic_number = random.randint(0, 15)
+            # if magic number is divisible by two
+            if magic_number % 2 == 0:
+                # room class' models.py field is "house_rules"
+                room.house_rules.add(rule)
 
         # stand out
         self.stdout.write(self.style.SUCCESS(f"{number} rooms created"))
