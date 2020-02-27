@@ -609,8 +609,23 @@ all_user = User.objects.all()
 
 # 10. Views and URLs
 
-- urls: request
-- views: response
+- urls: request 
+  - Log-in, password
+- views: response 
+  - rendered HTML
+
+
+
+./config/urls.py
+
+- serves as routes.js
+
+
+
+./core/urls.py
+
+- need to be made manually
+- serves as globalrouter
 
 
 
