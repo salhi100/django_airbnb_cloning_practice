@@ -1,19 +1,19 @@
 # CMD click for BaseCommand Details
 # class BaseCommand is at /Users/noopy/.local/share/virtualenvs/django-airbnb-clone-AcLC9Tzu/lib/python3.8/site-packages/django/core/management/base.py
 import random
+from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
-from django.contrib.admin.utils import flatten
 
 # Third Party app django seed docs: https://github.com/brobin/django-seed
 # For faker library for django seed ap: https://faker.readthedocs.io/en/master/fakerclass.html
 from django_seed import Seed
 
 # my application
-from lists import models as list_models
 from users import models as user_models
 from rooms import models as room_models
+from reservations import models as reservation_models
 
-NAME = "lists"
+NAME = "reservations"
 
 # YOU CAN'T RUN IT TWICE, SINCE ROOMS ARE DESIGNATED WITH ONE UNIQUE USER: ONETOONE FIELD
 # check seeded results here: http://127.0.0.1:8000/admin/reviews/review/
@@ -47,28 +47,23 @@ class Command(BaseCommand):
 
         # add entities to seeder packet
         seeder.add_entity(
-            list_models.List,
+            reservation_models.Reservation,
             number,
             # foreignkey field wrapped as queryset
-            {"user": lambda x: random.choice(all_users)},
+            {
+                "status": lambda x: random.choice(["pending", "confirmed", "canceled"]),
+                "guest": lambda x: random.choice(all_users),
+                "room": lambda x: random.choice(all_rooms),
+                "check_in": lambda x: datetime.now(),
+                "check_out": lambda x: datetime.now()
+                + timedelta(days=random.randint(2, 25)),
+            },
         )
 
         # inject seeder packet to the databse
 
         # executing seeder
-        created = seeder.execute()
-
-        # allocating random rooms to list
-        cleaned = flatten(list(created.values()))
-        for pk in cleaned:
-            # getting list class item with primary key
-            list_model = list_models.List.objects.get(pk=pk)
-            # list of rooms from random number to random number
-            random_int1 = random.randint(0, 5)
-            random_int2 = random.randint(6, 30)
-            to_add = all_rooms[random_int1:random_int2]
-            # below is "rooms" field at lists.models class List
-            list_model.rooms.add(*to_add)
+        seeder.execute()
 
         # stand out
         self.stdout.write(self.style.SUCCESS(f"{number} {NAME} created"))
