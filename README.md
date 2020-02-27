@@ -666,11 +666,18 @@ all_user = user_models.User.objects.all()
 
 # 10. Views and URLs
 
+- Use Django Template for formatting HTML file that Django can render
+  
 - urls: request 
+  
   - ex) Log-in, password from users
+  
 - views: response 
+  
   - ex) rendered HTML
+  
 - {{}} stuff: inserting Python logics in static template
+
 - Inheritance for html
   - base.html is base structure (or father class) of static html files
   - Just like extending in pug
@@ -686,13 +693,20 @@ all_user = user_models.User.objects.all()
   "DIRS": [os.path.join(BASE_DIR, "templates")],  # where to look for templates
   ```
 
-- [./config/urls.py](./config/urls.py) serves as routes.js
+- [./config/urls.py](./config/urls.py) 
 
-- [./core/urls.py](./core/urls.py) serves as globalrouter.js
+  - serves as routes.js
 
+- [./core/urls.py](./core/urls.py) 
+
+  - serves as globalrouter.js
   - [urls.py](./core/urls.py) needs to be made manually in core apps folder
 
-- [./rooms/views.py](./rooms/views.py) serves as controller.js
+- [./rooms/views.py](./rooms/views.py) 
+
+  - views.py is between ./app/models.py and html static files using context
+  - controlls html file with context
+  - serves as controller.js.
 
 # 11. HomeView
 
