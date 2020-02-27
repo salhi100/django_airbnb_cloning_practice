@@ -601,7 +601,13 @@ from users.models import User
 all_user = User.objects.all()
 ```
 
+- Run the following command on shell
 
+  ```shell
+  python manage.py seed_users --number 50
+  ```
+
+  
 
 # 10. Views and URLs
 

@@ -8,7 +8,8 @@ from django_countries.fields import CountryField
 from core import (
     models as core_models,
 )  # core_models are preventing repetition. Refer to #4.0 Lecture
-from users import models as user_models
+
+# from users import models as user_models
 
 # Create your models here.
 # Cloning Sample page: https://www.airbnb.com/rooms/22320269?location=Seoul&source_impression_id=p3_1581697502_PpMPhvPC73I2KD%2BU
@@ -148,7 +149,7 @@ class Room(core_models.TimeStampedModel):
                 # print(review) # accessing objects inside of query set
                 # print(review.rating_average())
                 all_ratings += review.rating_average()
-            return all_ratings / len(all_reviews)
+            return round(all_ratings / len(all_reviews), 2)
         return 0
 
     pass

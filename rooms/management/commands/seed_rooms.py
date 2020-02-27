@@ -35,15 +35,15 @@ class Command(BaseCommand):
         # get all user objects
         # you should not do this in real life! We only have 50 users
         all_users = user_models.User.objects.all()
-        room_types = room_models.RoomType.objects.all()
-        amenities = room_models.Amenity.objects.all()
-        facilities = room_models.Facility.objects.all()
-        rules = room_models.HouseRule.objects.all()
+        all_room_types = room_models.RoomType.objects.all()
+        all_amenities = room_models.Amenity.objects.all()
+        all_facilities = room_models.Facility.objects.all()
+        all_rules = room_models.HouseRule.objects.all()
 
-        # print(room_types, all_users)
+        # print(all_room_types, all_users)
 
         # seed rooms entities to database
-        # random choice within all_users or room_types
+        # random choice within all_users or all_room_types
         # random integer between 0 and 5
         # using faker
         seeder.add_entity(
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 "name": lambda x: seeder.faker.text(),
                 "address": lambda x: seeder.faker.address(),
                 "host": lambda x: random.choice(all_users),
-                "room_type": lambda x: random.choice(room_types),
+                "room_type": lambda x: random.choice(all_room_types),
                 "guests": lambda x: random.randint(1, 20),
                 "price": lambda x: random.randint(1, 5),
                 "beds": lambda x: random.randint(1, 5),
@@ -65,13 +65,13 @@ class Command(BaseCommand):
         created_photos = seeder.execute()
         created_clean = flatten(list(created_photos.values()))
         # photo of id created
-        print(created_clean)
+        # print(created_clean)
 
         # randomly seeding foreignkey fields data
         for pk in created_clean:
             # Foreign key instance: find room with primary key.
             room = room_models.Room.objects.get(pk=pk)
-            print(room)
+            # print(room)
             # create 3 ~ 14 rooms
             for i in range(random.randint(3, 14)):
                 # creating photo
@@ -82,25 +82,26 @@ class Command(BaseCommand):
                 )
 
         # randomly seeding manytomany fields data
-        for amenity in amenities:
+        for amenity in all_amenities:
             magic_number = random.randint(0, 15)
             # if magic number is divisible by two
             if magic_number % 2 == 0:
-                # add many to many fields
-                room.amenities.add(amenity)
+                # room class' models.py field is "amenities"
+                room.amenities.add(amenity)  # add many to many fields
 
-        for facility in facilities:
+        for facility in all_facilities:
             magic_number = random.randint(0, 15)
             # if magic number is divisible by two
             if magic_number % 2 == 0:
-                room.facilities.add(facility)
+                # room class' models.py field is "facilities"
+                room.facilities.add(facility)  # add many to many fields
 
-        for rule in rules:
+        for rule in all_rules:
             magic_number = random.randint(0, 15)
             # if magic number is divisible by two
             if magic_number % 2 == 0:
                 # room class' models.py field is "house_rules"
-                room.house_rules.add(rule)
+                room.house_rules.add(rule)  # add many to many fields
 
         # stand out
         self.stdout.write(self.style.SUCCESS(f"{number} rooms created"))
