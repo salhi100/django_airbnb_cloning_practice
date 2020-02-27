@@ -610,10 +610,10 @@ all_user = User.objects.all()
 # 10. Views and URLs
 
 - urls: request 
-  - Log-in, password
+  - ex) Log-in, password from users
 - views: response 
-  - rendered HTML
-
+  - ex) rendered HTML
+- {{}} stuff: inserting Python logics in static template
 - Inheritance for html
   - base.html is base structure (or father class) of static html files
   - Just like extending in pug
@@ -623,31 +623,9 @@ all_user = User.objects.all()
   - use blocks in all_rooms.html
   - create partials such as footers, headers and include it on base.html
 
-./config/urls.py
-
-- serves as routes.js
-
-
-
-./core/urls.py
-
-- need to be made manually
-- serves as globalrouter
-
-
-
-- HTTPResponse to render HTML content, send it to user
-- context
-- {{}} stuff: inserting Python logics in static template
-- 
-
-
-
-- Ugly template until 10.3 
-
-
-
-
+- ./config/urls.py serves as routes.js
+- ./core/urls.py serves as globalrouter
+  - there is no urls.py for core app(since it is app we made), so we need to be make urls.py manually
 
 # 11. HomeView
 
