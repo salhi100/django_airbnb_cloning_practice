@@ -614,6 +614,10 @@ all_user = User.objects.all()
 - views: response 
   - rendered HTML
 
+- Inheritance for html
+  - base.html is base structure (or father class) of static html files
+  - Just like extending in pug
+
 
 
 ./config/urls.py
