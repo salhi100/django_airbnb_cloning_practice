@@ -589,8 +589,6 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
   - room data
   - list data 
 
-
-
 - Following two python scripts are the same
 
 ```python
@@ -610,6 +608,11 @@ all_user = User.objects.all()
   
 
 # 10. Views and URLs
+
+- urls: request
+- views: response
+
+
 
 - HTTPResponse to render HTML content, send it to user
 - context
