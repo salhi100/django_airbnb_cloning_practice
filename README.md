@@ -618,7 +618,10 @@ all_user = User.objects.all()
   - base.html is base structure (or father class) of static html files
   - Just like extending in pug
 
-
+- Block is window that we can fill children templates contents in father's templates.
+  - create blocks in base.html 
+  - use blocks in all_rooms.html
+  - create partials such as footers, headers and include it on base.html
 
 ./config/urls.py
 
