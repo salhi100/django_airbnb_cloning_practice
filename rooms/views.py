@@ -1,5 +1,8 @@
 from math import ceil
 from django.shortcuts import render
+
+# paginator for django
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from . import models
 
@@ -14,34 +17,29 @@ def all_rooms(request):
 
     # http://127.0.0.1:8000/?page=1
     # print(request.GET.keys())
-    page = int(request.GET.get("page", 1))  # page is 1 by default
-    page = int(page or 1)
-    page_size = 10
-    limit = page * page_size
-    offset = limit - page_size
+    page = request.GET.get("page")  # page is 1 by default
 
-    # accessing database with queryset
-    # queryset is lazy. objects.all()[:10] only gets 10 items, not all item and extracting 10 items from it
-    # https://docs.djangoproject.com/en/3.0/topics/db/queries/#limiting-querysets
-    all_rooms = models.Room.objects.all()[offset:limit]
+    # queryset of them are ready as list
+    # https://docs.djangoproject.com/en/3.0/topics/db/queries/#querysets-are-lazy
+    room_list = models.Room.objects.all()
 
-    # count() Returns an integer representing the number of objects in the database matching the QuerySet.
-    # https://docs.djangoproject.com/en/3.0/ref/models/querysets/#count
-    objects_number = models.Room.objects.count()
-    page_count = ceil(objects_number / 10)  # ceil rounds up to integer
+    # dictionary with keys of "object_list", "number", "paginator"
+    # object_list is list of queryset, number is integer, paginator is class
+    # https://docs.djangoproject.com/en/3.0/topics/pagination/
+    paginator = Paginator(room_list, 10)
+    rooms_pages = paginator.get_page(page)
+    # print(vars(rooms_pages))
+
+    # dictionary with keys of 'per_page', 'orphans', 'allow_empty_first_page', 'count', 'num_pages'
+    # print(vars(rooms_pages.paginator))
+    # https://docs.djangoproject.com/en/3.0/ref/paginator/#django.core.paginator.Paginator
+    # total_pages = int(rooms_pages["paginator"]["num_pages"])
 
     # render is telling Django "go and compile html code into browser html"
     # context is way of sending variables to html file, as {{variable}}. Logic statements go into {% if %}
-    # context = {"context name": variable in views.py}
+    # context = {"context name": variableInViews.py}
     return render(
-        request,
-        "rooms/all_rooms.html",
-        context={
-            "rooms_display": all_rooms,
-            "page": page,
-            "page_count": page_count,
-            "page_range": range(1, page_count),
-        },
+        request, "rooms/all_rooms.html", context={"rooms_pages": rooms_pages},
     )
 
     # now = datetime.now()
