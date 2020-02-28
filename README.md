@@ -704,13 +704,28 @@ all_user = user_models.User.objects.all()
 
 - [./rooms/views.py](./rooms/views.py) 
 
+  - serves as controller.js.
   - views.py is between ./app/models.py and html static files using context
   - controlls html file with context
-  - serves as controller.js.
 
 # 11. HomeView
 
-- Calling Django function at static template 
+## We Learn Three Methods 
+
+### Hard Coding
+
+
+
+### Semi Coding
+
+
+
+### Using Django Classes' Methods
+
+
+
+- Calling Django function from static template 
+- Abastracting paginator is possible
 
 # 12 DetailView
 
