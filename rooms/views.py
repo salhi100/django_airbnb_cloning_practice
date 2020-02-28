@@ -1,8 +1,7 @@
-from math import ceil
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # paginator for django
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse
 from . import models
 
@@ -27,18 +26,22 @@ def all_rooms(request):
     # object_list is list of queryset, number is integer, paginator is class
     # view more methods about paginator class: https://docs.djangoproject.com/en/3.0/ref/paginator/#django.core.paginator.Paginator
     paginator = Paginator(room_list, 10, orphans=5)
-    rooms_page = paginator.page(page)
-    # print(vars(rooms_page))
 
-    # dictionary with keys of 'per_page', 'orphans', 'allow_empty_first_page', 'count', 'num_pages'
-    # print(vars(rooms_page.paginator))
+    try:
+        rooms_page = paginator.page(int(page))
+        # print(vars(rooms_page))
 
-    # render is telling Django "go and compile html code into browser html"
-    # context is way of sending variables to html file, as {{variable}}. Logic statements go into {% if %}
-    # context = {"context name": variableInViews.py}
-    return render(request, "rooms/all_rooms.html", context={"rooms_page": rooms_page},)
+        # dictionary with keys of 'per_page', 'orphans', 'allow_empty_first_page', 'count', 'num_pages'
+        # print(vars(rooms_page.paginator))
 
-    # now = datetime.now()
-    # hungry = True
-    # return HttpResponse(content=f"hello {now}")
+        # render is telling Django "go and compile html code into browser html"
+        # context is way of sending variables to html file, as {{variable}}. Logic statements go into {% if %}
+        # context = {"context name": variableInViews.py}
+        return render(
+            request, "rooms/all_rooms.html", context={"rooms_page": rooms_page},
+        )
+
+    # exception for empty page then redirect to home
+    except EmptyPage:
+        return redirect("/")
 
