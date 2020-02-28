@@ -708,6 +708,8 @@ all_user = user_models.User.objects.all()
   - controlls html file with context
   - serves as controller.js.
 
+- 
+
 # 11. HomeView
 
 
