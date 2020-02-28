@@ -5,8 +5,8 @@
 
 {% block content %}
 
-    {% for room in rooms_pages.object_list %}
-        <h3>{{room.name}} / ${{room.price}}</h3>
+    {% for room in rooms_page.object_list %}
+        <h5>{{room.name}} / ${{room.price}}</h5>
     {% endfor %}
 
         
@@ -16,14 +16,16 @@
     https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#built-in-filter-reference 
     {% endcomment %}
     
-    {% if rooms_pages.has_previous %}
-        <a href="?page={{rooms_pages.number|add:-1}}">Previous</a>
+
+    {% comment %} https://docs.djangoproject.com/en/3.0/ref/paginator/#id1 {% endcomment %}
+    {% if rooms_page.has_previous %}
+        <a href="?page={{rooms_page.previous_page_number}}">Previous</a>
     {% endif %}
     
-    Page {{rooms_pages.number}} of {{rooms_pages.paginator.num_pages}}
+    Page {{rooms_page.number}} of {{rooms_page.paginator.num_pages}}
     
-    {% if rooms_pages.has_next %}
-        <a href="?page={{rooms_pages.number|add:+1}}">Next</a>
+    {% if rooms_page.has_next %}
+        <a href="?page={{rooms_page.next_page_number}}">Next</a>
     {% endif %}    
     </h5>
 

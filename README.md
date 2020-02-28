@@ -676,7 +676,7 @@ all_user = user_models.User.objects.all()
   
   - ex) rendered HTML
   
-- {{}} stuff: inserting Python logics in static template
+- {{}}: inserting Python logics in static template
 
 - Inheritance for html
   - base.html is base structure (or father class) of static html files
@@ -708,13 +708,9 @@ all_user = user_models.User.objects.all()
   - controlls html file with context
   - serves as controller.js.
 
-- 
-
 # 11. HomeView
 
-
-
-
+- Calling Django function at static template 
 
 # 12 DetailView
 
