@@ -35,8 +35,12 @@
 
 - [./core/urls.py](./core/urls.py) 
 
-  - serves as globalrouter.js
+  - serves as globalRouter.js
   - [urls.py](./core/urls.py) needs to be made manually in core apps folder
+
+- [./rooms/urls.py](./rooms/urls.py)
+
+  - serves as roomRouter.js
 
 - [./rooms/views.py](./rooms/views.py) 
 
@@ -46,27 +50,72 @@
 
 # 11. HomeView
 
-## We Learn Three Methods 
-
-### Hard Coding
+Before learning Django class based views, we should know what's going on behind classes. 
 
 
 
-### Semi Coding
+### 1. Hard Coding
 
+- github log
 
+### 2. Semi Coding
 
-### Using Class Based Views
+- github log
 
+### 3. Using Class Based Views
 
+- github log
 
 - Calling Django function from static template 
 - Abastracting paginator is possible
+- 
 
 # 12 DetailView
 
+- ./rooms/detail.html: static template
+- ./rooms/views.py: responds by returning rendered template to users request 
+- ./config/urls.py: routing to "http://127.0.0.1:8000/rooms/"
+- ./rooms/urls.py: routing views file to path "http://127.0.0.1:8000/rooms/1"
 
+Designating namespace to simplify routing
+
+```html
+<a href="{/rooms/{{room.pk}}}"> {{room.name}} / ${{room.price}} </a>
+```
+
+can be simply be written as
+
+```python
+# ./config/urls.py
+path("rooms/", include("rooms.urls", namespace="rooms")),
+
+# ./rooms/urls.py
+urlpatterns = [path("<int:pk>", views.room_detail, name="detail")]
+```
+
+```html
+{% comment %} room_list html static template {% endcomment %}
+<a href="{% url "rooms:detail" room.pk %}"> {{room.name}} / ${{room.price}} </a>
+```
+
+"rooms:detail" room.pk
+"namespace:path" object.arguments
+
+
+
+Similarly, 
+
+```html
+<a href="/">AirBnB</a>
+```
+
+can be rewritten as
+
+```html
+<a href="{% url "core:home" %}"> AirBnB</a>
+```
 
 
 
 # 13 SearchView
+
