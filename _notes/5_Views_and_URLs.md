@@ -50,25 +50,22 @@
 
 # 11. HomeView
 
-Before learning Django class based views, we should know what's going on behind classes. 
+Before learning Django class based views, we should know what's going on behind pagination. 
 
+### 1. Hard Coding Pagination
 
+- [using views.py and html file to manually make page 1 ~ 15 navigation on lower bar](https://github.com/snoop2head/django_airbnb_cloning/commit/1af8a6e64bb8f19f4d765ebd514b71050117455b)
+- [pagenation manually done: simple logic using django built-in template tags on static html file](https://github.com/snoop2head/django_airbnb_cloning/commit/dc35af21ba30416d98b6bb3273897bdfa03b7d4c)
 
-### 1. Hard Coding
+### 2. Semi Coding Pagination
 
-- github log
-
-### 2. Semi Coding
-
-- github log
+- [using django paginator class and methods](https://github.com/snoop2head/django_airbnb_cloning/commit/6e93b5d56cfe691d3ba3d623585c6e503ae43b5f)
+- [using methods in paginator class to paginate website](https://github.com/snoop2head/django_airbnb_cloning/commit/bf1facb38f0b64bc2bab48db7e62eae3160e042f)
+- [django handling exceptions, redirecting to home when page number exceeds](https://github.com/snoop2head/django_airbnb_cloning/commit/0e80d145bab4a40084d8f2c1b159f957324c5a98)
 
 ### 3. Using Class Based Views
 
-- github log
-
-- Calling Django function from static template 
-- Abastracting paginator is possible
-- 
+- [Simplest: inheriting ListView class to paginate](https://github.com/snoop2head/django_airbnb_cloning/commit/ef5c4d017928b1a0a5133b94504893d790f5e006)
 
 # 12 DetailView
 
@@ -77,7 +74,11 @@ Before learning Django class based views, we should know what's going on behind 
 - ./config/urls.py: routing to "http://127.0.0.1:8000/rooms/"
 - ./rooms/urls.py: routing views file to path "http://127.0.0.1:8000/rooms/1"
 
-Designating namespace to simplify routing
+Designating namespace as such:
+
+"rooms:detail" room.pk 
+<=> 
+"namespace:path" object.arguments
 
 ```html
 <a href="{/rooms/{{room.pk}}}"> {{room.name}} / ${{room.price}} </a>
@@ -94,12 +95,9 @@ urlpatterns = [path("<int:pk>", views.room_detail, name="detail")]
 ```
 
 ```html
-{% comment %} room_list html static template {% endcomment %}
+<!-- room_list html static template -->
 <a href="{% url "rooms:detail" room.pk %}"> {{room.name}} / ${{room.price}} </a>
 ```
-
-"rooms:detail" room.pk
-"namespace:path" object.arguments
 
 
 
