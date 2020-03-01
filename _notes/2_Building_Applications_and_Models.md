@@ -35,6 +35,8 @@ python manage.py migrate
 
 ### models.py: All the fields are translated into database stuff.
 
+Models have fields. For the fields you put in models.py, will make be turned into database table. Django ORM translates python code into SQL Instructions to database.
+
 - **[Refer to models.py fields document on Django](https://docs.djangoproject.com/en/2.2/ref/models/fields/).** 
 - textfield: yields text field without limit on webpage
 - charfield: yields text field with limit of single line webpage
