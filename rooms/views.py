@@ -9,6 +9,7 @@ class HomeView(ListView):
 
     """ HomeView Definition """
 
+    # programming class based views (not function based views)
     model = models.Room
     paginate_by = 10
     ordering = "created"

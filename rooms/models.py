@@ -153,4 +153,3 @@ class Room(core_models.TimeStampedModel):
         return 0
 
     pass
-
