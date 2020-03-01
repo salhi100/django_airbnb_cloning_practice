@@ -34,25 +34,17 @@
 - urls.py: you can create urls.py under an application.
   like /users/profile, /users/delete, /users/register etc.
 
+## [Initializing a Django Project](./_notes/1_Creating_a_Django_Project.md)
+
+## [Building Applications and Models](./_notes/2_Building_Applications_and_Models.md)
+
+## [Making Admin Panel & Using Django Queryset](./_notes/3_Building_Admin_Panel.md)
+
+## [Seeding Data to Database, not through Admin Panel](./_notes/4_Seeding_Data_(NOT_by_Admin)_&_Fake_Data.md)
+
+## [Views and URLs](./_users/5_Views_and_URLs.md)
 
 
-# [Initializing a Django Project](./_notes/1_Creating_a_Django_Project)
-
-
-
-# [Building Applications and Models](./_notes/2_Building_Applications_and_Models)
-
-### 
-
-# [Making Admin Panel & Using Django Queryset](./_notes/3_Building_Admin_Panel)
-
-
-
-# [Seeding Data to Database, not through Admin Panel](./_notes/4_Seeding_Data_(NOT_by_Admin)_&_Fake_Data)
-
-
-
-# [Views and URLs](./_users/5_Views_and_URLs)
 
 
 
