@@ -56,7 +56,7 @@
 
 
 
-### Using Django Classes' Methods
+### Using Class Based Views
 
 
 
