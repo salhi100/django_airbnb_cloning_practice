@@ -1,7 +1,7 @@
 # Airbnb Cloning using Django
 
 - My purpose is to make website for fitcuration: exercise recommendation system. Thus, I am cloning Airbnb as tutorial with Django & Tailwind.
-- **While taking lectures, I don't recommend rewinding back.**
+- While taking lectures, I don't recommend rewinding back.
   - [Instead, I recommend you to refer to the final result.](https://github.com/nomadcoders/airbnb-clone) 
   - First, Code with the instructor.
   - Second, Make your project 
@@ -34,15 +34,45 @@
 - urls.py: you can create urls.py under an application.
   like /users/profile, /users/delete, /users/register etc.
 
-## [Initializing a Django Project](./_notes/1_Creating_a_Django_Project.md)
+## [Notes: Initializing a Django Project](./_notes/1_Creating_a_Django_Project.md)
 
-## [Building Applications and Models](./_notes/2_Building_Applications_and_Models.md)
+- Making Virtual Environment
+- Installing django
+- Selecting linter as flake8 and formatter as black
+- SECURITY TIP: HOW TO KEEP SECRET_KEY SAFE
 
-## [Making Admin Panel & Using Django Queryset](./_notes/3_Building_Admin_Panel.md)
+## [Notes: Building Applications and Models](./_notes/2_Building_Applications_and_Models.md)
 
-## [Seeding Data to Database, not through Admin Panel](./_notes/4_Seeding_Data_(NOT_by_Admin)_&_Fake_Data.md)
+- Building Users Applications inheriting Django's AbstractUsers class
+- Building Core Application to reduce repetitive configuration in each applications.
+- Building Rooms, Reviews, Reservations, Lists, Conversatiosn application
+  1. register on settings.py
+  2. shape database with models.py
+  3. connect admin panel page with database at admin.py
+  4. Make migrations and migrate
 
-## [Views and URLs](./_users/5_Views_and_URLs.md)
+## [Notes: Making Admin Panel & Using Django Queryset](./_notes/3_Building_Admin_Panel.md)
+
+```
+<QuerySet [<User: myam>]>
+```
+
+- Querysets are list.
+  - Objects are either manytomany, or foreignkey(=onetomany). 
+  - In the example above, <User: myam> is foreignkey.
+- Adding fields to admin panel
+- "super" in Python
+
+## [Notes: Seeding Data to Database, not through Admin Panel](./_notes/4_Seeding_Data_(NOT_by_Admin)_&_Fake_Data.md)
+
+- Seedng fake data using faker
+- Seeding list files to database
+
+## [Notes: Views and URLs](./_notes/5_Views_and_URLs.md)
+
+- Use Django Template for formatting HTML file that Django can render
+- urls.py is request
+- views.py is response
 
 
 
