@@ -29,8 +29,8 @@ SECRET_KEY = os.environ["DJANGO_SECRET"]
 # When I am on production level (when server is live), I set DEBUG in settings.py False
 DEBUG = True  # showing debugging page when error is detected in Django
 
+# ALLOWED_HOSTS = "*"
 ALLOWED_HOSTS = []
-
 
 # Application definition
 

@@ -1,11 +1,17 @@
 # Using Listview
 # https://docs.djangoproject.com/en/3.0/topics/class-based-views/mixins/#listview-working-with-many-django-objects
 # https://ccbv.co.uk/projects/Django/3.0/django.views.generic.list/ListView/
+
+# importing models.py and python
+from . import models
+from django.utils import timezone
+
+# django views, urls modules
 from django.views.generic import ListView, RedirectView
 from django.urls import reverse
-from django.utils import timezone
 from django.shortcuts import render, redirect
-from . import models
+from django.http import Http404
+
 
 # proceed with errors
 class HomeView(ListView):
@@ -45,5 +51,9 @@ def room_detail(request, pk):
         # print(room)
         return render(request, "rooms/detail.html", context={"room": room})
     except models.Room.DoesNotExist:
-        # try to use reverse as many as you can
-        return redirect(reverse("core:home"))
+        # redirection: try to use reverse as many as you can
+        # return redirect(reverse("core:home"))
+
+        # raising error is making error, not returning it
+        raise Http404()
+
