@@ -2,9 +2,10 @@
 # https://docs.djangoproject.com/en/3.0/topics/class-based-views/mixins/#listview-working-with-many-django-objects
 # https://ccbv.co.uk/projects/Django/3.0/django.views.generic.list/ListView/
 from django.views.generic import ListView, RedirectView
-from . import models
+from django.urls import reverse
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from . import models
 
 # proceed with errors
 class HomeView(ListView):
@@ -35,9 +36,14 @@ class HomeView(ListView):
     #     return super(HomeView, self).render_to_response(context)
 
 
+# receiving "localhost/rooms/110230" to use it as primary key for database
+# print(pk)
 def room_detail(request, pk):
-    # receiving "localhost/rooms/110230" to use it as primary key for database
-    # print(pk)
-    room = models.Room.objects.get(pk=pk)
-    # print(room)
-    return render(request, "rooms/detail.html", context={"room": room})
+    # redirection with try and except
+    try:
+        room = models.Room.objects.get(pk=pk)
+        # print(room)
+        return render(request, "rooms/detail.html", context={"room": room})
+    except models.Room.DoesNotExist:
+        # try to use reverse as many as you can
+        return redirect(reverse("core:home"))
