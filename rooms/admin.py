@@ -33,6 +33,7 @@ class RoomAdmin(admin.ModelAdmin):
 
     inlines = (PhotoInline,)
 
+    # registering menus on individual rooms' admin panel
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets
     fieldsets = (
         # Charfield in ./models.py
@@ -45,7 +46,10 @@ class RoomAdmin(admin.ModelAdmin):
         # Integerfield in ./models.py
         ("Spaces", {"fields": ("guests", "beds", "bedrooms")}),
         # ManytoManyField in ./models.py
-        ("More About the Space", {"fields": ("facilities", "amenities",)}),
+        (
+            "More About the Space",
+            {"fields": ("facilities", "amenities", "house_rules")},
+        ),
         ("Last Details", {"fields": ("host",)}),
     )
 

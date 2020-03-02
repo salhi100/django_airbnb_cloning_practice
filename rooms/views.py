@@ -39,5 +39,5 @@ def room_detail(request, pk):
     # receiving "localhost/rooms/110230" to use it as primary key for database
     # print(pk)
     room = models.Room.objects.get(pk=pk)
-    print(room)
+    # print(room)
     return render(request, "rooms/detail.html", context={"room": room})
