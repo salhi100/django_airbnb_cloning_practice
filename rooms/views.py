@@ -7,7 +7,7 @@ from . import models
 from django.utils import timezone
 
 # django views, urls modules
-from django.views.generic import ListView, RedirectView
+from django.views.generic import ListView, RedirectView, DetailView
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import Http404
@@ -42,18 +42,13 @@ class HomeView(ListView):
     #     return super(HomeView, self).render_to_response(context)
 
 
-# receiving "localhost/rooms/110230" to use it as primary key for database
-# print(pk)
-def room_detail(request, pk):
-    # redirection with try and except
-    try:
-        room = models.Room.objects.get(pk=pk)
-        # print(room)
-        return render(request, "rooms/detail.html", context={"room": room})
-    except models.Room.DoesNotExist:
-        # redirection: try to use reverse as many as you can
-        # return redirect(reverse("core:home"))
+# class based views
+# https://ccbv.co.uk/projects/Django/3.0/django.views.generic.detail/DetailView/
+class RoomDetail(DetailView):
 
-        # raising error is making error, not returning it
-        raise Http404()
+    """" RoomDetail Definition """
+
+    model = models.Room
+    # pk_url_kwarg = "pk" # primary key as query is the default
+    pass
 
