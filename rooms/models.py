@@ -1,6 +1,9 @@
 # first django
 from django.db import models
 
+# takes the name of url and returns the actual url
+from django.urls import reverse
+
 # second third party apps
 from django_countries.fields import CountryField
 
@@ -137,6 +140,12 @@ class Room(core_models.TimeStampedModel):
         self.city = str.capitalize(self.city)
         # call the real save() method from Django
         super().save(*args, **kwargs)
+
+    # method of returning absolute url for the model
+    def get_absolute_url(self):
+        # <name of namespace in config urls.py> : <name of url patterns in rooms urls.py>
+        # keworded arguments = {<url patterns path in rooms urls.py>: self.<url patterns path in rooms urls.py>}
+        return reverse("rooms:detail", kwargs={"pk": self.pk})
 
     # creating all reviews ratings average for a certain room
     def total_rating(self):
