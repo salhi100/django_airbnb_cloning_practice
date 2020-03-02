@@ -52,3 +52,10 @@ class RoomDetail(DetailView):
     # pk_url_kwarg = "pk" # primary key as query is the default
     pass
 
+
+# function based views
+def search(request):
+    city = request.GET.get("city")
+    print(str.capitalize(city))  # capitalizing since database values are capitalized
+    capitalized_city = str.capitalize(city)
+    return render(request, "rooms/search.html", context={"city": capitalized_city})
