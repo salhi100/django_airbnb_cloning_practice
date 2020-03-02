@@ -37,5 +37,7 @@ class HomeView(ListView):
 
 def room_detail(request, pk):
     # receiving "localhost/rooms/110230" to use it as primary key for database
-    print(pk)
-    return render(request, "rooms/detail.html")
+    # print(pk)
+    room = models.Room.objects.get(pk=pk)
+    print(room)
+    return render(request, "rooms/detail.html", context={"room": room})
