@@ -3,14 +3,17 @@
 # https://ccbv.co.uk/projects/Django/3.0/django.views.generic.list/ListView/
 
 # importing models.py and python
-from . import models
 from django.utils import timezone
 
 # django views, urls modules
-from django.views.generic import ListView, RedirectView, DetailView
-from django.urls import reverse
-from django.shortcuts import render, redirect
-from django.http import Http404
+from django.views.generic import ListView, DetailView
+from django.shortcuts import render
+
+# my app
+from . import models
+
+# third party app
+from django_countries import countries
 
 
 # proceed with errors
@@ -55,7 +58,14 @@ class RoomDetail(DetailView):
 
 # function based views
 def search(request):
-    city = request.GET.get("city")
-    print(str.capitalize(city))  # capitalizing since database values are capitalized
-    capitalized_city = str.capitalize(city)
-    return render(request, "rooms/search.html", context={"city": capitalized_city})
+    print(request.GET)
+    city = request.GET.get("city", "Anywhere")
+    city = str.capitalize(city)
+    room_types = models.RoomType.objects.all()
+    # print(city)  # capitalizing since database values are capitalized
+    # print(countries)
+    return render(
+        request,
+        "rooms/search.html",
+        context={"city": city, "countries": countries, "room_types": room_types},
+    )
