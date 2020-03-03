@@ -117,3 +117,11 @@ can be rewritten as
 
 # 13 SearchView
 
+### Development Workflow
+
+- [Make form on template at html](./templates/rooms/search.html)
+- Receive from template as get request at views.py. [Inside views.py, there are three parts:](./rooms/views.py)
+  - Get request: form which receives user request
+  - Querying database: refer to fields names at models.py and get objects.
+  - Reponse: render html file or raise error
+- Go back to template at html and write out response based on context in views.py

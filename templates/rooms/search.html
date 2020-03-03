@@ -12,6 +12,7 @@
 
 <h2>Search</h2>
 
+{% comment %} GETTING USER REQUESTS {% endcomment %}
 <form method="get" action="{% url "rooms:search" %}">
 <div>
   <label for="city">City</label>
@@ -37,6 +38,53 @@
     {% endfor %}
   </select>
 </div>
+
+<div>
+  <label for="price">Price</label>
+  <input value = "{{price}}"  type="number" name = "price" id="price" placeholder="Price"/>
+</div>
+
+<div>
+  <label for="guests">Guests</label>
+  <input value = "{{guests}}"  type="number" name = "guests" id="guests" placeholder="guests"/>
+</div>
+
+<div>
+  <label for="bedrooms">Bedrooms</label>
+  <input value = "{{beds}}"  type="number" name = "bedrooms" id="bedrooms" placeholder="bedrooms"/>
+</div>
+
+<div>
+  <label for="beds">Beds</label>
+  <input value = "{{bedrooms}}"  type="number" name = "beds" id="beds" placeholder="beds"/>
+</div>
+
+{% comment %} DISPLAYING ON TEMPLATE {% endcomment %}
+
+<div>
+<h3>Amenities</h3>
+<ul>
+{% for amenity in amenities %}
+  <li>
+    <label for = "a_{{amenity.pk}}">{{amenity.name}}</label>
+    <input id="a_{{amenity.pk}}" name="amenities" type="checkbox" value = "{{amenity.pk}}"  />
+  </li>
+{% endfor %}
+</ul>
+
+<h3>Facilities</h3>
+<ul>
+{% for facility in facilities %}
+  <li>
+    <label for = "a_{{facility.pk}}">{{facility.name}}</label>
+    <input id="a_{{facility.pk}}" name="facilities" type="checkbox" value = "{{facility.pk}}" />
+  </li>
+{% endfor %}
+</ul>
+
+</div>
+
+
 
 <button>Search</button>
 </form>

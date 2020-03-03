@@ -58,31 +58,51 @@ class RoomDetail(DetailView):
 
 # function based views
 def search(request):
+
+    # GET REQUESTS
     print(request.GET)
     city = request.GET.get("city", "Anywhere")
     city = str.capitalize(city)
-    room_types = models.RoomType.objects.all()
     country = request.GET.get("country", "KR")
     room_type = int(request.GET.get("room_type", 0))
     # print(city)  # capitalizing since database values are capitalized
-    # print(countries)
+    price = int(request.GET.get("price", 0))
+    guests = int(request.GET.get("guests", 0))
+    beds = int(request.GET.get("beds", 0))
+    bedrooms = int(request.GET.get("bedrooms", 0))
+    selected_amenities = request.GET.get("amenities")
+    selected_facilities = request.GET.get("facilities")
+    print(selected_amenities, selected_facilities)
 
     # user request
     form = {
         "city": city,
         "selected_room_type": room_type,
         "selected_country": country,
+        "price": price,
+        "guests": guests,
+        "beds": beds,
+        "bedrooms": bedrooms,
     }
 
-    # anything from database
+    # QUERYING DATABASE
+    room_types = models.RoomType.objects.all()
+    amenities = models.Amenity.objects.all()
+    facilities = models.Facility.objects.all()
+
+    # querying selected choices from database
     choices = {
         "countries": countries,
         "room_types": room_types,
+        "amenities": amenities,
+        "facilities": facilities,
     }
 
+    # RESPONSE
     return render(
         request,
         "rooms/search.html",
-        # unpacking everything with **, and merging back into dictionary
+        # In order to process user request and queryset choices in search.html,
+        # We unpacking everything with **, and merge back into dictionary
         context={**form, **choices},
     )
