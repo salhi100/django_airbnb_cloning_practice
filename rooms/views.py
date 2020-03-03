@@ -70,9 +70,13 @@ def search(request):
     guests = int(request.GET.get("guests", 0))
     beds = int(request.GET.get("beds", 0))
     bedrooms = int(request.GET.get("bedrooms", 0))
-    selected_amenities = request.GET.get("amenities")
-    selected_facilities = request.GET.get("facilities")
-    print(selected_amenities, selected_facilities)
+    # getting not only one item, but get several items in user requests
+    # https://docs.djangoproject.com/en/2.2/ref/request-response/#django.http.QueryDict.getlist
+    selected_amenities = request.GET.getlist("amenities")
+    selected_facilities = request.GET.getlist("facilities")
+    # print(selected_amenities, selected_facilities)
+    instant = request.GET.get("instant", False)
+    superhost = request.GET.get("superhost", False)
 
     # user request
     form = {
@@ -83,6 +87,8 @@ def search(request):
         "guests": guests,
         "beds": beds,
         "bedrooms": bedrooms,
+        "selected_amenities": selected_amenities,
+        "selected_facilities": selected_facilities,
     }
 
     # QUERYING DATABASE
@@ -96,13 +102,15 @@ def search(request):
         "room_types": room_types,
         "amenities": amenities,
         "facilities": facilities,
+        "instant": instant,
+        "superhost": superhost,
     }
 
     # RESPONSE
     return render(
         request,
         "rooms/search.html",
-        # In order to process user request and queryset choices in search.html,
-        # We unpacking everything with **, and merge back into dictionary
+        # Using context, we reflect user request and queryset choices to search.html.
+        # We unpack each dictionary with **, and merge back into dictionary
         context={**form, **choices},
     )

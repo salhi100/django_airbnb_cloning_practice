@@ -125,3 +125,17 @@ can be rewritten as
   - Querying database: refer to fields names at models.py and get objects.
   - Reponse: render html file or raise error
 - Go back to template at html and write out response based on context in views.py
+
+- Using context, we reflect user request and queryset choices to search.html.
+
+- slugify is turning amenity.pk (int) into string
+
+- checked in html is remembering checkbox as checked
+
+- "Remembering Option" is not remembering option on html. To make such function, 
+
+  1. Make template that receives user request. Types are: input(text search input), option(dropdown), checkbox, number(number input) etc..
+  2. On views.py, receive user's get request as form, renders back to template as context.
+  3. Responds with html template with context variable displayed on html. Wrap with bracket as such {{context_variable}}, or {if context_variable}
+
+  
