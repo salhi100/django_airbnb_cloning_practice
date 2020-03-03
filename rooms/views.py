@@ -62,10 +62,27 @@ def search(request):
     city = request.GET.get("city", "Anywhere")
     city = str.capitalize(city)
     room_types = models.RoomType.objects.all()
+    country = request.GET.get("country", "KR")
+    room_type = int(request.GET.get("room_type", 0))
     # print(city)  # capitalizing since database values are capitalized
     # print(countries)
+
+    # user request
+    form = {
+        "city": city,
+        "selected_room_type": room_type,
+        "selected_country": country,
+    }
+
+    # anything from database
+    choices = {
+        "countries": countries,
+        "room_types": room_types,
+    }
+
     return render(
         request,
         "rooms/search.html",
-        context={"city": city, "countries": countries, "room_types": room_types},
+        # unpacking everything with **, and merging back into dictionary
+        context={**form, **choices},
     )
