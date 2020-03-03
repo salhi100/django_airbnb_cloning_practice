@@ -106,11 +106,32 @@ def search(request):
         "superhost": superhost,
     }
 
+    # refer to field lookups for querying and filtering
+    # https://docs.djangoproject.com/en/3.0/ref/models/querysets/#field-lookups
+    filter_args = {}
+
+    if city != "Anywhere":
+        # adding arguments as {"city__startswith" : city}
+        filter_args["city__startswith"] = city
+
+    # adding arguments of {"country" : country}
+    filter_args["country"] = country
+
+    # filtering with foreignkey relationship -> refer to models.py
+    # room_type 0 is entire place
+    if room_type != 0:
+        filter_args["room_type__pk"] = room_type
+
+    # query rooms from database that matches the filter
+    # print(filter_args)
+    rooms = models.Room.objects.filter(**filter_args)
+    # print(rooms)
+
     # RESPONSE
     return render(
         request,
         "rooms/search.html",
         # Using context, we reflect user request and queryset choices to search.html.
         # We unpack each dictionary with **, and merge back into dictionary
-        context={**form, **choices},
+        context={**form, **choices, "rooms": rooms},
     )

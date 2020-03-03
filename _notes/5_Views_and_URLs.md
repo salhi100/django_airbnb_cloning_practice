@@ -138,4 +138,5 @@ can be rewritten as
   2. On views.py, receive user's get request as form, renders back to template as context.
   3. Responds with html template with context variable displayed on html. Wrap with bracket as such {{context_variable}}, or {if context_variable}
 
-  
+- [Refer to Field Lookups for querying, filtering data](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#field-lookups)
+
