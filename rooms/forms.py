@@ -1,10 +1,35 @@
+# django app
 from django import forms
+
+# my python files
 from . import models
 
-# Making forms is like models.py
-# https://docs.djangoproject.com/en/2.2/ref/forms/
+# thirdparty app
+from django_countries.fields import CountryField
+
+
+# Making forms should be same as fieldsname as models.py
+# https://docs.djangoproject.com/en/2.2/ref/forms/api/
+# Field arguments such as default, required can be looked up here https://docs.djangoproject.com/en/2.2/ref/forms/fields/
 class SearchForm(forms.Form):
-    city = forms.CharField(initial="Anywhere")
+    # Widget customization: https://docs.djangoproject.com/en/2.2/ref/forms/fields/#widget
+    city = forms.CharField(initial="Anywhere", widget=forms.Textarea)
+    country = CountryField(default="KR").formfield()
     price = forms.IntegerField(required=False)
-    room_type = forms.ModelChoiceField(queryset=models.RoomType.objects.all())
+    guests = forms.IntegerField(required=False)
+    bedrooms = forms.IntegerField(required=False)
+    beds = forms.IntegerField(required=False)
+    instant_book = forms.BooleanField(required=False)
+    superhost = forms.BooleanField(required=False)
+
+    # foreignkey field should connect to models.py with queryset of the class
+    room_type = forms.ModelChoiceField(
+        empty_label="Any Kind", queryset=models.RoomType.objects.all()
+    )
+    amenities = forms.ModelMultipleChoiceField(
+        queryset=models.Amenity.objects.all(), widget=forms.CheckboxSelectMultiple
+    )
+    facilities = forms.ModelMultipleChoiceField(
+        queryset=models.Facility.objects.all(), widget=forms.CheckboxSelectMultiple
+    )
     pass
