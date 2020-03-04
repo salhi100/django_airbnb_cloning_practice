@@ -72,6 +72,7 @@ class RoomAdmin(admin.ModelAdmin):
         "count_amenities",
         "count_photos",
         "total_rating",
+        # "host__superhost" doesn't work
     )
 
     # making filter on the right side of room admin page
@@ -101,7 +102,7 @@ class RoomAdmin(admin.ModelAdmin):
     # room information registering process gets easier
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.filter_horizontal
     # many to many filter
-    filter_horizontal = ("amenities", "facilities", "house_rules")
+    filter_horizontal = ("facilities", "amenities", "house_rules")
 
     # ordering rules
     # https://docs.djangoproject.com/en/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.ordering

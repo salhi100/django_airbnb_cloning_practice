@@ -60,7 +60,7 @@ class RoomDetail(DetailView):
 def search(request):
 
     # GET REQUESTS
-    print(request.GET)
+    # print(request.GET)
     city = request.GET.get("city", "Anywhere")
     city = str.capitalize(city)
     country = request.GET.get("country", "KR")
@@ -75,8 +75,8 @@ def search(request):
     selected_amenities = request.GET.getlist("amenities")
     selected_facilities = request.GET.getlist("facilities")
     # print(selected_amenities, selected_facilities)
-    instant = request.GET.get("instant", False)
-    superhost = request.GET.get("superhost", False)
+    instant = bool(request.GET.get("instant", False))
+    superhost = bool(request.GET.get("superhost", False))
 
     # user request
     form = {
@@ -106,25 +106,56 @@ def search(request):
         "superhost": superhost,
     }
 
-    # refer to field lookups for querying and filtering
-    # https://docs.djangoproject.com/en/3.0/ref/models/querysets/#field-lookups
+    # refer to field lookups for querying and filtering "__lte" stuff
+    # https://docs.djangoproject.com/en/2.2/ref/models/querysets/#field-lookups
     filter_args = {}
 
     if city != "Anywhere":
         # adding arguments as {"city__startswith" : city}
         filter_args["city__startswith"] = city
-
     # adding arguments of {"country" : country}
     filter_args["country"] = country
+    # room_type 0 is Entire Place
+    if price != 0:
+        filter_args["price__lte"] = price
+    if guests != 0:
+        filter_args["guests_gte"] = guests
+    if bedrooms != 0:
+        filter_args["bedrooms_gte"] = bedrooms
+    if beds != 0:
+        filter_args["beds_gte"] = beds
+    if instant is True:
+        filter_args["instant_book"] = True
 
-    # filtering with foreignkey relationship -> refer to models.py
-    # room_type 0 is entire place
+    # filtering with foreignkey relationship with primary key
     if room_type != 0:
         filter_args["room_type__pk"] = room_type
+    # accessing foreignkey is easy. "pointing fieldname"__"pointed fieldname"
+    if superhost is True:
+        filter_args["host__superhost"] = True
+    # print(room_type, superhost)
 
+    # FILTERS SHOULD BE ABOVE THIS LINE
     # query rooms from database that matches the filter
+    # https://docs.djangoproject.com/en/2.2/topics/db/queries/#retrieving-specific-objects-with-filters
     # print(filter_args)
     rooms = models.Room.objects.filter(**filter_args)
+    # print(rooms)
+
+    # FILTERING QUERYSET OF ROOMS, WITH MULTIPLE PRIMARY KEYS
+    print(selected_amenities, selected_facilities)
+
+    if len(selected_amenities) != 0:
+        for selected_amenity in selected_amenities:
+            rooms = rooms.filter(amenities__pk=int(selected_amenity))
+            print(rooms)
+
+    if len(selected_facilities) != 0:
+        for selected_facility in selected_facilities:
+            rooms = rooms.filter(facilities__pk=int(selected_facility))
+            print(rooms)
+
+    # YOU WILL SEE REMAINDER OF FILTERED ROOMS QUERYSET
     # print(rooms)
 
     # RESPONSE
