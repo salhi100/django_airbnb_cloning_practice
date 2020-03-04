@@ -117,7 +117,7 @@ can be rewritten as
 
 # 13 SearchView
 
-### Development Workflow
+### Development Workflow: Function Based Views
 
 - [Make form on template at html](./templates/rooms/search.html)
 - Receive from template as get request at views.py. [Inside views.py, there are three parts:](./rooms/views.py)
@@ -135,4 +135,8 @@ can be rewritten as
   3. Responds with html template with context variable displayed on html. Wrap with bracket as such {{context_variable}}, or {if context_variable}
 - [Refer to Field Lookups for querying, filtering data](https://docs.djangoproject.com/en/3.0/ref/models/querysets/#field-lookups)
 - Boolean is True, False. change "on" to True with bool()
+
+### Making Forms: Class Based Views
+
+
 
