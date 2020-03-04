@@ -8,6 +8,7 @@ from django.utils import timezone
 # django views, urls modules
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 # my python files
 from . import models, forms
@@ -131,15 +132,25 @@ class SearchView(View):
                 # query rooms from database that matches the filter
                 # https://docs.djangoproject.com/en/2.2/topics/db/queries/#retrieving-specific-objects-with-filters
                 print(filter_args)
-                rooms = models.Room.objects.filter(**filter_args)
+                rooms_qs = models.Room.objects.filter(**filter_args).order_by(
+                    "-created"
+                )
 
                 # YOU WILL SEE REMAINDER OF FILTERED ROOMS QUERYSET
-                print(rooms)
+                print(rooms_qs)
+
+                # Paginating Search Result
+                paginator = Paginator(rooms_qs, 10, orphans=5)
+                page = request.GET.get("page", 1)
+                rooms = paginator.get_page(page)
+
+                return render(
+                    request, "rooms/search.html", {"form": form, "rooms": rooms}
+                )
 
         else:
             # empty form without validation
             form = forms.SearchForm()
 
-        return render(
-            request, "rooms/search.html", context={"form": form, "rooms": rooms}
-        )
+        # precautionary measure when people modify url queries  without using search bar
+        return render(request, "rooms/search.html", context={"form": form})
