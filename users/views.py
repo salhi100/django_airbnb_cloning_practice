@@ -12,6 +12,11 @@ class LoginView(View):
 
     def post(self, request):
         form = forms.LoginForm(request.POST)
-        print(form)
-        pass
+        # print(form)
+
+        # print(form.is_valid())
+        if form.is_valid():
+            # cleaned data is the cleaned result of all fields
+            print(form.cleaned_data)
+        return render(request, "users/login.html", {"form": form})
 
