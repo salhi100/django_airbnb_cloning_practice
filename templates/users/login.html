@@ -12,4 +12,11 @@
 
 Hello
 
+
+<!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
+<form method="POST" action="{%url "users:login" %}">{% csrf_token %}
+    <!-- .as_p is dividing into paragraphs -->
+    {{form.as_p}}
+    <button>Login</button>
+</form>
 {% endblock content%} 
