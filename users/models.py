@@ -5,9 +5,7 @@ from django.db import models
 # Django Model Reference: https://docs.djangoproject.com/en/2.2/ref/models/fields/
 
 
-# AbstractUser is calling Django
-
-
+# Inheriting Django's AbstractUser Class and doing further customization
 class User(AbstractUser):
     """ Custom User Model """
 
