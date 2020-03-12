@@ -1,18 +1,38 @@
 from django.views import View
 from django.shortcuts import render, redirect, reverse
-from . import forms
+
+# https://ccbv.co.uk/projects/Django/3.0/django.views.generic.edit/FormView/
+from django.views.generic import FormView
+
+# reverse_lazy to prevent circular import
+from django.urls import reverse_lazy
 
 # https://docs.djangoproject.com/en/3.0/topics/auth/default/#authenticating-users
 from django.contrib.auth import authenticate, login, logout
 
+# import users app's login forms
+from . import forms
 
-class LoginView(View):
+
+class LoginView(FormView):
+
     """ Login View """
 
-    def get(self, request):
-        form = forms.LoginForm()
-        return render(request, "users/login.html", {"form": form})
+    # Using inherited FormView class instead of LoginView: https://ccbv.co.uk/projects/Django/3.0/django.views.generic.edit/FormView/
+    template_name = "users/login.html"
+    form_class = forms.LoginForm
+    success_url = reverse_lazy("core:home")
 
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(form)
+
+    """
+    # function based view for post request
     def post(self, request):
         form = forms.LoginForm(request.POST)
         # print(form)
@@ -28,9 +48,13 @@ class LoginView(View):
                 login(request, user)
                 return redirect(reverse("core:home"))
         return render(request, "users/login.html", {"form": form})
+    """
 
 
-# https://docs.djangoproject.com/en/3.0/topics/auth/default/#how-to-log-a-user-out
+# Logout function: https://docs.djangoproject.com/en/3.0/topics/auth/default/#how-to-log-a-user-out
 def log_out(request):
     logout(request)
     return redirect(reverse("core:home"))
+
+
+# LogoutView class: https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.LogoutView
