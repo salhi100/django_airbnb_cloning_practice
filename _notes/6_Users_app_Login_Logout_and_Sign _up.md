@@ -39,6 +39,10 @@ https://medium.com/shecodeafrica/understanding-the-mvc-pattern-in-django-edda05b
 
 ![picture](https://miro.medium.com/max/1276/1*pHlF3KufWwX7svv4Mv4Frg.jpeg)
 
+
+
+
+
 # 14 User Log in & Log out
 
 - FormView to replace Django's default class LoginView

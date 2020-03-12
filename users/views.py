@@ -70,3 +70,13 @@ class SignUpView(FormView):
         "email": "honggildong@gmail.com",
     }
 
+    # to see where "form" came from, CMD + Click on FormView inherited class
+    def form_valid(self, form):
+        form.save()
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(form)
+

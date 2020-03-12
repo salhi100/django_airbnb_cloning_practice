@@ -40,6 +40,7 @@ class SignUpForm(forms.Form):
         widget=forms.PasswordInput, label="Confirm Password"
     )
 
+    # clean email data from user, received through template
     def clean_email(self):
         # get cleaned data from template
         email = self.cleaned_data.get("email")
@@ -52,6 +53,7 @@ class SignUpForm(forms.Form):
             # return email to database
             return email
 
+    # cleaning password_again(field for confirmation)
     def clean_password_again(self):
         # get cleaned data from template
         password = self.cleaned_data.get("password")
@@ -62,3 +64,19 @@ class SignUpForm(forms.Form):
         else:
             # return password to database
             return password
+
+    # registering user to the database
+    def save(self):
+        first_name = self.cleaned_data.get("first_name")
+        last_name = self.cleaned_data.get("last_name")
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+
+        # registering encrypted information to database
+        user = models.User.objects.create_user(
+            username=email, email=email, password=password
+        )
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
