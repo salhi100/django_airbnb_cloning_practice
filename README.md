@@ -67,35 +67,11 @@
 
 
 
+## [Notes #6: Users app Login, Logout and Sign up](./_notes/6_Users_app_Login_Logout_and_Sign _up.md)
+
+- 
 
 
-
-
-
-
-# 14 User Log in & Log out
-
-
-
-# 15 Sign Up 
-
-
-
-
-
-# 16 Verify Email
-
-
-
-# 17 Log in with Github
-
-
-
-
-
-
-
-# 18 Kakao Log in
 
 
 

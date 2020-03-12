@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Sign Up
+{% endblock page_title %}
+
+{% comment %} not inheriting search-bar from base.html {% endcomment %}
+{% block search-bar %}
+{% endblock search-bar %}
+
+{% block content %}
+<!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
+<form method="POST" action="{%url "users:signup" %}">{% csrf_token %}
+    <!-- .as_p is dividing into paragraphs -->
+    {{form.as_p}}
+    <button>Sign Up</button>
+</form>
+{% endblock content%} 

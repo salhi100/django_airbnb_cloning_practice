@@ -52,9 +52,21 @@ class LoginView(FormView):
 
 
 # Logout function: https://docs.djangoproject.com/en/3.0/topics/auth/default/#how-to-log-a-user-out
+# LogoutView class: https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.LogoutView
 def log_out(request):
     logout(request)
     return redirect(reverse("core:home"))
 
 
-# LogoutView class: https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.LogoutView
+class SignUpView(FormView):
+    # Using inherited FormView class: https://ccbv.co.uk/projects/Django/3.0/django.views.generic.edit/FormView/
+    template_name = "users/signup.html"
+    form_class = forms.SignUpForm
+    success_url = reverse_lazy("core:home")
+    # intially providing an example to users for signup
+    initial = {
+        "first_name": "Gildong",
+        "last_name": "Hong",
+        "email": "honggildong@gmail.com",
+    }
+

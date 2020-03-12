@@ -139,4 +139,3 @@ can be rewritten as
 ### Making Forms: Class Based Views
 
 - Form makes HTML template for you referencing models.py database fields
-
