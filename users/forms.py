@@ -34,8 +34,10 @@ class LoginForm(forms.Form):
 # https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/#modelform
 class SignUpForm(forms.ModelForm):
     class Meta:
+        # fetch model from User app
         model = models.User
-        fields = ("first_name", "last_name", "email")
+        # INPUT FIELDS FOR THE USERS TO PUT IN WHEN SIGNUP
+        fields = ("first_name", "last_name", "email", "birthdate")
 
     password = forms.CharField(widget=forms.PasswordInput)
     password_again = forms.CharField(
