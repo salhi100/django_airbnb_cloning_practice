@@ -26,8 +26,10 @@ pipenv shell
 
 - Then, setup configuration for the django. 
 
+- **It's okay to use pip inside of virtual environment, but download log of packages won't be recorded on pipfile**
+
 ```shell
-pip install django
+pipenv install django
 django-admin startproject config
 ```
 
@@ -44,7 +46,7 @@ django-admin startproject config
     - If formatter isn't recommended bia VSCode, then commence the following:
 
       ```shell
-       pip install black --dev --pre
+      pipenv install black --dev --pre
       ```
 
   - Selecting linter and formatter for the project is recorded on .vscode/settings.json file

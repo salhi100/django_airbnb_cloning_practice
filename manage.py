@@ -3,6 +3,9 @@
 import os
 import sys
 
+# getting django-dotenv
+import dotenv
+
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
@@ -18,4 +21,6 @@ def main():
 
 
 if __name__ == "__main__":
+    # getting django-dotenv
+    dotenv.read_dotenv()
     main()

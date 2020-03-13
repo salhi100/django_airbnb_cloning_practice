@@ -52,4 +52,11 @@ class User(AbstractUser):
 
     # boolean field is true of false
     superhost = models.BooleanField(default=False)
-    pass
+
+    # email fields added to models.py
+    email_confirmed = models.BooleanField(default=False)
+    # randomly generated numbers for email confirmation
+    email_secret = models.CharField(max_length=120, default="", blank=True)
+
+    def verify_email(self):
+        pass

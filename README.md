@@ -28,7 +28,7 @@
 ## [Notes #1 Initializing a Django Project](./_notes/1_Creating_a_Django_Project.md)
 
 - Making Virtual Environment
-- Installing django
+- Installing django via pipenv.
 - Selecting linter as flake8 and formatter as black
 - SECURITY TIP: HOW TO KEEP SECRET_KEY SAFE
 

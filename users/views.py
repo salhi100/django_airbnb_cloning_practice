@@ -29,6 +29,9 @@ class LoginView(FormView):
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
             login(self.request, user)
+        # getting function from models.py users app, verify user by sending randomly genearated string
+        user.verify_email()
+
         return super().form_valid(form)
 
     """
