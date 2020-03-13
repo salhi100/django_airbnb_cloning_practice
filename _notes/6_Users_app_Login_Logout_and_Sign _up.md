@@ -46,7 +46,6 @@ https://medium.com/shecodeafrica/understanding-the-mvc-pattern-in-django-edda05b
 # 14 User Log in & Log out
 
 - FormView to replace Django's default class LoginView
-- 
 
 # 15 Sign Up 
 
@@ -56,7 +55,9 @@ https://medium.com/shecodeafrica/understanding-the-mvc-pattern-in-django-edda05b
 
 # 16 Verify Email
 
+https://docs.djangoproject.com/en/3.0/topics/email/
 
+http://mailgun.com/
 
 # 17 Log in with Github
 

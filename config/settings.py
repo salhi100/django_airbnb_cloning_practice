@@ -145,3 +145,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # previously, link to image was http://127.0.0.1:8000/admin/rooms/photo/9/change/room_photos/photoname.png
 # now, changing the link to image as http://127.0.0.1:8000/media/photoname.png
 MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
+
+# Email Configuration
+# https://docs.djangoproject.com/en/3.0/topics/email/#quick-example
+
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_PORT = "25"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+
