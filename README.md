@@ -67,7 +67,7 @@
 
 
 
-## [Notes #6: Users app Login, Logout and Sign up](./_notes/6_Users_app_Login_Logout_and_Sign _up.md)
+## [Notes #6: Users app Login, Logout and Sign up](./_notes/6_Users_app_Login_Logout_and_Sign_up.md)
 
 - 
 

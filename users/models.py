@@ -1,9 +1,15 @@
+# importing settings.py file of django project
+from django.conf import settings
+
+# Utilizing Django's AbstractUser class
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
-# Django Model Reference: https://docs.djangoproject.com/en/2.2/ref/models/fields/
+# email verification: https://docs.djangoproject.com/en/3.0/topics/email/#quick-example
+from django.core.mail import send_mail
 
+# random secret key generator for email verification
+import uuid
 
 # Inheriting Django's AbstractUser Class and doing further customization
 class User(AbstractUser):
@@ -54,9 +60,24 @@ class User(AbstractUser):
     superhost = models.BooleanField(default=False)
 
     # email fields added to models.py
+    # emailing with django
     email_confirmed = models.BooleanField(default=False)
     # randomly generated numbers for email confirmation
-    email_secret = models.CharField(max_length=120, default="", blank=True)
+    email_secret = models.CharField(max_length=20, default="", blank=True)
 
+    # email verification method connected with ./views.py
     def verify_email(self):
-        pass
+        if self.email_confirmed is False:
+            # using python random generator uuid library
+            # result is form of tuple, needs to be indexed like list
+            secret = uuid.uuid4().hex[:20]
+            self.email_secret = secret
+            # email contents: check for example https://docs.djangoproject.com/en/3.0/topics/email/#quick-example
+            send_mail(
+                "Verify AirBnB Account",
+                f"This is your secret verification code: {secret}",
+                settings.EMAIL_FROM,
+                [self.email],
+                fail_silently=False,
+            )
+            return

@@ -149,9 +149,10 @@ MEDIA_URL = "/media/"  # "/media" slash / in fronth means absolute
 # Email Configuration
 # https://docs.djangoproject.com/en/3.0/topics/email/#quick-example
 EMAIL_HOST = "smtp.mailgun.org"
-EMAIL_PORT = "25"
+EMAIL_PORT = "587"
 
 # getting system variables from .env
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
 # print(EMAIL_HOST_USER)
+EMAIL_FROM = "no-reply@sandbox4a18e8a1fe614005bccf82e1d6f85b0f.mailgun.org"

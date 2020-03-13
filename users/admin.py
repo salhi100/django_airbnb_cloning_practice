@@ -26,6 +26,7 @@ class CustomUserAdmin(UserAdmin):
                     "language",
                     "currency",
                     "superhost",
+                    "email_confirmed",
                 )
             },
         ),
