@@ -30,28 +30,17 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User Does Not Exists"))
 
 
-class SignUpForm(forms.Form):
-    # providing form fields to views.py -> urls.py -> template
-    first_name = forms.CharField(max_length=80)
-    last_name = forms.CharField(max_length=80)
-    email = forms.EmailField()
+# using ModelForm to reduce repetetive scripting for fields
+# https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/#modelform
+class SignUpForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ("first_name", "last_name", "email")
+
     password = forms.CharField(widget=forms.PasswordInput)
     password_again = forms.CharField(
         widget=forms.PasswordInput, label="Confirm Password"
     )
-
-    # clean email data from user, received through template
-    def clean_email(self):
-        # get cleaned data from template
-        email = self.cleaned_data.get("email")
-        # if finds existing user in database, then raise error
-        try:
-            models.User.objects.get(email=email)
-            raise forms.ValidationError("User already exists")
-        # else, if it doesn't finds user in database, proceed sign up
-        except models.User.DoesNotExist:
-            # return email to database
-            return email
 
     # cleaning password_again(field for confirmation)
     def clean_password_again(self):
@@ -64,6 +53,41 @@ class SignUpForm(forms.Form):
         else:
             # return password to database
             return password
+
+    # ModelForm has save method: https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/#the-save-method
+    def save(self, *args, **kwargs):
+        # Additional interception is taken place with commit=False: create object but don't put it in database
+        user = super().save(commit=False)
+        # email and password from the form
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        # username field of user app
+        user.username = email
+        # hashing password with set_password: https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_password
+        user.set_password(password)
+        user.save()
+
+    """
+    # providing form fields to views.py -> urls.py -> template
+    first_name = forms.CharField(max_length=80)
+    last_name = forms.CharField(max_length=80)
+    email = forms.EmailField()
+    
+
+
+    # clean email data from user, received through template
+    # ModelForm cleans email, so this part is not scripted
+    def clean_email(self):
+        # get cleaned data from template
+        email = self.cleaned_data.get("email")
+        # if finds existing user in database, then raise error
+        try:
+            models.User.objects.get(email=email)
+            raise forms.ValidationError("User already exists")
+        # else, if it doesn't finds user in database, proceed sign up
+        except models.User.DoesNotExist:
+            # return email to database
+            return email
 
     # registering user to the database
     def save(self):
@@ -79,4 +103,7 @@ class SignUpForm(forms.Form):
         user.first_name = first_name
         user.last_name = last_name
         user.save()
+
+
+    """
 

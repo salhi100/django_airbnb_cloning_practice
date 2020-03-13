@@ -43,8 +43,12 @@ class User(AbstractUser):
     # bio = models.TextField(null=True) # Or, empty cell in field is accepted
 
     birthdate = models.DateField(blank=True, null=True)
-    language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
-    currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
+    language = models.CharField(
+        choices=LANGUAGE_CHOICES, max_length=2, blank=True, default=LANGUAGE_ENGLISH
+    )
+    currency = models.CharField(
+        choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_USD
+    )
 
     # boolean field is true of false
     superhost = models.BooleanField(default=False)
