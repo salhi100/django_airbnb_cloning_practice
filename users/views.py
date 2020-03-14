@@ -23,6 +23,7 @@ class LoginView(FormView):
     form_class = forms.LoginForm
     success_url = reverse_lazy("core:home")
 
+    # if login form is valid, proceed to LoginForm at forms.py
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
@@ -71,6 +72,7 @@ class SignUpView(FormView):
     }
 
     # to see where "form" came from, CMD + Click on FormView inherited class
+    # if Sign up form is valid, proceed to SignUpForm at forms.py
     def form_valid(self, form):
         form.save()
         email = form.cleaned_data.get("email")
