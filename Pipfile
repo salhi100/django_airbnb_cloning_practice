@@ -11,6 +11,7 @@ black = "*"
 django = ">=2.2.9"
 pillow = "*"
 django-countries = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

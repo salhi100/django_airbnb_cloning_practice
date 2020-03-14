@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 # import users app's login forms and models
 from . import forms, models
 import os
+import requests
 
 
 class LoginView(FormView):
@@ -112,11 +113,26 @@ def github_login(request):
     client_id = os.environ.get("GITHUB_ID")
     redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
     # get request to github: https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#1-request-a-users-github-identity
-    # my scope of user action: https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
+    # check for parameter arguments like scope of user action: https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
     return redirect(
         f"https://github.com/login/oauth/authorize?client_id={client_id}&{redirect_uri}&scope=read:user"
     )
 
 
 def github_callback(request):
-    pass
+    client_id = os.environ.get("GITHUB_ID")
+    client_secret = os.environ.get("GITHUB_SECRET")
+    # print(request.GET)
+    # <QueryDict: {'code': ['123921039102adf']}>
+    github_callback_code = request.GET.get("code")
+    if github_callback_code is not None:
+        # post request to github api
+        # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github
+        request_to_github_api = requests.post(
+            f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={github_callback_code}",
+            # getting response which is in json format
+            headers={"Accept": "application/json"},
+        )
+        print(request_to_github_api.json())
+    else:
+        return redirect(reverse("core:home"))

@@ -41,6 +41,17 @@ class User(AbstractUser):
 
     CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
 
+    # Three types of (user registration -> account verification -> login)
+    LOGIN_EMAIL = "email"
+    LOGIN_GITHUB = "github"
+    LOGIN_KAKAO = "kakao"
+
+    LOGIN_METHOD = (
+        (LOGIN_EMAIL, "Email"),
+        (LOGIN_GITHUB, "Github"),
+        (LOGIN_KAKAO, "Kakao"),
+    )
+
     # null is for the database, and blank is for forms on website
     # null means "empty values are acceptable", and blank also means the same.
     avatar = models.ImageField(
@@ -66,11 +77,17 @@ class User(AbstractUser):
     # boolean field is true of false
     superhost = models.BooleanField(default=False)
 
+    # three types of verification method(email, kakao, github) added on database
+    login_method = models.CharField(
+        max_length=50, choices=LOGIN_METHOD, default=LOGIN_EMAIL
+    )
+
     # email fields added to models.py
     # emailing with django
     email_confirmed = models.BooleanField(default=False)
     # randomly generated numbers for email confirmation
     email_verification_key = models.CharField(max_length=20, default="", blank=True)
+
     # ------------------- end of the database fields -------------------------------
 
     # email verification method connected with ./views.py
