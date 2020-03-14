@@ -154,5 +154,5 @@ EMAIL_PORT = "587"
 # getting system variables from .env
 EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
-# print(EMAIL_HOST_USER)
-EMAIL_FROM = "no-reply@sandbox4a18e8a1fe614005bccf82e1d6f85b0f.mailgun.org"
+# print(EMAIL_HOST_PASSWORD)
+EMAIL_FROM = "no-reply@sandbox969376d0bd8e48d69ed51fc305cdd23d.mailgun.org"
