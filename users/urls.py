@@ -8,6 +8,8 @@ app_name = "users"
 urlpatterns = [
     # importing Class based views from ./views.py
     path("login", views.LoginView.as_view(), name="login"),
+    path("login/github", views.github_login, name="github-login"),
+    path("login/github/callback", views.github_callback, name="github-callback"),
     path("signup", views.SignUpView.as_view(), name="signup"),
     # importing function based views from ./views.py
     path("logout", views.log_out, name="logout"),

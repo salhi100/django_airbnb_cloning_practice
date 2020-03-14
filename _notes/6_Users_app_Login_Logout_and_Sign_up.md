@@ -61,9 +61,26 @@ http://mailgun.com/
 
 # 17 Log in with Github
 
+- Github OAuth Documentation
+  https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
+- Using Github OAuth
+  https://github.com/settings/developers
+  - Users are redirected to request their GitHub identity
+  - Users are redirected back to your site by GitHub
+  - Your app accesses the API with the user's access token
 
+![Screen Shot 2020-03-15 at 1.18.01 AM](Screen Shot 2020-03-15 at 1.18.01 AM.png)
 
+- views.py is redirecting to GitHub.
+  "Authorization callback URL" is where github redirects to our webpage after authentification is completed at Github
 
+- Refer to urls.py (router) for callback url
+
+  ```
+  http://127.0.0.1:8000/users/login/github/callback
+  ```
+
+  
 
 
 

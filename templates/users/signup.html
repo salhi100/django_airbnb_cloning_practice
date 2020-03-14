@@ -9,10 +9,13 @@
 {% endblock search-bar %}
 
 {% block content %}
-<!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
-<form method="POST" action="{%url "users:signup" %}">{% csrf_token %}
-    <!-- .as_p is dividing into paragraphs -->
-    {{form.as_p}}
-    <button>Sign Up</button>
-</form>
+
+    {% include "partials/social_login.html" %}
+    
+    <!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
+    <form method="POST" action="{%url "users:signup" %}">{% csrf_token %}
+        <!-- .as_p is dividing into paragraphs -->
+        {{form.as_p}}
+        <button>Sign Up</button>
+    </form>
 {% endblock content%} 

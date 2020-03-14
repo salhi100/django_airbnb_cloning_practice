@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 
 # import users app's login forms and models
 from . import forms, models
+import os
 
 
 class LoginView(FormView):
@@ -104,3 +105,18 @@ def complete_verification(request, verification_key):
         pass
     # redirecting to home when successful
     return redirect(reverse("core:home"))
+
+
+# https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
+def github_login(request):
+    client_id = os.environ.get("GITHUB_ID")
+    redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
+    # get request to github: https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#1-request-a-users-github-identity
+    # my scope of user action: https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
+    return redirect(
+        f"https://github.com/login/oauth/authorize?client_id={client_id}&{redirect_uri}&scope=read:user"
+    )
+
+
+def github_callback(request):
+    pass
