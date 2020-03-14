@@ -15,7 +15,7 @@ from django.utils.html import strip_tags
 # import html from templates folder, render it to use as string
 from django.template.loader import render_to_string
 
-# random secret key generator for email verification
+# random verification_key generator for email verification
 import uuid
 
 # Inheriting Django's AbstractUser Class and doing further customization
@@ -70,22 +70,23 @@ class User(AbstractUser):
     # emailing with django
     email_confirmed = models.BooleanField(default=False)
     # randomly generated numbers for email confirmation
-    email_secret = models.CharField(max_length=20, default="", blank=True)
-
+    email_verification_key = models.CharField(max_length=20, default="", blank=True)
     # ------------------- end of the database fields -------------------------------
 
     # email verification method connected with ./views.py
     def verify_email(self):
         if self.email_confirmed is False:
-            # using python random generator uuid library
+            # using python random generator uuid library, generate random verification key
             # result is form of tuple, needs to be indexed like list
-            secret = uuid.uuid4().hex[:20]
-            self.email_secret = secret
+            verification_key = uuid.uuid4().hex[:20]
+            # save random verification key to the field
+            self.email_verification_key = verification_key
             # importing html message from static template, render it to string and use it to send_mail
             html_message = render_to_string(
-                "emails/verify_email.html", context={"secret": secret}
+                "emails/verify_email.html",
+                context={"verification_key": verification_key},
             )
-            # check django's send_email function's example https://docs.djangoproject.com/en/3.0/topics/email/#quick-example
+            # send email using django's send_email function: https://docs.djangoproject.com/en/3.0/topics/email/#quick-example
             # for specific arguments for the function, refer here: https://docs.djangoproject.com/en/3.0/topics/email/#send-mail
             send_mail(
                 # email title
@@ -101,4 +102,6 @@ class User(AbstractUser):
                 # html
                 html_message=html_message,
             )
+            # saving verification_key to user's email_verification_key field
+            self.save()
             return

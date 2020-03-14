@@ -10,8 +10,8 @@ from django.urls import reverse_lazy
 # https://docs.djangoproject.com/en/3.0/topics/auth/default/#authenticating-users
 from django.contrib.auth import authenticate, login, logout
 
-# import users app's login forms
-from . import forms
+# import users app's login forms and models
+from . import forms, models
 
 
 class LoginView(FormView):
@@ -84,3 +84,23 @@ class SignUpView(FormView):
         user.verify_email()
         return super().form_valid(form)
 
+
+# completing verification process when user clicks href at his/her email
+def complete_verification(request, verification_key):
+    print(verification_key)
+    # if designated verification key matches verification key given through views.py, proceed.
+    try:
+        # get queryset matching designated random email verification key from models.py
+        user = models.User.objects.get(email_verification_key=verification_key)
+        # changing a single user queryset object's boolean field email_confirmed from False to True
+        user.email_confirmed = True
+        # since user is verified, empty a single user queryset object's email_verification charfield.
+        user.email_verification_key = ""
+        # save information on database
+        user.save()
+    # if designated verification key does not match verification key given through views.py, raise error.
+    except models.User.DoesNotExist:
+        # to do : add error message
+        pass
+    # redirecting to home when successful
+    return redirect(reverse("core:home"))

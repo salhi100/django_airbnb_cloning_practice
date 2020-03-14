@@ -43,6 +43,8 @@ class CustomUserAdmin(UserAdmin):
         "first_name",
         "last_name",
         "email",
+        "email_confirmed",
+        "email_verification_key",
         "is_active",
         "language",
         "currency",
