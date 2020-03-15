@@ -133,6 +133,44 @@ def github_callback(request):
             # getting response which is in json format
             headers={"Accept": "application/json"},
         )
-        print(request_to_github_api.json())
+        response_json = request_to_github_api.json()
+        error = response_json.get("error", None)  # default=None
+        if error is not None:
+            return redirect(reverse("core:home"))
+        else:
+            # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#3-use-the-access-token-to-access-the-api
+            access_token = response_json.get("access_token")
+            profile_request = requests.get(
+                "https://api.github.com/user",
+                headers={
+                    "Authorization": f"token {access_token}",
+                    "Accept": "application/json",
+                },
+            )
+            profile_info_json = profile_request.json()
+            username = profile_info_json.get("login", None)
+            # if user exists, get name, email and bio information
+            if username is not None:
+                name = profile_info_json.get("name")
+                email = profile_info_json.get("email")
+                bio = profile_info_json.get("bio")
+                # lookup user information on database
+                user_in_db = models.User.objects.get(email=email)
+                # if there is user in database == email received from github,
+                if user_in_db is not None:
+                    # proceed to login
+                    return redirect(reverse("users:login"))
+                else:
+                    # create queryset object in database with username, first_name, bio, email fields
+                    user_in_db = models.User.objects.create(
+                        username=email, first_name=name, bio=bio, email=email
+                    )
+                    # login user
+                    login(request, user_in_db)
+                    # redirect to home
+                    return redirect(reverse("core:home"))
+            # if user does not exist, redirect to login panel
+            else:
+                return redirect(reverse("users:login"))
     else:
         return redirect(reverse("core:home"))
