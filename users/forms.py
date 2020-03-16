@@ -1,6 +1,9 @@
 from django import forms
 from . import models
 
+# UserCreationForm: https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.forms.UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
+
 
 class LoginForm(forms.Form):
 
@@ -30,9 +33,25 @@ class LoginForm(forms.Form):
             self.add_error("email", forms.ValidationError("User Does Not Exists"))
 
 
+# using UserCreationForm to simplify sign up form page & to use built-in password validator
+# UserCreationForm: https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.forms.UserCreationForm
+# django.contrib.auth's password_validation is a function in UserCreationForm clas
+class SignUpForm(UserCreationForm):
+    # class Meta puts model's field on forms
+    class Meta:
+        # fetch model from User app
+        model = models.User
+        # INPUT FIELDS FOR THE USERS TO PUT IN WHEN SIGNUP
+        fields = ("first_name", "last_name", "birthdate")
+
+    username = forms.EmailField(label="Email")
+
+
+"""
 # using ModelForm to reduce repetetive scripting for fields
 # https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/#modelform
 class SignUpForm(forms.ModelForm):
+    # class Meta puts model's field on forms
     class Meta:
         # fetch model from User app
         model = models.User
@@ -68,8 +87,9 @@ class SignUpForm(forms.ModelForm):
         # hashing password with set_password: https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_password
         user.set_password(password)
         user.save()
+"""
 
-    """
+"""
     # providing form fields to views.py -> urls.py -> template
     first_name = forms.CharField(max_length=80)
     last_name = forms.CharField(max_length=80)
@@ -107,5 +127,5 @@ class SignUpForm(forms.ModelForm):
         user.save()
 
 
-    """
+"""
 
