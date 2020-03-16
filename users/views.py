@@ -115,62 +115,79 @@ def github_login(request):
     # get request to github: https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#1-request-a-users-github-identity
     # check for parameter arguments like scope of user action: https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
     return redirect(
-        f"https://github.com/login/oauth/authorize?client_id={client_id}&{redirect_uri}&scope=read:user"
+        f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
     )
 
 
+# replacing if -> return redirect(reverse("core:home"))
+class GithubException(Exception):
+    pass
+
+
 def github_callback(request):
-    client_id = os.environ.get("GITHUB_ID")
-    client_secret = os.environ.get("GITHUB_SECRET")
-    # print(request.GET)
-    # <QueryDict: {'code': ['123921039102adf']}>
-    github_callback_code = request.GET.get("code")
-    if github_callback_code is not None:
-        # post request to github api
-        # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github
-        request_to_github_api = requests.post(
-            f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={github_callback_code}",
-            # getting response which is in json format
-            headers={"Accept": "application/json"},
-        )
-        response_json = request_to_github_api.json()
-        error = response_json.get("error", None)  # default=None
-        if error is not None:
-            return redirect(reverse("core:home"))
-        else:
-            # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#3-use-the-access-token-to-access-the-api
-            access_token = response_json.get("access_token")
-            profile_request = requests.get(
-                "https://api.github.com/user",
-                headers={
-                    "Authorization": f"token {access_token}",
-                    "Accept": "application/json",
-                },
+    try:
+        client_id = os.environ.get("GITHUB_ID")
+        client_secret = os.environ.get("GITHUB_SECRET")
+        # print(request.GET)
+        # <QueryDict: {'code': ['123921039102adf']}>
+        github_callback_code = request.GET.get("code")
+        if github_callback_code is not None:
+            # post request to github api
+            # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github
+            request_to_github_api = requests.post(
+                f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={github_callback_code}",
+                # getting response which is in json format
+                headers={"Accept": "application/json"},
             )
-            profile_info_json = profile_request.json()
-            username = profile_info_json.get("login", None)
-            # if user exists, get name, email and bio information
-            if username is not None:
-                name = profile_info_json.get("name")
-                email = profile_info_json.get("email")
-                bio = profile_info_json.get("bio")
-                # lookup user information on database
-                user_in_db = models.User.objects.get(email=email)
-                # if there is user in database == email received from github,
-                if user_in_db is not None:
-                    # proceed to login
-                    return redirect(reverse("users:login"))
-                else:
-                    # create queryset object in database with username, first_name, bio, email fields
-                    user_in_db = models.User.objects.create(
-                        username=email, first_name=name, bio=bio, email=email
-                    )
-                    # login user
-                    login(request, user_in_db)
-                    # redirect to home
-                    return redirect(reverse("core:home"))
-            # if user does not exist, redirect to login panel
+            # accepting json response from github
+            response_json = request_to_github_api.json()
+            error = response_json.get("error", None)  # default=None
+            if error is not None:
+                # return redirect(reverse("core:home"))
+                raise GithubException()
             else:
-                return redirect(reverse("users:login"))
-    else:
-        return redirect(reverse("core:home"))
+                # requesting to github api
+                # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#3-use-the-access-token-to-access-the-api
+                access_token = response_json.get("access_token")
+                profile_request = requests.get(
+                    "https://api.github.com/user",
+                    headers={
+                        "Authorization": f"token {access_token}",
+                        "Accept": "application/json",
+                    },
+                )
+                # response from github api: profile information
+                profile_info_json = profile_request.json()
+                username = profile_info_json.get("login", None)
+                # if user exists, get name, email and bio information
+                if username is not None:
+                    name = profile_info_json.get("name")
+                    email = profile_info_json.get("email")
+                    bio = profile_info_json.get("bio")
+                    # lookup user information on database
+                    user_in_db = models.User.objects.get(email=email)
+                    # if there is user in database == email received from github,
+                    """
+                    if user_in_db is not None:
+                        # proceed to login
+                        return redirect(reverse("users:login"))
+                    else:
+                        # create queryset object in database with username, first_name, bio, email fields
+                        user_in_db = models.User.objects.create(
+                            username=email, first_name=name, bio=bio, email=email
+                        )
+                        # login user
+                        login(request, user_in_db)
+                        # redirect to home
+                        return redirect(reverse("core:home"))
+                    """
+                # if user does not exist in github api response, redirect to login panel
+                else:
+                    # return redirect(reverse("users:login"))
+                    raise GithubException()
+        else:
+            # return redirect(reverse("core:home"))
+            raise GithubException()
+    # whatever error happens, redirect to login panel
+    except GithubException:
+        return redirect(reverse("users:login"))
