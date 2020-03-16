@@ -119,13 +119,15 @@ def github_login(request):
     )
 
 
-# replacing if -> return redirect(reverse("core:home"))
+# action encountering github exception is descriped at the end of github_callback()
+# replacing return redirect(reverse("core:home"))
 class GithubException(Exception):
     pass
 
 
 def github_callback(request):
     try:
+        # id and password to request to github
         client_id = os.environ.get("GITHUB_ID")
         client_secret = os.environ.get("GITHUB_SECRET")
         # print(request.GET)
@@ -158,35 +160,52 @@ def github_callback(request):
                 )
                 # response from github api: profile information
                 profile_info_json = profile_request.json()
-                username = profile_info_json.get("login", None)
-                # if user exists, get name, email and bio information
-                if username is not None:
-                    name = profile_info_json.get("name")
-                    email = profile_info_json.get("email")
-                    bio = profile_info_json.get("bio")
-                    # lookup user information on database
-                    user_in_db = models.User.objects.get(email=email)
-                    # if there is user in database == email received from github,
-                    """
-                    if user_in_db is not None:
-                        # proceed to login
-                        return redirect(reverse("users:login"))
-                    else:
-                        # create queryset object in database with username, first_name, bio, email fields
-                        user_in_db = models.User.objects.create(
-                            username=email, first_name=name, bio=bio, email=email
+                github_username = profile_info_json.get("login", None)
+
+                # if user is validated from github api then get name, email and bio information
+                if github_username is not None:
+                    github_name = profile_info_json.get("name")
+                    github_email = profile_info_json.get("email")
+                    github_bio = profile_info_json.get("bio")
+
+                    # if there is user in database == email received from github, login the user
+                    try:
+                        # lookup user information on database
+                        user_in_db = models.User.objects.get(email=github_email)
+                        # if user's registered method isn't github
+                        if (
+                            user_in_db.register_login_method
+                            != models.User.REGISTER_LOGIN_GITHUB
+                        ):
+                            # user didn't registered in github, but trying to log in to github -> raise error
+                            raise GithubException()
+                        else:
+                            # proceed log in with github method
+                            # login user at the end of the day
+                            login(request, user_in_db)
+
+                    # if user does not exist in database, register the user
+                    except models.User.DoesNotExist:
+                        # create queryset object in database with username, first_name, bio, email, register_login_method fields
+                        new_user_to_db = models.User.objects.create(
+                            username=github_email,
+                            first_name=github_name,
+                            bio=github_bio,
+                            email=github_email,
+                            register_login_method=models.User.REGISTER_LOGIN_GITHUB,
                         )
-                        # login user
-                        login(request, user_in_db)
-                        # redirect to home
-                        return redirect(reverse("core:home"))
-                    """
+                        # https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_unusable_password
+                        new_user_to_db.set_unusable_password()
+                        new_user_to_db.save()
+                        login(request, new_user_to_db)
+
+                    # redirect to home at the end of the day
+                    return redirect(reverse("core:home"))
+
                 # if user does not exist in github api response, redirect to login panel
                 else:
-                    # return redirect(reverse("users:login"))
                     raise GithubException()
         else:
-            # return redirect(reverse("core:home"))
             raise GithubException()
     # whatever error happens, redirect to login panel
     except GithubException:

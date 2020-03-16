@@ -42,14 +42,14 @@ class User(AbstractUser):
     CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
 
     # Three types of (user registration -> account verification -> login)
-    LOGIN_EMAIL = "email"
-    LOGIN_GITHUB = "github"
-    LOGIN_KAKAO = "kakao"
+    REGISTER_LOGIN_EMAIL = "email"
+    REGISTER_LOGIN_GITHUB = "github"
+    REGISTER_LOGIN_KAKAO = "kakao"
 
-    LOGIN_METHOD = (
-        (LOGIN_EMAIL, "Email"),
-        (LOGIN_GITHUB, "Github"),
-        (LOGIN_KAKAO, "Kakao"),
+    REGISTER_LOGIN_METHOD = (
+        (REGISTER_LOGIN_EMAIL, "Email"),
+        (REGISTER_LOGIN_GITHUB, "Github"),
+        (REGISTER_LOGIN_KAKAO, "Kakao"),
     )
 
     # null is for the database, and blank is for forms on website
@@ -78,8 +78,8 @@ class User(AbstractUser):
     superhost = models.BooleanField(default=False)
 
     # three types of verification method(email, kakao, github) added on database
-    login_method = models.CharField(
-        max_length=50, choices=LOGIN_METHOD, default=LOGIN_EMAIL
+    register_login_method = models.CharField(
+        max_length=50, choices=REGISTER_LOGIN_METHOD, default=REGISTER_LOGIN_EMAIL
     )
 
     # email fields added to models.py
