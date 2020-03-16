@@ -193,6 +193,7 @@ def github_callback(request):
                             bio=github_bio,
                             email=github_email,
                             register_login_method=models.User.REGISTER_LOGIN_GITHUB,
+                            email_confirmed=True,
                         )
                         # https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_unusable_password
                         new_user_to_db.set_unusable_password()
@@ -222,7 +223,7 @@ def kakao_login(request):
     )
 
 
-class KakaoException:
+class KakaoException(Exception):
     pass
 
 
@@ -230,10 +231,52 @@ class KakaoException:
 def kakao_callback(request):
     try:
         app_rest_api_key = os.environ.get("KAKAO_REST_API_KEY")
+        redirect_uri = "http://127.0.0.1:8000/users/login/kakao/callback"
         user_token = request.GET.get("code")
         # post request
         token_request = requests.get(
-            f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={app_rest_api_key}'"
+            f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={app_rest_api_key}&redirect_uri={redirect_uri}&code={user_token}"
         )
+
+        token_response_json = token_request.json()
+        error = token_response_json.get("error", None)
+        # if there is an error from token_request
+        if error is not None:
+            raise KakaoException()
+        access_token = token_response_json.get("access_token")
+        profile_request = requests.get(
+            "https://kapi.kakao.com/v2/user/me",
+            headers={"Authorization": f"Bearer {access_token}"},
+        )
+        profile_json = profile_request.json()
+        # print(profile_json)
+        # parsing profile json
+        kakao_account = profile_json.get("kakao_account")
+        email = kakao_account.get("email", None)
+        if email is None:
+            raise KakaoException()
+        profile = kakao_account.get("profile")
+        nickname = profile.get("nickname")
+        profile_image_url = profile.get("profile_image_url")
+        try:
+            user_in_db = models.User.objects.get(email=email)
+            if user_in_db.register_login_method != models.User.REGISTER_LOGIN_KAKAO:
+                raise KakaoException()
+            else:
+                login(request, user_in_db)
+        except models.User.DoesNotExist:
+            new_user_to_db = models.User.objects.create(
+                username=email,
+                email=email,
+                first_name=nickname,
+                register_login_method=models.User.REGISTER_LOGIN_KAKAO,
+                email_confirmed=True,
+            )
+            # https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_unusable_password
+            new_user_to_db.set_unusable_password()
+            new_user_to_db.save()
+            # after user is saved to db, login the user
+            login(request, new_user_to_db)
+        return redirect(reverse("core:home"))
     except KakaoException:
         return redirect(reverse("users:login"))
