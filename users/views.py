@@ -197,6 +197,7 @@ def github_callback(request):
                         # https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_unusable_password
                         new_user_to_db.set_unusable_password()
                         new_user_to_db.save()
+                        # after user is saved to db, login the user
                         login(request, new_user_to_db)
 
                     # redirect to home at the end of the day
@@ -209,4 +210,30 @@ def github_callback(request):
             raise GithubException()
     # whatever error happens, redirect to login panel
     except GithubException:
+        return redirect(reverse("users:login"))
+
+
+# https://developers.kakao.com/docs/restapi/user-management
+def kakao_login(request):
+    app_rest_api_key = os.environ.get("KAKAO_REST_API_KEY")
+    redirect_uri = "http://127.0.0.1:8000/users/login/kakao/callback"
+    return redirect(
+        f"https://kauth.kakao.com/oauth/authorize?client_id={app_rest_api_key}&redirect_uri={redirect_uri}&response_type=code"
+    )
+
+
+class KakaoException:
+    pass
+
+
+# https://developers.kakao.com/docs/restapi/user-management
+def kakao_callback(request):
+    try:
+        app_rest_api_key = os.environ.get("KAKAO_REST_API_KEY")
+        user_token = request.GET.get("code")
+        # post request
+        token_request = requests.get(
+            f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={app_rest_api_key}'"
+        )
+    except KakaoException:
         return redirect(reverse("users:login"))

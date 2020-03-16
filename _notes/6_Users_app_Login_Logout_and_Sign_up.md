@@ -82,9 +82,11 @@ http://mailgun.com/
 
   
 
-
-
 # 18 Kakao Log in
 
+https://developers.kakao.com/apps/409832/settings/user
 
+![image-20200316212523408](image-20200316212523408.png)
+
+![image-20200316212543040](image-20200316212543040.png)
 
