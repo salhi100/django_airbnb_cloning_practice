@@ -15,6 +15,9 @@ from . import forms, models
 import os
 import requests
 
+# getting raw content for saving photo to db from url
+from django.core.files.base import ContentFile
+
 
 class LoginView(FormView):
 
@@ -275,6 +278,13 @@ def kakao_callback(request):
             # https://docs.djangoproject.com/en/3.0/ref/contrib/auth/#django.contrib.auth.models.User.set_unusable_password
             new_user_to_db.set_unusable_password()
             new_user_to_db.save()
+            if profile_image_url is not None:
+                photo_request = requests.get(profile_image_url)
+                # saving file: https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.fields.files.FieldFile.save
+                # photo_request.content is bytes -> changed into Raw File by ContentFile
+                new_user_to_db.avatar.save(
+                    f"{nickname}-avatar", ContentFile(photo_request.content)
+                )
             # after user is saved to db, login the user
             login(request, new_user_to_db)
         return redirect(reverse("core:home"))
