@@ -136,21 +136,21 @@ def github_callback(request):
         if github_callback_code is not None:
             # post request to github api
             # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#2-users-are-redirected-back-to-your-site-by-github
-            request_to_github_api = requests.post(
+            token_request_to_github = requests.post(
                 f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={github_callback_code}",
                 # getting response which is in json format
                 headers={"Accept": "application/json"},
             )
             # accepting json response from github
-            response_json = request_to_github_api.json()
-            error = response_json.get("error", None)  # default=None
+            token_response_json = token_request_to_github.json()
+            error = token_response_json.get("error", None)  # default=None
             if error is not None:
                 # return redirect(reverse("core:home"))
                 raise GithubException()
             else:
                 # requesting to github api
                 # https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#3-use-the-access-token-to-access-the-api
-                access_token = response_json.get("access_token")
+                access_token = token_response_json.get("access_token")
                 profile_request = requests.get(
                     "https://api.github.com/user",
                     headers={
