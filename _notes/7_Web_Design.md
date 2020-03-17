@@ -11,6 +11,8 @@
 
 ### [Check gulp project for details of dependencies](https://github.com/snoop2head/gulp-gulp-gulp)
 
+Unlike previous gulp-gulp-gulp project, we do not utilize babel nor yarn for this project
+
 ```shell
 npm init
 npm install gulp gulp-postcss gulp-sass gulp-csso node-sass auto-prefixer -D
@@ -40,7 +42,19 @@ npx tailwindcss init
   npm run css
   ```
 
+### Integrating css information to HTML
 
+- static path: http://127.0.0.1:8000/static/css/styles.css
+
+- loading static path to html: replacing http://127.0.0.1:8000/static to tag {static}
+
+  ```html
+  {% load static %}
+  
+  <link rel="stylesheet" href="{% static "css/styles.css" %}">
+  ```
+
+  
 
 ## 20 Design
 

@@ -133,6 +133,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = "/static/"
+# adding path for static files as http://127.0.0.1:8000/static/css/styles.css
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#substituting-a-custom-user-model
 AUTH_USER_MODEL = "users.User"
