@@ -77,16 +77,6 @@
 
 
 
-# 19 Intro to Tailwind CSS
-
-
-
-
-
-
-
-# 20 Design
-
 
 
 

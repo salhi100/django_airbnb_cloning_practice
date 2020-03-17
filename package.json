@@ -1,0 +1,27 @@
+{
+  "name": "django-airbnb-clone",
+  "version": "1.0.0",
+  "description": "- My purpose is to make website for fitcuration: exercise recommendation system.  - While taking Nomad Coders lectures, I don't recommend rewinding back. [Instead, I recommend you to refer to the final result.](https://github.com/nomadcoders/airbnb-clone)    - First, Code with the instructor.   - Second, Make your project    - Summary is important, but is low priority. When multitasking(phone call), summarize github log for your future self.",
+  "main": "index.js",
+  "scripts": {
+    "css": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snoop2head/django_airbnb_cloning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/snoop2head/django_airbnb_cloning#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1",
+    "tailwindcss": "^1.2.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.7.4"
+  }
+}
