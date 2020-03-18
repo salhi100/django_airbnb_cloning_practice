@@ -3,8 +3,12 @@
 {% block page_title %} Home {% endblock page_title %}
 
 {% block content %}
+    <!-- center block of home -->
+    <!-- https://tailwindcss.com/docs/background-position : background cover image positioning-->
+    <div class ="container rounded-xl mx-auto mt-32 mb-24 bg-gray-800 h-50vh bg-cover bg-center" style="background-image:url(https://images.unsplash.com/photo-1517166988974-5e377975dd67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2242&q=80)">
 
-{{now}}
+    </div>
+
     {% for room in rooms %}
         <h5>
             <a href="{% url "rooms:detail" room.pk %}"> {{room.name}} / ${{room.price}} </a>
