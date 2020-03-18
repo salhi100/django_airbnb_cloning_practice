@@ -1,13 +1,16 @@
-<a href="{% url "core:home"%}"> AirBnB</a>
-<ul>
+<!-- https://tailwindcss.com/docs/flex -->
+<!-- https://tailwindcss.com/docs/align-items for items-center -->
+<!-- https://tailwindcss.com/docs/font-size & https://tailwindcss.com/docs/font-weight -->
+<ul class ="flex items-center text-sm font-medium">
     <!-- context proecessor that adds information to templates: https://docs.djangoproject.com/en/3.0/ref/templates/api/#using-requestcontext -->
     <!-- context processor gets cookie and puts in template -->
     <!-- is_authenticated: https://docs.djangoproject.com/en/3.0/topics/auth/default/#authentication-in-web-requests -->
     {% if user.is_authenticated %}
-        <li><a href="{% url "users:logout" %}">Log Out</a></li>
+        <!-- https://tailwindcss.com/docs/margin : margin left is ml -->
+        <li class ="ml-8"><a href="{% url "users:logout" %}">Log Out</a></li>
     {% else %}
-        <li><a href="{% url "users:login" %}">Login</a></li>
-        <li><a href="{% url "users:signup" %}">Sign up</a></li>
+        <li class ="ml-8"><a href="{% url "users:login" %}">Login</a></li>
+        <li class ="ml-8"><a href="{% url "users:signup" %}">Sign up</a></li>
     {% endif %}
 
 </ul>

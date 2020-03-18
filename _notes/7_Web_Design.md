@@ -42,7 +42,7 @@ npx tailwindcss init
   npm run css
   ```
 
-### Integrating css information to HTML
+### Integrating css to HTML
 
 - static path: http://127.0.0.1:8000/static/css/styles.css
 
@@ -54,7 +54,14 @@ npx tailwindcss init
   <link rel="stylesheet" href="{% static "css/styles.css" %}">
   ```
 
-  
+- 템플릿 태그를 위한 extension을 말하는 거라면 'jinja' 쓰시면 됩니다!
+
+- CSS is already done by tailwind css at styles.css
+
+- Call tailwind css by using class="tailwind-css-classname" 
+  [Refer tailwind css document for classnames](https://tailwindcss.com/docs/border-color)
+
+- 
 
 ## 20 Design
 
