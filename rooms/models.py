@@ -162,4 +162,13 @@ class Room(core_models.TimeStampedModel):
             return round(all_ratings / len(all_reviews), 2)
         return 0
 
+    def representing_photo(self):
+        # queryset
+        # print(self.photos.all()[:1])
+
+        # pythonic way of assembling values into list
+        (photo,) = self.photos.all()[:1]
+        # print(photo.file.url)
+        return photo.file.url
+
     pass

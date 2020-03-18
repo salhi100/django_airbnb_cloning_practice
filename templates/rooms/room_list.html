@@ -1,38 +1,49 @@
+<!-- cloning webpage: https://www.airbnb.com/?logo=1 -->
+
 {% extends "base.html" %}
 
 {% block page_title %} Home {% endblock page_title %}
 
 {% block content %}
-    <!-- center block of home -->
-    <!-- https://tailwindcss.com/docs/background-position : background cover image positioning-->
-    <div class ="container rounded-xl mx-auto mt-32 mb-24 bg-gray-800 h-50vh bg-cover bg-center" style="background-image:url(https://images.unsplash.com/photo-1517166988974-5e377975dd67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2242&q=80)">
 
-    </div>
+    <!-- container in accordance with adjusted user's windows -->
+    <div class="container mx-auto">
 
-    {% for room in rooms %}
-        <h5>
-            <a href="{% url "rooms:detail" room.pk %}"> {{room.name}} / ${{room.price}} </a>
-        </h5>
-    {% endfor %}
-
+        <!-- center block of home -->
+        <!-- https://tailwindcss.com/docs/background-position : background cover image positioning-->
+        <div class ="container rounded-xl mx-auto mt-32 mb-24 bg-gray-800 h-50vh bg-cover bg-center" style="background-image:url(https://images.unsplash.com/photo-1517166988974-5e377975dd67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2242&q=80)">
+        </div>
         
-    <h5>
-    {% comment %} 
-    Django static template simple logic stuffs like page + 1 
-    https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#built-in-filter-reference 
-    {% endcomment %}
-    
+        <!-- negative x-axis margin https://tailwindcss.com/docs/margin -->
+        <div class="flex flex-wrap -mx-12 ">
+        <!-- importing room_cards partials html file -->
+        {% for room in rooms %}
+            {% include "partials/room_cards.html"%}
+        {% endfor %}
+        </div>
+            
+        <h5>
+            {% comment %} 
+            Django static template simple logic stuffs like page + 1 
+            https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#built-in-filter-reference 
+            {% endcomment %}
+            
 
-    {% comment %} https://docs.djangoproject.com/en/3.0/ref/paginator/#id1 {% endcomment %}
-    {% if page_obj.has_previous %}
-        <a href="?page={{page_obj.previous_page_number}}">Previous</a>
-    {% endif %}
+            {% comment %} https://docs.djangoproject.com/en/3.0/ref/paginator/#id1 {% endcomment %}
+            {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}">Previous</a>
+            {% endif %}
+            
+            Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}">Next</a>
+            {% endif %}    
+        </h5>
+        
+    </div>
     
-    Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
-    
-    {% if page_obj.has_next %}
-        <a href="?page={{page_obj.next_page_number}}">Next</a>
-    {% endif %}    
-    </h5>
 
 {% endblock content%}
+
+

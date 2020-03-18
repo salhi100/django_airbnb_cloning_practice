@@ -1,0 +1,11 @@
+<!-- cloning webpage: https://www.airbnb.com/?logo=1 -->
+
+<div class="w-1/4 mb-10 px-2">
+    <!-- getting representing_photo method from models.py, through urls.py-->
+    <!-- styling each picture cards at rooms list -->
+    <div class="w-full h-64 bg-cover bg-center" style="background-image: url({{room.representing_photo}});"></div>
+<a href="{% url "rooms:detail" room.pk %}"> 
+
+    <!-- {{room.name}} / ${{room.price}}  -->
+</a>
+</div>

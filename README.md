@@ -87,7 +87,10 @@
 ## [Notes #7: Web decoration with Tailwind and Gulp](./_notes/7_Web_Design.md)
 
 - [Calling tailwind css as class names in html](https://tailwindcss.com/)
-- Use Jinja for template tags prettier
+- Extensions
+  - Use Jinja for template tags prettier
+  - Use Tailwind CSS intelilisense for tailwind class lookup
+  - DON'T FORGET TO RESTART VSCODE AFTER INSTALL
 - [Search input design source code here](./templates/partials/nav.html)
 - When things are strange, just inspect elements
 
