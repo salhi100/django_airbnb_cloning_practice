@@ -61,15 +61,35 @@
 
 ## [Notes #5: Views and URLs](./_notes/5_Views_and_URLs.md)
 
-- Use Django Template for formatting HTML file that Django can render
-- urls.py is request
-- views.py is response
+- template
+  - user interaction
+  - Use Django Template for formatting HTML file that Django can render
+- urls.py
+  - connection between views.py and template
+- views.py
+  - Controller which provides functions and methods from django classes. 
+  - Supplies functions and methods to templates
+- forms.py
+  - branched off from views.py, receives forms from template and processes certain actions
 
 
 
 ## [Notes #6: Users app Login, Logout and Sign up](./_notes/6_Users_app_Login_Logout_and_Sign_up.md)
 
-- 
+- Using OAuth to log user in with Github & Kakao
+
+  - Users are redirected to request their GitHub identity
+  - Users are redirected back to your site by GitHub
+  - Your app accesses the API with the user's access token
+
+  
+
+## [Notes #7: Web decoration with Tailwind and Gulp](./_notes/7_Web_Design.md)
+
+- [Calling tailwind css as class names in html](https://tailwindcss.com/)
+- Use Jinja for template tags prettier
+- [Search input design source code here](./templates/partials/nav.html)
+- When things are strange, just inspect elements
 
 
 

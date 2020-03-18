@@ -6,6 +6,8 @@ html {
   font: size 10px;
 }
 
+// em is relative to closest font-size
+// rem is relative to root font size
 .box {
   font-size: 20px;
   .child {
@@ -13,5 +15,7 @@ html {
   }
 }
 
-// em is relative to closest font-size
-// rem is relative to root font size
+// "npm run css" for compiling customization made in scss to css
+.search-box {
+  transition: box-shadow 0.15s linear;
+}
