@@ -10,7 +10,8 @@
     <title>{% block page_title %}{% endblock page_title %}| AirBnB</title>
   </head>
   <!-- https://tailwindcss.com/docs/customizing-colors/#gray -->
-  <body class="text-gray-800">
+  <!-- https://tailwindcss.com/docs/margin/#app : margin top -->
+  <body class="text-gray-800 mt-24">
     <!-- https://tailwindcss.com/docs/container -->
     <!-- https://tailwindcss.com/docs/flex -->
     <!-- https://tailwindcss.com/docs/justify-content -->
@@ -18,7 +19,9 @@
     <!-- https://tailwindcss.com/docs/height -->
     <!-- https://tailwindcss.com/docs/border-width -->
     <!-- https://tailwindcss.com/docs/border-color -->
-    <header class="container max-w-full flex items-center justify-between px-3 h-20 border-b border-gray-400">
+    <!-- https://tailwindcss.com/docs/height -->
+    <!-- https://tailwindcss.com/docs/top-right-bottom-left : distance body element and header -->
+    <header class="container max-w-full flex inset-0 items-center justify-between px-3 h-20 border-b border-gray-400 fixed bg-white">
       <!-- https://tailwindcss.com/docs/flex -->
       <!-- https://tailwindcss.com/docs/align-items for items-center -->
       <!-- https://tailwindcss.com/docs/width/#app -->

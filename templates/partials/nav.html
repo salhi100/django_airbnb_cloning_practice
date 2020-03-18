@@ -1,18 +1,20 @@
 <!-- https://tailwindcss.com/docs/flex -->
 <!-- https://tailwindcss.com/docs/align-items for items-center -->
 <!-- https://tailwindcss.com/docs/font-size & https://tailwindcss.com/docs/font-weight -->
-<ul class ="flex items-center text-sm font-medium">
+<!-- https://tailwindcss.com/docs/height -->
+<ul class ="flex items-center text-sm font-medium h-full">
     <!-- context proecessor that adds information to templates: https://docs.djangoproject.com/en/3.0/ref/templates/api/#using-requestcontext -->
     <!-- context processor gets cookie and puts in template -->
     <!-- is_authenticated: https://docs.djangoproject.com/en/3.0/topics/auth/default/#authentication-in-web-requests -->
     {% if user.is_authenticated %}
         <!-- https://tailwindcss.com/docs/margin : margin left is ml -->
-        <li class ="ml-8"><a href="{% url "users:logout" %}">Log Out</a></li>
+        <li class="nav_link"><a href="{% url "users:logout" %}">Log Out</a></li>
     {% else %}
     <!-- https://tailwindcss.com/docs/border-width/#app -->
     <!-- https://tailwindcss.com/docs/border-color/#app -->
-        <li class ="ml-8 border-b-2 border-white hover:border-blue-400"><a href="{% url "users:login" %}">Login</a></li>
-        <li class ="ml-8 border-b-2 border-white hover:border-blue-400"><a href="{% url "users:signup" %}">Sign up</a></li>
+    <!-- https://tailwindcss.com/docs/padding : px is x axis padding, py is y axis padding-->
+        <li class="nav_link"><a href="{% url "users:login" %}">Login</a></li>
+        <li class="nav_link"><a href="{% url "users:signup" %}">Sign up</a></li>
     {% endif %}
 
 </ul>
