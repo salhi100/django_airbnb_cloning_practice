@@ -2,9 +2,9 @@
 
 - Use Django Template for formatting HTML file that Django can render
 
-![basic-django](https://mdn.mozillademos.org/files/13931/basic-django.png)
-
 ![image](./image(6).png)
+
+![basic-django](https://mdn.mozillademos.org/files/13931/basic-django.png)
 
 - **template: user interaction**
   - [sends {{form}} to forms.py](./templates/users/login.html)
