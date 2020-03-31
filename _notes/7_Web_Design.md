@@ -61,7 +61,9 @@ npx tailwindcss init
 - Call tailwind css by using class="tailwind-css-classname" 
   [Refer tailwind css document for classnames](https://tailwindcss.com/docs/border-color)
 
-- 
+- em is relative to closest font-size
+
+- rem is relative to root font size
 
 ## 20 Design
 
